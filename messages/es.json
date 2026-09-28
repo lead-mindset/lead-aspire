@@ -1,0 +1,165 @@
+{
+  "Metadata": {
+    "title": "LEAD",
+    "description": "LEAD: Learn · Explore · Aspire · Discover"
+  },
+  "Brand": {
+    "name": "LEAD",
+    "logoAlt": "LEAD",
+    "tagline": "Learn · Explore · Aspire · Discover"
+  },
+  "UI": {
+    "brandName": "LEAD",
+    "mainNav": "Principal",
+    "search": "Buscar",
+    "breadcrumbs": "Ruta",
+    "pagination": "Paginación",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "progress": "Progreso",
+    "moreInfo": "Más información",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña"
+  },
+  "Header": {
+    "nav": "Navegación principal",
+    "menu": "Menú",
+    "home": "Inicio",
+    "dashboard": "Panel",
+    "designSystem": "Sistema de diseño",
+    "login": "Inicia sesión",
+    "toggleTheme": "Cambiar tema",
+    "lightTheme": "Tema claro",
+    "darkTheme": "Tema oscuro"
+  },
+  "LocaleSwitcher": {
+    "label": "Idioma",
+    "en": "English",
+    "es": "Español"
+  },
+  "Footer": {
+    "copyright": "© {year} LEAD. Todos los derechos reservados."
+  },
+  "HomePage": {
+    "title": "Te damos la bienvenida a LEAD",
+    "subtitle": "Esta app nació de la plantilla de LEAD. Reemplaza esta página con tu propio contenido y construye con el sistema de diseño.",
+    "cta": "Inicia sesión",
+    "designSystem": "Ver sistema de diseño"
+  },
+  "LoginPage": {
+    "title": "Inicia sesión",
+    "subtitle": "Usa tu cuenta de Google para continuar.",
+    "google": "Continúa con Google",
+    "redirecting": "Redirigiendo…",
+    "error": "No pudimos iniciar tu sesión. Inténtalo de nuevo."
+  },
+  "DashboardPage": {
+    "title": "Panel",
+    "signedInAs": "Sesión iniciada como {email}",
+    "signOut": "Cierra sesión"
+  },
+  "DesignSystemPage": {
+    "overline": "Sistema de diseño",
+    "title": "Sistema de diseño de LEAD",
+    "intro": "Los tokens y componentes que usa esta app. Construye solo con ellos: no inventes colores, fuentes ni radios nuevos.",
+    "openFull": "Abre el sistema de diseño completo",
+    "colors": {
+      "title": "Color",
+      "semantic": "Colores semánticos: los usan los componentes y cambian entre tema claro y oscuro.",
+      "identity": "Colores de identidad: iguales en ambos temas, para campos grandes, gráficos y el degradado."
+    },
+    "typography": {
+      "title": "Tipografía",
+      "description": "Montserrat para titulares y Source Sans 3 para todo lo demás. Un solo display o h1 por página.",
+      "samples": {
+        "wordmark": "LEAD",
+        "display": "Lidera tu futuro",
+        "h1": "¿Te apasiona la tecnología?",
+        "h2": "Programas para estudiantes",
+        "h3": "AI Budget Games",
+        "h4": "Detalles del evento",
+        "overline": "Learn · Explore · Aspire · Discover",
+        "body-lg": "Una red de profesionales y estudiantes que impulsa a la próxima generación de líderes latinos.",
+        "body": "Inscríbete antes del 15 de marzo para asegurar tu cupo.",
+        "body-strong": "Cupos limitados",
+        "label": "Correo electrónico",
+        "small": "Te enviaremos un correo de confirmación.",
+        "caption": "Actualizado hace 2 días"
+      }
+    },
+    "spacing": {
+      "title": "Espaciado",
+      "description": "Base de 4px. En Tailwind, p-5 equivale a space-5 (24px). Usa solo los pasos 1 a 8."
+    },
+    "shape": {
+      "title": "Radios, sombras y degradados",
+      "description": "radius-xl (30px) es el máximo de la marca. El degradado de marca aparece una vez por vista como máximo, nunca en controles de la app."
+    },
+    "components": {
+      "title": "Componentes",
+      "description": "Viven en src/components/ui con los mismos nombres y props que el sistema de diseño.",
+      "primary": "Inscríbete",
+      "secondary": "Opciones",
+      "ghost": "Cancelar",
+      "back": "Volver",
+      "disabled": "Deshabilitado",
+      "gradient": "Reserva tu cupo",
+      "gradientNote": "Degradado: solo en marketing y correo, nunca en la app.",
+      "link": "Ver programa",
+      "linkIcon": "Conoce más",
+      "toggle": "Notificaciones",
+      "segmentedLabel": "Periodo",
+      "day": "Día",
+      "week": "Semana",
+      "month": "Mes",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@correo.com",
+      "emailHelp": "Te enviaremos un correo de confirmación.",
+      "password": "Contraseña",
+      "passwordValue": "lead2026",
+      "passwordError": "Debe tener al menos 12 caracteres.",
+      "name": "Nombre",
+      "nameValue": "Ana Martínez",
+      "nameSuccess": "Se ve bien.",
+      "crumbHome": "Inicio",
+      "crumbPrograms": "Programas",
+      "crumbCurrent": "AI Budget Games",
+      "progress": "Perfil completo",
+      "tooltipTrigger": "Cupos disponibles",
+      "tooltip": "Los cupos se asignan por orden de inscripción.",
+      "table": {
+        "caption": "Participantes de AI Budget Games",
+        "name": "Nombre",
+        "program": "Programa",
+        "progress": "Progreso",
+        "status": "Estado",
+        "statuses": {
+          "enrolled": "Inscrito",
+          "pending": "Pendiente",
+          "cancelled": "Cancelado"
+        },
+        "rows": {
+          "r1": {
+            "name": "Ana Martínez",
+            "program": "AI Budget Games"
+          },
+          "r2": {
+            "name": "Luis Hernández",
+            "program": "Mentoría Tech"
+          },
+          "r3": {
+            "name": "Sofía Ramírez",
+            "program": "AI Budget Games"
+          },
+          "r4": {
+            "name": "Diego Torres",
+            "program": "Liderazgo Latino"
+          }
+        },
+        "note": "Encabezados en label sobre surface-alt, celdas en small, números alineados a la derecha. La fila seleccionada usa primary-soft. El estado siempre lleva ícono y palabras.",
+        "emptyCaption": "Sin resultados",
+        "empty": "Todavía no hay participantes. Comparte el programa para recibir inscripciones."
+      }
+    }
+  }
+}

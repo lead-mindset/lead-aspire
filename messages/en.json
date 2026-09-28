@@ -1,0 +1,165 @@
+{
+  "Metadata": {
+    "title": "LEAD",
+    "description": "LEAD: Learn · Explore · Aspire · Discover"
+  },
+  "Brand": {
+    "name": "LEAD",
+    "logoAlt": "LEAD",
+    "tagline": "Learn · Explore · Aspire · Discover"
+  },
+  "UI": {
+    "brandName": "LEAD",
+    "mainNav": "Main",
+    "search": "Search",
+    "breadcrumbs": "Breadcrumb",
+    "pagination": "Pagination",
+    "previous": "Previous",
+    "next": "Next",
+    "progress": "Progress",
+    "moreInfo": "More information",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
+  },
+  "Header": {
+    "nav": "Main navigation",
+    "menu": "Menu",
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "designSystem": "Design system",
+    "login": "Sign in",
+    "toggleTheme": "Toggle theme",
+    "lightTheme": "Light theme",
+    "darkTheme": "Dark theme"
+  },
+  "LocaleSwitcher": {
+    "label": "Language",
+    "en": "English",
+    "es": "Español"
+  },
+  "Footer": {
+    "copyright": "© {year} LEAD. All rights reserved."
+  },
+  "HomePage": {
+    "title": "Welcome to LEAD",
+    "subtitle": "This app started from the LEAD template. Replace this page with your own content and build with the design system.",
+    "cta": "Sign in",
+    "designSystem": "View design system"
+  },
+  "LoginPage": {
+    "title": "Sign in",
+    "subtitle": "Use your Google account to continue.",
+    "google": "Continue with Google",
+    "redirecting": "Redirecting…",
+    "error": "We couldn't sign you in. Try again."
+  },
+  "DashboardPage": {
+    "title": "Dashboard",
+    "signedInAs": "Signed in as {email}",
+    "signOut": "Sign out"
+  },
+  "DesignSystemPage": {
+    "overline": "Design system",
+    "title": "LEAD design system",
+    "intro": "The tokens and components this app uses. Build only from them: don't invent new colors, fonts or radii.",
+    "openFull": "Open the full design system",
+    "colors": {
+      "title": "Color",
+      "semantic": "Semantic colors: components use these, and they change between light and dark themes.",
+      "identity": "Identity colors: the same in both themes, for large fields, graphics and the gradient."
+    },
+    "typography": {
+      "title": "Typography",
+      "description": "Montserrat for headlines, Source Sans 3 for everything else. One display or h1 per page.",
+      "samples": {
+        "wordmark": "LEAD",
+        "display": "Lead your future",
+        "h1": "Passionate about technology?",
+        "h2": "Programs for students",
+        "h3": "AI Budget Games",
+        "h4": "Event details",
+        "overline": "Learn · Explore · Aspire · Discover",
+        "body-lg": "A network of professionals and students empowering the next generation of Latino leaders.",
+        "body": "Sign up before March 15 to save your spot.",
+        "body-strong": "Limited spots",
+        "label": "Email",
+        "small": "We'll send you a confirmation email.",
+        "caption": "Updated 2 days ago"
+      }
+    },
+    "spacing": {
+      "title": "Spacing",
+      "description": "4px base. In Tailwind, p-5 equals space-5 (24px). Use steps 1 to 8 only."
+    },
+    "shape": {
+      "title": "Radius, shadow and gradients",
+      "description": "radius-xl (30px) is the brand's maximum. The brand gradient appears once per view at most, never in app controls."
+    },
+    "components": {
+      "title": "Components",
+      "description": "They live in src/components/ui with the same names and props as the design system.",
+      "primary": "Sign up",
+      "secondary": "Options",
+      "ghost": "Cancel",
+      "back": "Back",
+      "disabled": "Disabled",
+      "gradient": "Save your spot",
+      "gradientNote": "Gradient: marketing and email only, never in the app.",
+      "link": "View program",
+      "linkIcon": "Learn more",
+      "toggle": "Notifications",
+      "segmentedLabel": "Period",
+      "day": "Day",
+      "week": "Week",
+      "month": "Month",
+      "email": "Email",
+      "emailPlaceholder": "you@email.com",
+      "emailHelp": "We'll send you a confirmation email.",
+      "password": "Password",
+      "passwordValue": "lead2026",
+      "passwordError": "Must be at least 12 characters.",
+      "name": "Name",
+      "nameValue": "Ana Martínez",
+      "nameSuccess": "Looks good.",
+      "crumbHome": "Home",
+      "crumbPrograms": "Programs",
+      "crumbCurrent": "AI Budget Games",
+      "progress": "Profile complete",
+      "tooltipTrigger": "Available spots",
+      "tooltip": "Spots are assigned in order of sign-up.",
+      "table": {
+        "caption": "AI Budget Games participants",
+        "name": "Name",
+        "program": "Program",
+        "progress": "Progress",
+        "status": "Status",
+        "statuses": {
+          "enrolled": "Enrolled",
+          "pending": "Pending",
+          "cancelled": "Cancelled"
+        },
+        "rows": {
+          "r1": {
+            "name": "Ana Martínez",
+            "program": "AI Budget Games"
+          },
+          "r2": {
+            "name": "Luis Hernández",
+            "program": "Tech Mentoring"
+          },
+          "r3": {
+            "name": "Sofía Ramírez",
+            "program": "AI Budget Games"
+          },
+          "r4": {
+            "name": "Diego Torres",
+            "program": "Latino Leadership"
+          }
+        },
+        "note": "Headers in label on surface-alt, cells in small, numbers right-aligned. The selected row uses primary-soft. Status always carries an icon and words.",
+        "emptyCaption": "No results",
+        "empty": "No participants yet. Share the program to start getting sign-ups."
+      }
+    }
+  }
+}
