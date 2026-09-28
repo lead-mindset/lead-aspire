@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Footer } from "@/components/brand/Footer";
-import { Header } from "@/components/brand/Header";
 import { themeScript } from "@/components/theme/themeScript";
 import { routing } from "@/i18n/routing";
 import { montserrat, sourceSans } from "@/styles/fonts";
@@ -45,7 +44,6 @@ export default async function LocaleLayout({ children, params }: Props) {
       </head>
       <body className="flex min-h-screen flex-col antialiased">
         <NextIntlClientProvider>
-          <Header />
           <main className="flex-1">{children}</main>
           <Footer />
         </NextIntlClientProvider>

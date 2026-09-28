@@ -40,11 +40,80 @@
   "Footer": {
     "copyright": "© {year} LEAD. Todos los derechos reservados."
   },
-  "HomePage": {
-    "title": "Te damos la bienvenida a LEAD",
-    "subtitle": "Esta app nació de la plantilla de LEAD. Reemplaza esta página con tu propio contenido y construye con el sistema de diseño.",
-    "cta": "Inicia sesión",
-    "designSystem": "Ver sistema de diseño"
+  "AspireHomePage": {
+    "title": "Aspire",
+    "logoAlt": "Logo de Aspire",
+    "cityLabel": "Elige tu ciudad",
+    "newYork": "Nueva York",
+    "dallas": "Dallas"
+  },
+  "NewYorkPage": {
+    "title": "Crea tu primer agente de IA con Microsoft Foundry",
+    "overline": "Nueva York · Guía para estudiantes",
+    "intro": "Sigue estos pasos para configurar Microsoft Foundry con tu cuenta de Azure for Students y crear tu primer agente de IA.",
+    "back": "Volver a las ciudades",
+    "partLabel": "Parte {n}",
+    "stepLabel": "Paso {n}",
+    "parts": {
+      "foundry": "Configura Microsoft Foundry",
+      "agent": "Crea tu primer agente"
+    },
+    "screenshotAlt": "{step}, captura {n} de {total}",
+    "steps": {
+      "portal": {
+        "title": "Entra al portal de Azure for Students",
+        "body": "Inicia sesión con tu cuenta escolar para obtener tu suscripción gratuita de Azure for Students.",
+        "link": "Abre Azure for Students"
+      },
+      "search": {
+        "title": "Busca Foundry",
+        "body": "En la barra de búsqueda del portal de Azure, escribe “foundry” y selecciona Microsoft Foundry."
+      },
+      "create": {
+        "title": "Crea un recurso",
+        "body": "Selecciona Create o Create a resource."
+      },
+      "properties": {
+        "title": "Configura las propiedades",
+        "body": "Elige la suscripción Azure for Students y crea un grupo de recursos, por ejemplo “lead”."
+      },
+      "name": {
+        "title": "Ponle nombre a tu proyecto",
+        "body": "Dale un nombre a tu recurso y a tu primer proyecto."
+      },
+      "review": {
+        "title": "Revisa y crea",
+        "body": "Selecciona Review + create. Verás “Deployment in progress”; tarda un par de minutos."
+      },
+      "goToPortal": {
+        "title": "Ve al portal de Foundry",
+        "body": "Cuando termine el despliegue, selecciona Go to Foundry portal."
+      },
+      "home": {
+        "title": "Explora el inicio de Foundry",
+        "body": "Llegas a la página de inicio de Foundry. Ahí están tu API key y el endpoint del proyecto; los necesitarás para conectar tu app."
+      },
+      "playground": {
+        "title": "Prueba en el playground",
+        "body": "En el inicio de Foundry, selecciona Test in playground y prueba el escenario de ejemplo: una compra en Dallas y, minutos después, un cargo alto en otro país."
+      },
+      "ownAgent": {
+        "title": "¡Crea tu propio agente!",
+        "body": "Ve a Agents y crea el tuyo. Pega estas instrucciones en tu agente. Si Foundry dice que no tienes permiso, selecciona Assign me the Foundry User role."
+      }
+    },
+    "promptLabel": "Instrucciones del agente",
+    "copy": "Copia las instrucciones",
+    "copied": "Copiado",
+    "copyFailed": "No se pudo copiar. Selecciona el texto.",
+    "gate": {
+      "title": "Desbloquea las instrucciones",
+      "body": "Ingresa tu correo para ver la guía paso a paso.",
+      "label": "Correo electrónico",
+      "placeholder": "nombre@escuela.edu",
+      "submit": "Desbloquea las instrucciones",
+      "error": "Ingresa un correo válido, como nombre@escuela.edu."
+    }
   },
   "LoginPage": {
     "title": "Inicia sesión",

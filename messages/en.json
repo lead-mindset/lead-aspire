@@ -40,11 +40,80 @@
   "Footer": {
     "copyright": "© {year} LEAD. All rights reserved."
   },
-  "HomePage": {
-    "title": "Welcome to LEAD",
-    "subtitle": "This app started from the LEAD template. Replace this page with your own content and build with the design system.",
-    "cta": "Sign in",
-    "designSystem": "View design system"
+  "AspireHomePage": {
+    "title": "Aspire",
+    "logoAlt": "Aspire logo",
+    "cityLabel": "Choose your city",
+    "newYork": "New York",
+    "dallas": "Dallas"
+  },
+  "NewYorkPage": {
+    "title": "Build your first AI agent with Microsoft Foundry",
+    "overline": "New York · Student guide",
+    "intro": "Follow these steps to set up Microsoft Foundry with your Azure for Students account and create your first AI agent.",
+    "back": "Back to cities",
+    "partLabel": "Part {n}",
+    "stepLabel": "Step {n}",
+    "parts": {
+      "foundry": "Set up Microsoft Foundry",
+      "agent": "Create your 1st agent"
+    },
+    "screenshotAlt": "{step}, screenshot {n} of {total}",
+    "steps": {
+      "portal": {
+        "title": "Go to the Azure for Students portal",
+        "body": "Sign in with your school account to get your free Azure for Students subscription.",
+        "link": "Open Azure for Students"
+      },
+      "search": {
+        "title": "Search for Foundry",
+        "body": "In the Azure portal search bar, type “foundry” and select Microsoft Foundry."
+      },
+      "create": {
+        "title": "Create a resource",
+        "body": "Select Create, or Create a resource."
+      },
+      "properties": {
+        "title": "Set the properties",
+        "body": "Choose the Azure for Students subscription and create a resource group, for example “lead”."
+      },
+      "name": {
+        "title": "Name your project",
+        "body": "Give your resource and your first project a name."
+      },
+      "review": {
+        "title": "Review and create",
+        "body": "Select Review + create. You’ll see “Deployment in progress”; it takes a couple of minutes."
+      },
+      "goToPortal": {
+        "title": "Go to the Foundry portal",
+        "body": "When the deployment is complete, select Go to Foundry portal."
+      },
+      "home": {
+        "title": "Explore the Foundry home",
+        "body": "You land on the Foundry home page. Your API key and project endpoint are here; you’ll need them to connect your app."
+      },
+      "playground": {
+        "title": "Test in the playground",
+        "body": "Back on the Foundry home, select Test in playground and try the sample scenario: a purchase in Dallas followed minutes later by a large charge in another country."
+      },
+      "ownAgent": {
+        "title": "Create your own agent!",
+        "body": "Go to Agents and build your own. Paste these instructions into your agent. If Foundry says you don’t have permission, select Assign me the Foundry User role."
+      }
+    },
+    "promptLabel": "Agent instructions",
+    "copy": "Copy instructions",
+    "copied": "Copied",
+    "copyFailed": "Couldn't copy. Select the text instead.",
+    "gate": {
+      "title": "Unlock the instructions",
+      "body": "Enter your email to see the step-by-step guide.",
+      "label": "Email",
+      "placeholder": "name@school.edu",
+      "submit": "Unlock instructions",
+      "error": "Enter a valid email, like name@school.edu."
+    }
   },
   "LoginPage": {
     "title": "Sign in",
