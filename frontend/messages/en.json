@@ -1,0 +1,571 @@
+{
+  "Metadata": {
+    "title": "LEAD",
+    "description": "LEAD: Learn · Explore · Aspire · Discover"
+  },
+  "Brand": {
+    "name": "LEAD",
+    "logoAlt": "LEAD",
+    "tagline": "Learn · Explore · Aspire · Discover"
+  },
+  "UI": {
+    "brandName": "LEAD",
+    "mainNav": "Main",
+    "search": "Search",
+    "breadcrumbs": "Breadcrumb",
+    "pagination": "Pagination",
+    "previous": "Previous",
+    "next": "Next",
+    "progress": "Progress",
+    "moreInfo": "More information",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
+  },
+  "Header": {
+    "nav": "Main navigation",
+    "menu": "Menu",
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "login": "Sign in",
+    "toggleTheme": "Toggle theme",
+    "lightTheme": "Light theme",
+    "darkTheme": "Dark theme"
+  },
+  "LocaleSwitcher": {
+    "label": "Language",
+    "en": "English",
+    "es": "Español"
+  },
+  "Footer": {
+    "copyright": "© {year} LEAD. All rights reserved."
+  },
+  "NewYorkPage": {
+    "title": "Build your first AI agent with Microsoft Foundry",
+    "overline": "New York · Student guide",
+    "intro": "Follow these steps to set up Microsoft Foundry with your Azure for Students account and create your first AI agent.",
+    "back": "Back to cities",
+    "backDashboard": "Back to dashboard",
+    "partLabel": "Part {n}",
+    "stepLabel": "Step {n}",
+    "parts": {
+      "foundry": "Set up Microsoft Foundry",
+      "agent": "Create your 1st agent"
+    },
+    "screenshotAlt": "{step}, screenshot {n} of {total}",
+    "steps": {
+      "portal": {
+        "title": "Go to the Azure for Students portal",
+        "body": "Sign in with your school account to get your free Azure for Students subscription.",
+        "link": "Open Azure for Students"
+      },
+      "search": {
+        "title": "Search for Foundry",
+        "body": "In the Azure portal search bar, type “foundry” and select Microsoft Foundry."
+      },
+      "create": {
+        "title": "Create a resource",
+        "body": "Select Create, or Create a resource."
+      },
+      "properties": {
+        "title": "Set the properties",
+        "body": "Choose the Azure for Students subscription and create a resource group, for example “lead”."
+      },
+      "name": {
+        "title": "Name your project",
+        "body": "Give your resource and your first project a name."
+      },
+      "review": {
+        "title": "Review and create",
+        "body": "Select Review + create. You’ll see “Deployment in progress”; it takes a couple of minutes."
+      },
+      "goToPortal": {
+        "title": "Go to the Foundry portal",
+        "body": "When the deployment is complete, select Go to Foundry portal."
+      },
+      "home": {
+        "title": "Explore the Foundry home",
+        "body": "You land on the Foundry home page. Your API key and project endpoint are here; you’ll need them to connect your app."
+      },
+      "playground": {
+        "title": "Test in the playground",
+        "body": "Back on the Foundry home, select Test in playground and try the sample scenario: a purchase in Dallas followed minutes later by a large charge in another country."
+      },
+      "ownAgent": {
+        "title": "Create your own agent!",
+        "body": "Go to Agents and build your own. Paste these instructions into your agent. If Foundry says you don’t have permission, select Assign me the Foundry User role."
+      }
+    },
+    "promptLabel": "Agent instructions",
+    "copy": "Copy instructions",
+    "copied": "Copied",
+    "copyFailed": "Couldn't copy. Select the text instead.",
+    "gate": {
+      "title": "Unlock the instructions",
+      "body": "Enter your email to see the step-by-step guide.",
+      "label": "Email",
+      "placeholder": "name@school.edu",
+      "submit": "Unlock instructions",
+      "error": "Enter a valid email, like name@school.edu."
+    }
+  },
+  "NewYorkDashboard": {
+    "brandSubline": "Student innovation competition",
+    "accountMenu": "Open account menu",
+    "nav": {
+      "label": "Dashboard navigation",
+      "home": "Home",
+      "journey": "The Journey",
+      "resources": "Resources",
+      "faq": "FAQ"
+    },
+    "eyebrow": "Student innovation competition",
+    "headlineFirst": "Ideas today.",
+    "headlineAccent": "Real impact",
+    "headlineLast": " tomorrow.",
+    "intro": "Collaborate with Mastercard, apply AI, and solve real-world challenges.",
+    "features": {
+      "customers": "Work with real customers",
+      "ai": "Build with Microsoft AI",
+      "impact": "Create solutions for greater impact"
+    },
+    "start": "Start your journey",
+    "teamLabel": "TEAM EXAMPLE",
+    "teamName": "Team NOVA",
+    "teamTagline": "Turning ideas into impact",
+    "teamLogoAlt": "Team logo",
+    "addTeamLogo": "Add team logo",
+    "progress": {
+      "title": "Your progress"
+    },
+    "journey": {
+      "title": "The competition journey",
+      "intro": "Follow the steps, access guides and templates, and bring your idea to life."
+    },
+    "stepper": {
+      "teamSetup": "Team setup",
+      "discover": "Discover",
+      "strategize": "Strategize",
+      "build": "Build",
+      "pitch": "Pitch & submit"
+    },
+    "completeShort": "Done",
+    "resourcesLabel": "Guides & resources",
+    "phases": {
+      "discover": {
+        "title": "Discover",
+        "subtitle": "Talk. Listen. Understand.",
+        "description": "Connect with Mastercard employees, ask the right questions, and uncover a meaningful problem."
+      },
+      "strategize": {
+        "title": "Strategize",
+        "subtitle": "Turn insights into a plan.",
+        "description": "Define the problem, map your solution, and plan for impact."
+      },
+      "build": {
+        "title": "Build",
+        "subtitle": "Bring your solution to life.",
+        "description": "Use the technical starter kit to build a working prototype with AI, securely and responsibly."
+      },
+      "pitch": {
+        "title": "Pitch & submit",
+        "subtitle": "Show your impact.",
+        "description": "Tell the full story: what you discovered, what you built, and why it matters."
+      }
+    },
+    "resources": {
+      "discovery": {
+        "title": "What is Discovery?",
+        "description": "Learn why discovery matters and how to approach conversations.",
+        "action": "Read Guide"
+      },
+      "questions": {
+        "title": "Question Guide",
+        "description": "Example questions to ask Mastercard stakeholders.",
+        "action": "View Questions"
+      },
+      "mastercard": {
+        "title": "About Mastercard",
+        "description": "Explore Mastercard's mission, business and impact.",
+        "action": "Learn More"
+      },
+      "notes": {
+        "title": "Discovery Notes",
+        "description": "Capture key insights, pains, constraints and opportunities.",
+        "action": "Open Template"
+      },
+      "problem": {
+        "title": "Consulting Problem Solving Guide",
+        "description": "Frameworks to structure your thinking like a consultant.",
+        "action": "View Guide"
+      },
+      "whiteboard": {
+        "title": "Whiteboard",
+        "description": "Template to organize your problem, solution and key insights.",
+        "action": "Open Template"
+      },
+      "stateOfWork": {
+        "title": "State of Work",
+        "description": "Understand industry trends and how work is evolving with AI.",
+        "action": "View Guide"
+      },
+      "checklist": {
+        "title": "Checklist Review",
+        "description": "Make sure your strategy is clear and ready for the build phase.",
+        "action": "Open Checklist"
+      },
+      "foundry": {
+        "title": "Microsoft Foundry",
+        "description": "Step-by-step guide to create agents and deploy your solution.",
+        "action": "View Guide"
+      },
+      "copilot": {
+        "title": "GitHub Copilot",
+        "description": "Set up and use Copilot to develop faster.",
+        "action": "View Guide"
+      },
+      "security": {
+        "title": "Security & Governance",
+        "description": "Best practices for data, privacy and responsible AI.",
+        "action": "View Guide"
+      },
+      "buildChecklist": {
+        "title": "Build Checklist",
+        "description": "Make sure your prototype is ready for submission.",
+        "action": "Open Checklist"
+      },
+      "pitch": {
+        "title": "Pitch Strategy Playbook",
+        "description": "Learn how to structure your story and deliver a compelling pitch.",
+        "action": "View Guide"
+      },
+      "submit": {
+        "title": "Submit Your Project",
+        "description": "Upload your final deliverables and project details.",
+        "action": "Submit Now"
+      }
+    },
+    "help": {
+      "title": "Need help along the way?",
+      "body": "Explore our resource library, FAQs and best practices to make the most of your experience.",
+      "resources": "Browse All Resources",
+      "faq": "View FAQs"
+    },
+    "chat": {
+      "open": "Open the Aspire coach",
+      "close": "Close the Aspire coach",
+      "title": "Ask the Aspire coach",
+      "subtitle": "Your Foundry-powered journey guide",
+      "empty": "Ask anything about the competition journey.",
+      "placeholder": "Ask a question...",
+      "inputLabel": "Your question",
+      "send": "Send question",
+      "thinking": "The coach is thinking...",
+      "error": "The coach is unavailable right now. Please try again."
+    },
+    "footer": "LEAD Aspire · Student Innovation Competition"
+  },
+  "DallasPage": {
+    "title": "Dallas",
+    "placeholder": "Dallas content will be available soon.",
+    "back": "Back to cities"
+  },
+  "LoginPage": {
+    "error": "We couldn't sign you in. Check your credentials and access.",
+    "brandLabel": "Lead Aspire introduction",
+    "eyebrow": "Student innovation competition",
+    "heading": "Ideas today.",
+    "headingAccent": "Impact tomorrow.",
+    "intro": "Sign in to collaborate with real customers, apply AI, and build solutions for greater impact.",
+    "welcome": "Welcome back",
+    "formIntro": "Sign in to continue your innovation journey.",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "you@example.com",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "showPassword": "Show",
+    "hidePassword": "Hide",
+    "apiConnectionError": "The login service is unavailable. Confirm that the backend is running on port 8000.",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "support": "Need help accessing your account?",
+    "supportLink": "Contact support",
+    "brandLine": "ASPIRE · NEW YORK · DALLAS",
+    "themeToLight": "Light mode",
+    "themeToDark": "Dark mode"
+  },
+  "DashboardPage": {
+    "eyebrow": "Student portal",
+    "title": "Dashboard",
+    "signedInAs": "Signed in as {email}",
+    "signOut": "Sign out",
+    "progress": {
+      "label": "Program progress",
+      "value": "0%",
+      "detail": "Your learning journey starts here."
+    },
+    "next": {
+      "label": "Next activity",
+      "value": "Coming soon",
+      "detail": "Your facilitator will add the next step."
+    },
+    "status": {
+      "label": "Account status",
+      "value": "Active",
+      "detail": "You are ready to participate."
+    },
+    "welcomeTitle": "Welcome to your LEAD Aspire dashboard",
+    "welcomeBody": "This is your starting space. Program activities, group resources, and announcements will appear here as they become available."
+  },
+  "Aspire": {
+    "brandSub": "ASPIRE 2026",
+    "eyebrow": "ASPIRE · STUDENT INNOVATION COMPETITION",
+    "nav": {
+      "label": "Aspire",
+      "home": "Home",
+      "journey": "THE JOURNEY",
+      "completed": "Completed",
+      "organizers": "ORGANIZERS",
+      "projects": "View Teams Results",
+      "resources": "Foundry step-by-step guide"
+    },
+    "user": {
+      "organizer": "LEAD organizer",
+      "meta": "{team} · NY",
+      "signOut": "Sign out"
+    },
+    "team": {
+      "fallbackName": "Your team",
+      "city": "New York",
+      "tagline": "Turning ideas into impact",
+      "members": "Team members",
+      "logoAlt": "Team logo"
+    },
+    "theme": {
+      "toLight": "Light mode",
+      "toDark": "Dark mode"
+    },
+    "phases": {
+      "discover": {
+        "title": "Discover",
+        "tagline": "Talk. Listen. Understand.",
+        "desc": "Connect with Mastercard employees, ask the right questions, and uncover a meaningful problem."
+      },
+      "strategize": {
+        "title": "Strategize",
+        "tagline": "Turn insights into a plan.",
+        "desc": "Define the problem, map your solution, and get it reviewed by your EY managing partner."
+      },
+      "build": {
+        "title": "Build",
+        "tagline": "Bring your solution to life.",
+        "desc": "Use the technical starter kit to build a working prototype with AI, securely and responsibly."
+      },
+      "pitch": {
+        "title": "Pitch & submit",
+        "tagline": "Show your impact.",
+        "desc": "Tell the full story: what you discovered, what you built, and why it matters."
+      }
+    },
+    "steps": {
+      "teamSetup": "Team setup"
+    },
+    "home": {
+      "titleFirst": "Ideas today.",
+      "titleAccent": "Real impact",
+      "titleLast": "tomorrow.",
+      "intro": "Collaborate with Mastercard, apply AI, and solve real-world challenges.",
+      "start": "Start your journey",
+      "continue": "Continue: {phase}",
+      "review": "Review your journey"
+    },
+    "progress": {
+      "title": "Your progress",
+      "team": "Team progress · {pct}%",
+      "remaining": "{count} of 4 phases left · {left}% to go",
+      "allDone": "All phases complete"
+    },
+    "help": {
+      "title": "Need help along the way?",
+      "body": "Ask your coach anything about the competition. It guides your thinking — it won't do the work for you.",
+      "ask": "Ask the coach",
+      "guides": "View guides"
+    },
+    "resourcesLabel": "Guides & resources",
+    "done": {
+      "title": "Finished this section?",
+      "titleDone": "Section completed",
+      "sub": "Mark it as done to move your team's progress forward.",
+      "subDone": "Nice work — your progress tracker has been updated.",
+      "mark": "We have completed this section",
+      "undo": "✓ Completed — undo",
+      "next": "Next: {phase}"
+    },
+    "badges": {
+      "pdf": "PDF",
+      "word": "WORD · FILLABLE",
+      "activity": "ACTIVITY",
+      "upload": "UPLOAD",
+      "submitted": "SUBMITTED ✓",
+      "deck": "DECK",
+      "image": "IMAGE"
+    },
+    "submit": {
+      "title": "Submit your project",
+      "desc": "Upload your final deck (and a demo link if you have one) before pitch day — no more plugging in laptops on stage.",
+      "cta": "Upload final deck →",
+      "replace": "Replace {file}"
+    },
+    "docs": {
+      "discovery": {
+        "title": "What is Discovery?",
+        "desc": "Learn why discovery matters and how to approach conversations.",
+        "action": "Read guide →"
+      },
+      "questions": {
+        "title": "Question Guide",
+        "desc": "Example questions to ask Mastercard stakeholders.",
+        "action": "View questions →"
+      },
+      "mastercard": {
+        "title": "About Mastercard",
+        "desc": "Explore Mastercard's mission, business and impact.",
+        "action": "Read PDF →"
+      },
+      "notes": {
+        "title": "Discovery Notes",
+        "desc": "Download and fill in key insights, pains, constraints and opportunities. For your team only — not graded.",
+        "action": "Download .docx ↓"
+      },
+      "consulting": {
+        "title": "Consulting Problem Solving Guide",
+        "desc": "Frameworks to structure your thinking like a consultant.",
+        "action": "Read guide →"
+      },
+      "sow": {
+        "title": "Statement of Work",
+        "desc": "Fill it in and bring it to your one-on-one review with the EY managing partner.",
+        "action": "Download .docx ↓"
+      },
+      "mdreview": {
+        "title": "MD Review Checklist",
+        "desc": "Make sure your strategy is ready for the managing partner review and the build phase.",
+        "action": "Open checklist →"
+      },
+      "foundry": {
+        "title": "Microsoft Foundry",
+        "desc": "Step-by-step guide to create an account, build agents and deploy your solution.",
+        "action": "Read guide →"
+      },
+      "copilot": {
+        "title": "GitHub Copilot",
+        "desc": "Set up and use Copilot to develop faster. Apply early — access takes up to 72 hours.",
+        "action": "Read guide →"
+      },
+      "security": {
+        "title": "Security & Governance",
+        "desc": "Best practices for data, privacy and responsible AI.",
+        "action": "Read PDF →"
+      },
+      "buildcheck": {
+        "title": "Build Checklist",
+        "desc": "Make sure your prototype is ready for submission.",
+        "action": "Open checklist →"
+      },
+      "playbook": {
+        "title": "Pitch Strategy Playbook",
+        "desc": "Learn how to structure your story and deliver a compelling pitch.",
+        "action": "Read guide →"
+      },
+      "whiteboardExample": {
+        "title": "Whiteboard example"
+      }
+    },
+    "viewer": {
+      "download": "Download ↓",
+      "back": "← Back",
+      "pdfSoon": "This guide will be available here soon.",
+      "wordSoon": "This template will be available to download soon.",
+      "wordLoading": "Loading the document…",
+      "wordError": "We couldn't show this document. Use Download to open it.",
+      "demo": "Open demo ↗",
+      "deckNoPreview": "PowerPoint files can't be previewed here. Use Download to open the deck."
+    },
+    "coach": {
+      "title": "Aspire Coach",
+      "subtitle": "Trained on the competition guides",
+      "open": "Ask the coach",
+      "close": "Close the coach",
+      "greeting": "Hi {team}! I'm your Aspire coach. Ask me anything about the phases — I'll guide you, not do the work for you.",
+      "teamFallback": "there",
+      "thinking": "The coach is thinking…",
+      "error": "The coach is unavailable right now. Please try again.",
+      "placeholder": "Ask about any phase…",
+      "inputLabel": "Your question",
+      "send": "Send"
+    },
+    "submitDialog": {
+      "title": "Submit your project",
+      "intro": "{team} · Your deck goes to the organizers' presentation computer.",
+      "teamFallback": "Your team",
+      "drop": "Drop your final deck or click to browse",
+      "dropHint": "PowerPoint or PDF · up to 50 MB",
+      "demoLabel": "Demo link",
+      "optional": "(optional)",
+      "cancel": "Cancel",
+      "submit": "Submit project →",
+      "replaceHint": "Click to replace it with a new file",
+      "note": "Your deck is saved for your whole team. Submitting again replaces it.",
+      "uploading": "Uploading…",
+      "errors": {
+        "type": "Upload a PDF or PowerPoint file (.pdf, .ppt, .pptx).",
+        "size": "The file is larger than 50 MB.",
+        "generic": "We couldn't upload your project. Please try again."
+      }
+    },
+    "projects": {
+      "eyebrow": "ORGANIZER VIEW",
+      "title": "Teams results",
+      "summary": "{submitted} of {total} teams have uploaded their final deck.",
+      "filterLabel": "Filter by city",
+      "allCities": "All cities",
+      "columns": {
+        "team": "Team",
+        "city": "City",
+        "deck": "Final deck",
+        "link": "Demo link",
+        "status": "Status"
+      },
+      "groupMembers": "{group} · {count} members",
+      "notUploaded": "Not uploaded yet",
+      "noLink": "No link",
+      "submitted": "Submitted",
+      "pending": "Pending",
+      "view": "View",
+      "loading": "Loading teams…",
+      "loadError": "We couldn't load the teams. Check that the backend is running.",
+      "opening": "Opening…",
+      "openError": "We couldn't open that deck. Please try again."
+    },
+    "cities": {
+      "newYork": "New York",
+      "dallas": "Dallas"
+    },
+    "whiteboard": {
+      "cardTitle": "Whiteboard session",
+      "cardDesc": "Map your problem and solution on your team's whiteboard, then download it as an image for your Statement of Work.",
+      "open": "Open whiteboard →",
+      "example": "Whiteboard example",
+      "badge": "ACTIVITY",
+      "title": "Strategy whiteboard",
+      "hint": "Add sticky notes with the colored squares at the top right. Your board is saved automatically on this device.",
+      "download": "Download PNG ↓",
+      "exporting": "Preparing image…",
+      "close": "Done",
+      "loading": "Loading the whiteboard…",
+      "empty": "Draw something first, then download it.",
+      "exportError": "We couldn't create the image. Please try again.",
+      "addSticky": "Add sticky note",
+      "stickyText": "New note"
+    }
+  }
+}

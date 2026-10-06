@@ -1,0 +1,571 @@
+{
+  "Metadata": {
+    "title": "LEAD",
+    "description": "LEAD: Learn · Explore · Aspire · Discover"
+  },
+  "Brand": {
+    "name": "LEAD",
+    "logoAlt": "LEAD",
+    "tagline": "Learn · Explore · Aspire · Discover"
+  },
+  "UI": {
+    "brandName": "LEAD",
+    "mainNav": "Principal",
+    "search": "Buscar",
+    "breadcrumbs": "Ruta",
+    "pagination": "Paginación",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "progress": "Progreso",
+    "moreInfo": "Más información",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña"
+  },
+  "Header": {
+    "nav": "Navegación principal",
+    "menu": "Menú",
+    "home": "Inicio",
+    "dashboard": "Panel",
+    "login": "Inicia sesión",
+    "toggleTheme": "Cambiar tema",
+    "lightTheme": "Tema claro",
+    "darkTheme": "Tema oscuro"
+  },
+  "LocaleSwitcher": {
+    "label": "Idioma",
+    "en": "English",
+    "es": "Español"
+  },
+  "Footer": {
+    "copyright": "© {year} LEAD. Todos los derechos reservados."
+  },
+  "NewYorkPage": {
+    "title": "Crea tu primer agente de IA con Microsoft Foundry",
+    "overline": "Nueva York · Guía para estudiantes",
+    "intro": "Sigue estos pasos para configurar Microsoft Foundry con tu cuenta de Azure for Students y crear tu primer agente de IA.",
+    "back": "Volver a las ciudades",
+    "backDashboard": "Volver al panel",
+    "partLabel": "Parte {n}",
+    "stepLabel": "Paso {n}",
+    "parts": {
+      "foundry": "Configura Microsoft Foundry",
+      "agent": "Crea tu primer agente"
+    },
+    "screenshotAlt": "{step}, captura {n} de {total}",
+    "steps": {
+      "portal": {
+        "title": "Entra al portal de Azure for Students",
+        "body": "Inicia sesión con tu cuenta escolar para obtener tu suscripción gratuita de Azure for Students.",
+        "link": "Abre Azure for Students"
+      },
+      "search": {
+        "title": "Busca Foundry",
+        "body": "En la barra de búsqueda del portal de Azure, escribe “foundry” y selecciona Microsoft Foundry."
+      },
+      "create": {
+        "title": "Crea un recurso",
+        "body": "Selecciona Create o Create a resource."
+      },
+      "properties": {
+        "title": "Configura las propiedades",
+        "body": "Elige la suscripción Azure for Students y crea un grupo de recursos, por ejemplo “lead”."
+      },
+      "name": {
+        "title": "Ponle nombre a tu proyecto",
+        "body": "Dale un nombre a tu recurso y a tu primer proyecto."
+      },
+      "review": {
+        "title": "Revisa y crea",
+        "body": "Selecciona Review + create. Verás “Deployment in progress”; tarda un par de minutos."
+      },
+      "goToPortal": {
+        "title": "Ve al portal de Foundry",
+        "body": "Cuando termine el despliegue, selecciona Go to Foundry portal."
+      },
+      "home": {
+        "title": "Explora el inicio de Foundry",
+        "body": "Llegas a la página de inicio de Foundry. Ahí están tu API key y el endpoint del proyecto; los necesitarás para conectar tu app."
+      },
+      "playground": {
+        "title": "Prueba en el playground",
+        "body": "En el inicio de Foundry, selecciona Test in playground y prueba el escenario de ejemplo: una compra en Dallas y, minutos después, un cargo alto en otro país."
+      },
+      "ownAgent": {
+        "title": "¡Crea tu propio agente!",
+        "body": "Ve a Agents y crea el tuyo. Pega estas instrucciones en tu agente. Si Foundry dice que no tienes permiso, selecciona Assign me the Foundry User role."
+      }
+    },
+    "promptLabel": "Instrucciones del agente",
+    "copy": "Copia las instrucciones",
+    "copied": "Copiado",
+    "copyFailed": "No se pudo copiar. Selecciona el texto.",
+    "gate": {
+      "title": "Desbloquea las instrucciones",
+      "body": "Ingresa tu correo para ver la guía paso a paso.",
+      "label": "Correo electrónico",
+      "placeholder": "nombre@escuela.edu",
+      "submit": "Desbloquea las instrucciones",
+      "error": "Ingresa un correo válido, como nombre@escuela.edu."
+    }
+  },
+  "NewYorkDashboard": {
+    "brandSubline": "Competencia de innovación estudiantil",
+    "accountMenu": "Abrir menú de cuenta",
+    "nav": {
+      "label": "Navegación del panel",
+      "home": "Inicio",
+      "journey": "El recorrido",
+      "resources": "Recursos",
+      "faq": "FAQ"
+    },
+    "eyebrow": "Competencia de innovación estudiantil",
+    "headlineFirst": "Ideas hoy.",
+    "headlineAccent": "Impacto real",
+    "headlineLast": " mañana.",
+    "intro": "Colabora con Mastercard, aplica IA y resuelve desafíos del mundo real.",
+    "features": {
+      "customers": "Trabaja con clientes reales",
+      "ai": "Construye con Microsoft AI",
+      "impact": "Crea soluciones de mayor impacto"
+    },
+    "start": "Comienza tu recorrido",
+    "teamLabel": "EQUIPO DE EJEMPLO",
+    "teamName": "Equipo NOVA",
+    "teamTagline": "Transformando ideas en impacto",
+    "teamLogoAlt": "Logo del equipo",
+    "addTeamLogo": "Agregar logo del equipo",
+    "progress": {
+      "title": "Tu progreso"
+    },
+    "journey": {
+      "title": "El recorrido de la competencia",
+      "intro": "Sigue los pasos, accede a guías y plantillas y convierte tu idea en realidad."
+    },
+    "stepper": {
+      "teamSetup": "Configuración del equipo",
+      "discover": "Descubre",
+      "strategize": "Estrategia",
+      "build": "Construye",
+      "pitch": "Presenta y entrega"
+    },
+    "completeShort": "Lista",
+    "resourcesLabel": "Guías y recursos",
+    "phases": {
+      "discover": {
+        "title": "Descubre",
+        "subtitle": "Habla. Escucha. Comprende.",
+        "description": "Conecta con empleados de Mastercard, haz las preguntas correctas y descubre un problema significativo."
+      },
+      "strategize": {
+        "title": "Estrategia",
+        "subtitle": "Convierte ideas en un plan.",
+        "description": "Define el problema, diseña tu solución y planifica el impacto."
+      },
+      "build": {
+        "title": "Construye",
+        "subtitle": "Haz realidad tu solución.",
+        "description": "Usa el kit técnico inicial para crear un prototipo funcional con IA de forma segura y responsable."
+      },
+      "pitch": {
+        "title": "Presenta y entrega",
+        "subtitle": "Muestra tu impacto.",
+        "description": "Cuenta toda la historia: qué descubriste, qué construiste y por qué importa."
+      }
+    },
+    "resources": {
+      "discovery": {
+        "title": "¿Qué es Discovery?",
+        "description": "Aprende por qué importa el descubrimiento y cómo conversar.",
+        "action": "Leer guía"
+      },
+      "questions": {
+        "title": "Guía de preguntas",
+        "description": "Preguntas de ejemplo para stakeholders de Mastercard.",
+        "action": "Ver preguntas"
+      },
+      "mastercard": {
+        "title": "Acerca de Mastercard",
+        "description": "Conoce la misión, el negocio y el impacto de Mastercard.",
+        "action": "Saber más"
+      },
+      "notes": {
+        "title": "Notas de descubrimiento",
+        "description": "Captura ideas, necesidades, límites y oportunidades.",
+        "action": "Abrir plantilla"
+      },
+      "problem": {
+        "title": "Guía de resolución de problemas",
+        "description": "Marcos para estructurar tu pensamiento como consultor.",
+        "action": "Ver guía"
+      },
+      "whiteboard": {
+        "title": "Pizarra",
+        "description": "Plantilla para organizar tu problema, solución e ideas.",
+        "action": "Abrir plantilla"
+      },
+      "stateOfWork": {
+        "title": "Estado del trabajo",
+        "description": "Comprende las tendencias y cómo evoluciona el trabajo con IA.",
+        "action": "Ver guía"
+      },
+      "checklist": {
+        "title": "Revisión de checklist",
+        "description": "Asegúrate de que tu estrategia esté lista para construir.",
+        "action": "Abrir checklist"
+      },
+      "foundry": {
+        "title": "Microsoft Foundry",
+        "description": "Guía paso a paso para crear agentes y desplegar tu solución.",
+        "action": "Ver guía"
+      },
+      "copilot": {
+        "title": "GitHub Copilot",
+        "description": "Configura y usa Copilot para desarrollar más rápido.",
+        "action": "Ver guía"
+      },
+      "security": {
+        "title": "Seguridad y gobernanza",
+        "description": "Buenas prácticas para datos, privacidad e IA responsable.",
+        "action": "Ver guía"
+      },
+      "buildChecklist": {
+        "title": "Checklist de construcción",
+        "description": "Asegúrate de que tu prototipo esté listo para entregar.",
+        "action": "Abrir checklist"
+      },
+      "pitch": {
+        "title": "Playbook de estrategia de pitch",
+        "description": "Aprende a estructurar tu historia y presentar con impacto.",
+        "action": "Ver guía"
+      },
+      "submit": {
+        "title": "Entrega tu proyecto",
+        "description": "Sube tus entregables finales y los detalles del proyecto.",
+        "action": "Enviar ahora"
+      }
+    },
+    "help": {
+      "title": "¿Necesitas ayuda durante el recorrido?",
+      "body": "Explora recursos, preguntas frecuentes y buenas prácticas para aprovechar tu experiencia.",
+      "resources": "Ver todos los recursos",
+      "faq": "Ver preguntas frecuentes"
+    },
+    "chat": {
+      "open": "Abrir el coach de Aspire",
+      "close": "Cerrar el coach de Aspire",
+      "title": "Pregunta al coach de Aspire",
+      "subtitle": "Tu guía de la jornada con Foundry",
+      "empty": "Pregunta cualquier cosa sobre la competencia.",
+      "placeholder": "Escribe una pregunta...",
+      "inputLabel": "Tu pregunta",
+      "send": "Enviar pregunta",
+      "thinking": "El coach está pensando...",
+      "error": "El coach no está disponible ahora. Inténtalo de nuevo."
+    },
+    "footer": "LEAD Aspire · Competencia de innovación estudiantil"
+  },
+  "DallasPage": {
+    "title": "Dallas",
+    "placeholder": "El contenido de Dallas estará disponible pronto.",
+    "back": "Volver a las ciudades"
+  },
+  "LoginPage": {
+    "error": "No pudimos iniciar tu sesión. Revisa tus credenciales y acceso.",
+    "brandLabel": "Introducción de Lead Aspire",
+    "eyebrow": "Competencia de innovación estudiantil",
+    "heading": "Ideas hoy.",
+    "headingAccent": "Impacto mañana.",
+    "intro": "Inicia sesión para colaborar con clientes reales, aplicar IA y crear soluciones para lograr un mayor impacto.",
+    "welcome": "Te damos la bienvenida",
+    "formIntro": "Inicia sesión para continuar tu camino de innovación.",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "tu@ejemplo.com",
+    "passwordLabel": "Contraseña",
+    "passwordPlaceholder": "Ingresa tu contraseña",
+    "showPassword": "Mostrar",
+    "hidePassword": "Ocultar",
+    "apiConnectionError": "El servicio de inicio de sesión no está disponible. Confirma que el backend esté ejecutándose en el puerto 8000.",
+    "submit": "Inicia sesión",
+    "submitting": "Iniciando sesión…",
+    "support": "¿Necesitas ayuda para acceder a tu cuenta?",
+    "supportLink": "Contacta al equipo",
+    "brandLine": "ASPIRE · NUEVA YORK · DALLAS",
+    "themeToLight": "Modo claro",
+    "themeToDark": "Modo oscuro"
+  },
+  "DashboardPage": {
+    "eyebrow": "Portal del estudiante",
+    "title": "Panel",
+    "signedInAs": "Sesión iniciada como {email}",
+    "signOut": "Cierra sesión",
+    "progress": {
+      "label": "Progreso del programa",
+      "value": "0%",
+      "detail": "Tu recorrido de aprendizaje comienza aquí."
+    },
+    "next": {
+      "label": "Próxima actividad",
+      "value": "Próximamente",
+      "detail": "Tu facilitador agregará el siguiente paso."
+    },
+    "status": {
+      "label": "Estado de la cuenta",
+      "value": "Activa",
+      "detail": "Ya puedes participar."
+    },
+    "welcomeTitle": "Bienvenido a tu panel de LEAD Aspire",
+    "welcomeBody": "Este es tu espacio inicial. Las actividades, recursos del grupo y anuncios aparecerán aquí cuando estén disponibles."
+  },
+  "Aspire": {
+    "brandSub": "ASPIRE 2026",
+    "eyebrow": "ASPIRE · COMPETENCIA DE INNOVACIÓN ESTUDIANTIL",
+    "nav": {
+      "label": "Aspire",
+      "home": "Inicio",
+      "journey": "EL RECORRIDO",
+      "completed": "Completada",
+      "organizers": "ORGANIZADORES",
+      "projects": "Ver resultados de equipos",
+      "resources": "Guía paso a paso de Foundry"
+    },
+    "user": {
+      "organizer": "Organización LEAD",
+      "meta": "{team} · NY",
+      "signOut": "Cerrar sesión"
+    },
+    "team": {
+      "fallbackName": "Tu equipo",
+      "city": "Nueva York",
+      "tagline": "Convirtiendo ideas en impacto",
+      "members": "Integrantes del equipo",
+      "logoAlt": "Logo del equipo"
+    },
+    "theme": {
+      "toLight": "Modo claro",
+      "toDark": "Modo oscuro"
+    },
+    "phases": {
+      "discover": {
+        "title": "Descubre",
+        "tagline": "Habla. Escucha. Comprende.",
+        "desc": "Conecta con personas de Mastercard, haz las preguntas correctas y descubre un problema relevante."
+      },
+      "strategize": {
+        "title": "Planea",
+        "tagline": "Convierte hallazgos en un plan.",
+        "desc": "Define el problema, diseña tu solución y preséntala a tu socio director de EY para su revisión."
+      },
+      "build": {
+        "title": "Crea",
+        "tagline": "Haz realidad tu solución.",
+        "desc": "Usa el kit técnico de inicio para crear un prototipo funcional con IA, de forma segura y responsable."
+      },
+      "pitch": {
+        "title": "Presenta y entrega",
+        "tagline": "Muestra tu impacto.",
+        "desc": "Cuenta la historia completa: qué descubriste, qué creaste y por qué importa."
+      }
+    },
+    "steps": {
+      "teamSetup": "Equipo listo"
+    },
+    "home": {
+      "titleFirst": "Ideas hoy.",
+      "titleAccent": "Impacto real",
+      "titleLast": "mañana.",
+      "intro": "Colabora con Mastercard, aplica IA y resuelve retos reales.",
+      "start": "Comienza tu recorrido",
+      "continue": "Continúa: {phase}",
+      "review": "Revisa tu recorrido"
+    },
+    "progress": {
+      "title": "Tu progreso",
+      "team": "Progreso del equipo · {pct}%",
+      "remaining": "{count, plural, one {Falta # de 4 fases} other {Faltan # de 4 fases}} · {left}% por completar",
+      "allDone": "Todas las fases completadas"
+    },
+    "help": {
+      "title": "¿Necesitas ayuda en el camino?",
+      "body": "Pregúntale a tu coach lo que quieras sobre la competencia. Te guía para pensar, no hace el trabajo por ti.",
+      "ask": "Pregunta al coach",
+      "guides": "Ver guías"
+    },
+    "resourcesLabel": "Guías y recursos",
+    "done": {
+      "title": "¿Terminaste esta sección?",
+      "titleDone": "Sección completada",
+      "sub": "Márcala como terminada para avanzar el progreso de tu equipo.",
+      "subDone": "¡Buen trabajo! Tu progreso se actualizó.",
+      "mark": "Terminé esta sección",
+      "undo": "✓ Completada — deshacer",
+      "next": "Siguiente: {phase}"
+    },
+    "badges": {
+      "pdf": "PDF",
+      "word": "WORD · EDITABLE",
+      "activity": "ACTIVIDAD",
+      "upload": "ENTREGA",
+      "submitted": "ENTREGADO ✓",
+      "deck": "PRESENTACIÓN",
+      "image": "IMAGEN"
+    },
+    "submit": {
+      "title": "Entrega tu proyecto",
+      "desc": "Sube tu presentación final (y un enlace a tu demo si lo tienes) antes del día del pitch; ya no hace falta conectar laptops en el escenario.",
+      "cta": "Subir presentación final →",
+      "replace": "Reemplazar {file}"
+    },
+    "docs": {
+      "discovery": {
+        "title": "¿Qué es Discovery?",
+        "desc": "Descubre por qué importa esta fase y cómo abordar las conversaciones.",
+        "action": "Leer guía →"
+      },
+      "questions": {
+        "title": "Guía de preguntas",
+        "desc": "Ejemplos de preguntas para las personas de Mastercard.",
+        "action": "Ver preguntas →"
+      },
+      "mastercard": {
+        "title": "Acerca de Mastercard",
+        "desc": "Conoce la misión, el negocio y el impacto de Mastercard.",
+        "action": "Leer PDF →"
+      },
+      "notes": {
+        "title": "Notas de Discovery",
+        "desc": "Descarga y completa hallazgos clave, problemas, restricciones y oportunidades. Solo para tu equipo; no se califica.",
+        "action": "Descargar .docx ↓"
+      },
+      "consulting": {
+        "title": "Guía de resolución de problemas",
+        "desc": "Marcos para estructurar tu pensamiento como en una consultora.",
+        "action": "Leer guía →"
+      },
+      "sow": {
+        "title": "Statement of Work",
+        "desc": "Complétalo y llévalo a tu revisión individual con el socio director de EY.",
+        "action": "Descargar .docx ↓"
+      },
+      "mdreview": {
+        "title": "Checklist de revisión con el MD",
+        "desc": "Asegúrate de que tu estrategia esté lista para la revisión del socio director y la fase de creación.",
+        "action": "Abrir checklist →"
+      },
+      "foundry": {
+        "title": "Microsoft Foundry",
+        "desc": "Guía paso a paso para crear una cuenta, construir agentes y desplegar tu solución.",
+        "action": "Leer guía →"
+      },
+      "copilot": {
+        "title": "GitHub Copilot",
+        "desc": "Configura y usa Copilot para desarrollar más rápido. Solicítalo pronto: el acceso tarda hasta 72 horas.",
+        "action": "Leer guía →"
+      },
+      "security": {
+        "title": "Seguridad y gobernanza",
+        "desc": "Buenas prácticas de datos, privacidad e IA responsable.",
+        "action": "Leer PDF →"
+      },
+      "buildcheck": {
+        "title": "Checklist de creación",
+        "desc": "Asegúrate de que tu prototipo esté listo para entregarse.",
+        "action": "Abrir checklist →"
+      },
+      "playbook": {
+        "title": "Guía de estrategia para el pitch",
+        "desc": "Aprende a estructurar tu historia y a presentar un pitch convincente.",
+        "action": "Leer guía →"
+      },
+      "whiteboardExample": {
+        "title": "Ejemplo de pizarra"
+      }
+    },
+    "viewer": {
+      "download": "Descargar ↓",
+      "back": "← Volver",
+      "pdfSoon": "Esta guía estará disponible aquí muy pronto.",
+      "wordSoon": "Esta plantilla estará disponible para descargar muy pronto.",
+      "wordLoading": "Cargando el documento…",
+      "wordError": "No pudimos mostrar este documento. Usa Descargar para abrirlo.",
+      "demo": "Abrir demo ↗",
+      "deckNoPreview": "Los archivos de PowerPoint no se pueden ver aquí. Usa Descargar para abrir la presentación."
+    },
+    "coach": {
+      "title": "Coach de Aspire",
+      "subtitle": "Entrenado con las guías de la competencia",
+      "open": "Pregunta al coach",
+      "close": "Cerrar el coach",
+      "greeting": "¡Hola, {team}! Soy tu coach de Aspire. Pregúntame lo que quieras sobre las fases: te guío, pero no hago el trabajo por ti.",
+      "teamFallback": "equipo",
+      "thinking": "El coach está pensando…",
+      "error": "El coach no está disponible en este momento. Inténtalo de nuevo.",
+      "placeholder": "Pregunta sobre cualquier fase…",
+      "inputLabel": "Tu pregunta",
+      "send": "Enviar"
+    },
+    "submitDialog": {
+      "title": "Entrega tu proyecto",
+      "intro": "{team} · Tu presentación llega a la computadora de presentaciones del equipo organizador.",
+      "teamFallback": "Tu equipo",
+      "drop": "Arrastra tu presentación final o haz clic para buscarla",
+      "dropHint": "PowerPoint o PDF · hasta 50 MB",
+      "demoLabel": "Enlace a la demo",
+      "optional": "(opcional)",
+      "cancel": "Cancelar",
+      "submit": "Entregar proyecto →",
+      "replaceHint": "Haz clic para reemplazarlo por otro archivo",
+      "note": "Tu presentación se guarda para todo el equipo. Si vuelves a enviar, se reemplaza.",
+      "uploading": "Subiendo…",
+      "errors": {
+        "type": "Sube un archivo PDF o PowerPoint (.pdf, .ppt, .pptx).",
+        "size": "El archivo pesa más de 50 MB.",
+        "generic": "No pudimos subir tu proyecto. Inténtalo de nuevo."
+      }
+    },
+    "projects": {
+      "eyebrow": "VISTA DE ORGANIZACIÓN",
+      "title": "Resultados de los equipos",
+      "summary": "{submitted} de {total} equipos subieron su presentación final.",
+      "filterLabel": "Filtrar por ciudad",
+      "allCities": "Todas las ciudades",
+      "columns": {
+        "team": "Equipo",
+        "city": "Ciudad",
+        "deck": "Presentación final",
+        "link": "Enlace de demo",
+        "status": "Estado"
+      },
+      "groupMembers": "{group} · {count} integrantes",
+      "notUploaded": "Aún no se sube",
+      "noLink": "Sin enlace",
+      "submitted": "Entregado",
+      "pending": "Pendiente",
+      "view": "Ver",
+      "loading": "Cargando equipos…",
+      "loadError": "No pudimos cargar los equipos. Revisa que el backend esté corriendo.",
+      "opening": "Abriendo…",
+      "openError": "No pudimos abrir esa presentación. Inténtalo de nuevo."
+    },
+    "cities": {
+      "newYork": "Nueva York",
+      "dallas": "Dallas"
+    },
+    "whiteboard": {
+      "cardTitle": "Sesión de pizarra",
+      "cardDesc": "Mapea tu problema y tu solución en la pizarra de tu equipo y descárgala como imagen para tu Statement of Work.",
+      "open": "Abrir pizarra →",
+      "example": "Ejemplo de pizarra",
+      "badge": "ACTIVIDAD",
+      "title": "Pizarra de estrategia",
+      "hint": "Agrega notas adhesivas con los cuadros de colores arriba a la derecha. Tu pizarra se guarda automáticamente en este dispositivo.",
+      "download": "Descargar PNG ↓",
+      "exporting": "Preparando imagen…",
+      "close": "Listo",
+      "loading": "Cargando la pizarra…",
+      "empty": "Dibuja algo primero y luego descárgalo.",
+      "exportError": "No pudimos crear la imagen. Inténtalo de nuevo.",
+      "addSticky": "Agregar nota adhesiva",
+      "stickyText": "Nueva nota"
+    }
+  }
+}

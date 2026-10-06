@@ -1,0 +1,672 @@
+import logging
+import re
+import time
+
+import openai
+from azure.core.exceptions import ClientAuthenticationError
+from fastapi import APIRouter, Header, HTTPException, Query, Request
+from postgrest.exceptions import APIError
+
+from .foundry import ask_agent
+from .schemas import (
+    AdminDeckResponse,
+    AdminTeam,
+    AdminTeamsResponse,
+    CoachChatRequest,
+    CoachChatResponse,
+    LoginRequest,
+    LoginResponse,
+    TeamMember,
+    TeamMembersResponse,
+    TeamProgressResponse,
+    TeamProgressUpdate,
+    TeamSubmission,
+    TeamSubmissionResponse,
+)
+from .supabase import create_admin_client
+
+router = APIRouter(prefix="/api/auth")
+coach_router = APIRouter(prefix="/api/coach")
+team_router = APIRouter(prefix="/api/team")
+admin_router = APIRouter(prefix="/api/admin")
+logger = logging.getLogger(__name__)
+
+CITY_GROUP_PREFIXES = {
+    "NYC": "NYC-",
+    "DFW": "DFW-",
+}
+
+
+def _user_from_token(client, authorization: str | None):
+    """Supabase user for a `Bearer <access token>` header, or 401."""
+    if not authorization or not authorization.lower().startswith("bearer "):
+        raise HTTPException(status_code=401, detail="Missing session token")
+    try:
+        user = client.auth.get_user(authorization[7:].strip()).user
+    except Exception as error:
+        raise HTTPException(status_code=401, detail="Invalid session token") from error
+    if user is None:
+        raise HTTPException(status_code=401, detail="Invalid session token")
+    return user
+
+
+def _viewer_group(client, user_id: str, city_code: str) -> dict | None:
+    """The user's team in a city: their oldest access with an assigned group."""
+    city = (
+        client.table("aspire_cities")
+        .select("id")
+        .eq("code", city_code)
+        .eq("is_active", True)
+        .maybe_single()
+        .execute()
+    )
+    city_data = (city.data if city else None) or {}
+    if not city_data:
+        raise HTTPException(status_code=404, detail="City not found")
+
+    # Same rule as the New York session: the oldest assigned group is the team.
+    access = (
+        client.table("aspire_user_access")
+        .select("group_id, aspire_groups(group_code, group_name)")
+        .eq("user_id", user_id)
+        .eq("city_id", city_data["id"])
+        .not_.is_("group_id", "null")
+        .order("created_at")
+        .limit(1)
+        .execute()
+    ).data or []
+    return access[0] if access else None
+
+
+def _is_admin(client, user_id: str) -> bool:
+    profile = (
+        client.table("aspire_profiles")
+        .select("is_admin, status")
+        .eq("id", user_id)
+        .maybe_single()
+        .execute()
+    )
+    data = (profile.data if profile else None) or {}
+    return bool(data.get("is_admin")) and data.get("status") == "active"
+
+
+@admin_router.get("/teams", response_model=AdminTeamsResponse)
+def get_admin_teams(authorization: str | None = Header(default=None)) -> AdminTeamsResponse:
+    """Every active team with its member count, for the organizer results table."""
+    client = create_admin_client()
+    user = _user_from_token(client, authorization)
+    if not _is_admin(client, str(user.id)):
+        raise HTTPException(status_code=403, detail="Admins only")
+
+    groups = (
+        client.table("aspire_groups")
+        .select("id, group_code, group_name")
+        .eq("is_active", True)
+        .order("group_code")
+        .execute()
+    ).data or []
+    access = (
+        client.table("aspire_user_access")
+        .select("group_id, user_id, aspire_profiles(status)")
+        .not_.is_("group_id", "null")
+        .execute()
+    ).data or []
+
+    members: dict[int, set[str]] = {}
+    for row in access:
+        if (row.get("aspire_profiles") or {}).get("status") == "active":
+            members.setdefault(row["group_id"], set()).add(row["user_id"])
+
+    submissions = {
+        row["group_id"]: row
+        for row in (
+            client.table("aspire_submissions")
+            .select("group_id, file_name, demo_link, updated_at")
+            .execute()
+        ).data
+        or []
+    }
+
+    city_by_prefix = {prefix: code for code, prefix in CITY_GROUP_PREFIXES.items()}
+    teams = []
+    for group in groups:
+        city_code = next(
+            (code for prefix, code in city_by_prefix.items() if group["group_code"].startswith(prefix)),
+            None,
+        )
+        teams.append(
+            AdminTeam(
+                group_code=group["group_code"],
+                group_name=group["group_name"],
+                city_code=city_code,
+                members=len(members.get(group["id"], ())),
+                deck_file=(submissions.get(group["id"]) or {}).get("file_name"),
+                demo_link=(submissions.get(group["id"]) or {}).get("demo_link"),
+                submitted_at=(submissions.get(group["id"]) or {}).get("updated_at"),
+            )
+        )
+    return AdminTeamsResponse(teams=teams)
+
+
+SUBMISSION_BUCKET = "aspire-team-submissions"
+SUBMISSION_MAX_BYTES = 50 * 1024 * 1024
+SUBMISSION_TYPES = {
+    "pdf": "application/pdf",
+    "ppt": "application/vnd.ms-powerpoint",
+    "pptx": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+}
+
+
+def _submission_out(row: dict | None) -> TeamSubmission | None:
+    if not row:
+        return None
+    return TeamSubmission(
+        file_name=row["file_name"],
+        demo_link=row.get("demo_link"),
+        submitted_at=row.get("updated_at") or row.get("created_at"),
+    )
+
+
+def _current_submission(client, group_id: int) -> dict | None:
+    rows = (
+        client.table("aspire_submissions")
+        .select("*")
+        .eq("group_id", group_id)
+        .limit(1)
+        .execute()
+    ).data or []
+    return rows[0] if rows else None
+
+
+@team_router.get("/submission", response_model=TeamSubmissionResponse)
+def get_team_submission(
+    city_code: str = Query(default="NYC", min_length=1, max_length=10),
+    authorization: str | None = Header(default=None),
+) -> TeamSubmissionResponse:
+    """The caller's team's final deck and demo link, if submitted."""
+    client = create_admin_client()
+    user = _user_from_token(client, authorization)
+    access = _viewer_group(client, str(user.id), city_code)
+    if access is None:
+        return TeamSubmissionResponse(submission=None)
+    return TeamSubmissionResponse(
+        submission=_submission_out(_current_submission(client, access["group_id"]))
+    )
+
+
+@team_router.post("/submission", response_model=TeamSubmissionResponse)
+async def upload_team_submission(
+    request: Request,
+    city_code: str = Query(default="NYC", min_length=1, max_length=10),
+    file_name: str | None = Query(default=None, max_length=255),
+    demo_link: str | None = Query(default=None, max_length=2000),
+    authorization: str | None = Header(default=None),
+) -> TeamSubmissionResponse:
+    """Upload/replace the team's deck (raw request body) and/or its demo link.
+
+    An empty body keeps the current deck and only updates the demo link.
+    """
+    client = create_admin_client()
+    user = _user_from_token(client, authorization)
+    access = _viewer_group(client, str(user.id), city_code)
+    if access is None:
+        raise HTTPException(status_code=403, detail="You are not assigned to a team")
+
+    link = (demo_link or "").strip() or None
+    if link and not re.match(r"^https?://\S+$", link, re.IGNORECASE):
+        raise HTTPException(status_code=400, detail="The demo link must start with http:// or https://")
+
+    group_id = access["group_id"]
+    group_code = (access.get("aspire_groups") or {}).get("group_code") or str(group_id)
+    current = _current_submission(client, group_id)
+    data = await request.body()
+
+    if not data:
+        if current is None:
+            raise HTTPException(status_code=400, detail="Upload your final deck first")
+        row = (
+            client.table("aspire_submissions")
+            .update({"demo_link": link, "submitted_by": str(user.id)})
+            .eq("id", current["id"])
+            .execute()
+        ).data
+        return TeamSubmissionResponse(submission=_submission_out(row[0] if row else current))
+
+    name = (file_name or "").strip()
+    extension = name.rpartition(".")[2].lower() if "." in name else ""
+    content_type = SUBMISSION_TYPES.get(extension)
+    if content_type is None:
+        raise HTTPException(status_code=400, detail="Upload a PDF or PowerPoint file")
+    if len(data) > SUBMISSION_MAX_BYTES:
+        raise HTTPException(status_code=413, detail="The file is larger than 50 MB")
+
+    safe_name = re.sub(r"[^A-Za-z0-9._-]+", "_", name)[-120:]
+    path = f"{group_code}/{int(time.time())}-{safe_name}"
+    bucket = client.storage.from_(SUBMISSION_BUCKET)
+    bucket.upload(path, data, {"content-type": content_type})
+
+    row = (
+        client.table("aspire_submissions")
+        .upsert(
+            {
+                "group_id": group_id,
+                "storage_path": path,
+                "file_name": name,
+                "content_type": content_type,
+                "file_size_bytes": len(data),
+                "demo_link": link,
+                "submitted_by": str(user.id),
+            },
+            on_conflict="group_id",
+        )
+        .execute()
+    ).data
+
+    if current and current["storage_path"] != path:
+        try:
+            bucket.remove([current["storage_path"]])
+        except Exception:
+            # The new deck is saved; an orphaned old file is harmless.
+            logger.exception("Could not remove the previous deck %s", current["storage_path"])
+
+    return TeamSubmissionResponse(submission=_submission_out(row[0] if row else None))
+
+
+@admin_router.get("/teams/{group_code}/deck", response_model=AdminDeckResponse)
+def get_admin_team_deck(
+    group_code: str, authorization: str | None = Header(default=None)
+) -> AdminDeckResponse:
+    """Short-lived links to one team's deck, for the admin viewer."""
+    client = create_admin_client()
+    user = _user_from_token(client, authorization)
+    if not _is_admin(client, str(user.id)):
+        raise HTTPException(status_code=403, detail="Admins only")
+
+    group = (
+        client.table("aspire_groups")
+        .select("id")
+        .eq("group_code", group_code)
+        .maybe_single()
+        .execute()
+    )
+    group_data = (group.data if group else None) or {}
+    submission = _current_submission(client, group_data["id"]) if group_data else None
+    if submission is None:
+        raise HTTPException(status_code=404, detail="This team has not submitted a deck")
+
+    bucket = client.storage.from_(SUBMISSION_BUCKET)
+    path = submission["storage_path"]
+    return AdminDeckResponse(
+        file_name=submission["file_name"],
+        content_type=submission["content_type"],
+        demo_link=submission.get("demo_link"),
+        view_url=bucket.create_signed_url(path, 600)["signedURL"],
+        download_url=bucket.create_signed_url(path, 600, {"download": submission["file_name"]})["signedURL"],
+    )
+
+
+def _team_progress(client, group_id: int) -> TeamProgressResponse:
+    rows = (
+        client.table("aspire_team_progress")
+        .select("phase_key")
+        .eq("group_id", group_id)
+        .execute()
+    ).data or []
+    return TeamProgressResponse(completed=[row["phase_key"] for row in rows])
+
+
+@team_router.get("/progress", response_model=TeamProgressResponse)
+def get_team_progress(
+    city_code: str = Query(default="NYC", min_length=1, max_length=10),
+    authorization: str | None = Header(default=None),
+) -> TeamProgressResponse:
+    """Phases the caller's team has marked complete."""
+    client = create_admin_client()
+    user = _user_from_token(client, authorization)
+    access = _viewer_group(client, str(user.id), city_code)
+    if access is None:
+        return TeamProgressResponse(completed=[])
+    return _team_progress(client, access["group_id"])
+
+
+@team_router.put("/progress", response_model=TeamProgressResponse)
+def update_team_progress(
+    payload: TeamProgressUpdate,
+    city_code: str = Query(default="NYC", min_length=1, max_length=10),
+    authorization: str | None = Header(default=None),
+) -> TeamProgressResponse:
+    """Mark one phase complete or not for the caller's team; returns the full list.
+
+    One phase per call, so teammates toggling different phases don't overwrite
+    each other.
+    """
+    client = create_admin_client()
+    user = _user_from_token(client, authorization)
+    access = _viewer_group(client, str(user.id), city_code)
+    if access is None:
+        raise HTTPException(status_code=403, detail="You are not assigned to a team")
+
+    table = client.table("aspire_team_progress")
+    if payload.completed:
+        table.upsert(
+            {
+                "group_id": access["group_id"],
+                "phase_key": payload.phase,
+                "completed_by": str(user.id),
+            },
+            on_conflict="group_id,phase_key",
+        ).execute()
+    else:
+        table.delete().eq("group_id", access["group_id"]).eq(
+            "phase_key", payload.phase
+        ).execute()
+    return _team_progress(client, access["group_id"])
+
+
+@team_router.get("/members", response_model=TeamMembersResponse)
+def get_team_members(
+    city_code: str = Query(default="NYC", min_length=1, max_length=10),
+    authorization: str | None = Header(default=None),
+) -> TeamMembersResponse:
+    """Members of the caller's own group in a city (from the Supabase session token)."""
+    client = create_admin_client()
+    user = _user_from_token(client, authorization)
+    access = _viewer_group(client, str(user.id), city_code)
+    if access is None:
+        return TeamMembersResponse(group_code=None, group_name=None, members=[])
+
+    group = access.get("aspire_groups") or {}
+    rows = (
+        client.table("aspire_user_access")
+        .select("aspire_profiles(display_name, status)")
+        .eq("group_id", access["group_id"])
+        .execute()
+    ).data or []
+
+    names = sorted(
+        {
+            _member_name(profile.get("display_name"))
+            for row in rows
+            if (profile := row.get("aspire_profiles") or {}).get("status") == "active"
+        }
+        - {""},
+        key=str.lower,
+    )
+    group_code = group.get("group_code")
+    return TeamMembersResponse(
+        group_code=group_code,
+        group_name=group.get("group_name"),
+        logo_url=_group_logo_url(client, group_code) if group_code else None,
+        members=[TeamMember(name=name) for name in names],
+    )
+
+
+LOGO_BUCKET = "aspire-group-logos"
+LOGO_EXTENSIONS = {"png", "jpg", "jpeg", "webp", "svg"}
+
+
+def _is_group_logo(file_name: str, group_code: str) -> bool:
+    """`NYC-G01.png` or `NYC-G01-anything.png`, but never `NYC-G010-….png`."""
+    stem, _, extension = file_name.rpartition(".")
+    stem, code = stem.lower(), group_code.lower()
+    if extension.lower() not in LOGO_EXTENSIONS:
+        return False
+    return stem == code or (stem.startswith(code) and stem[len(code)] in "-_ ")
+
+
+def _group_logo_url(client, group_code: str) -> str | None:
+    """Signed URL for the group's logo, uploaded by hand to the bucket root."""
+    try:
+        bucket = client.storage.from_(LOGO_BUCKET)
+        matches = [
+            item
+            for item in bucket.list("", {"search": group_code})
+            if _is_group_logo(item["name"], group_code)
+        ]
+        if matches:
+            # Several uploads for one group: the newest wins.
+            newest = max(matches, key=lambda item: item.get("updated_at") or item.get("created_at") or "")
+            return bucket.create_signed_url(newest["name"], 3600)["signedURL"]
+    except Exception:
+        # A missing logo or a Storage error must not break the team card.
+        logger.exception("Could not load the logo for group %s", group_code)
+    return None
+
+
+def _member_name(display_name: str | None) -> str:
+    # Profiles created without a name default to the email; show only its local part.
+    name = (display_name or "").strip()
+    return name.split("@")[0] if "@" in name else name
+
+
+def _conversation_owned_by_other(client, conversation_id: str, user_id: str) -> bool:
+    rows = (
+        client.table("aspire_coach_messages")
+        .select("id")
+        .eq("conversation_id", conversation_id)
+        .neq("user_id", user_id)
+        .limit(1)
+        .execute()
+    ).data or []
+    return bool(rows)
+
+
+def _record_coach_message(
+    client,
+    user_id: str,
+    group_id: int | None,
+    conversation_id: str,
+    question: str,
+    answer: str,
+) -> None:
+    try:
+        client.table("aspire_coach_messages").insert(
+            {
+                "user_id": user_id,
+                "group_id": group_id,
+                "conversation_id": conversation_id,
+                "question": question,
+                "answer": answer,
+            }
+        ).execute()
+    except APIError:
+        # Saving the history must not hide an answer the student already got.
+        logger.exception("Coach message could not be recorded")
+
+
+@coach_router.post("/chat", response_model=CoachChatResponse)
+def coach_chat(
+    payload: CoachChatRequest,
+    city_code: str = Query(default="NYC", min_length=1, max_length=10),
+    authorization: str | None = Header(default=None),
+) -> CoachChatResponse:
+    # Sync route: FastAPI runs it in a threadpool, so the blocking SDK call
+    # does not stall the event loop.
+    client = create_admin_client()
+    user = _user_from_token(client, authorization)
+    user_id = str(user.id)
+    if payload.conversation_id and _conversation_owned_by_other(
+        client, payload.conversation_id, user_id
+    ):
+        raise HTTPException(status_code=403, detail="This conversation belongs to another user")
+    access = _viewer_group(client, user_id, city_code)
+
+    try:
+        answer, conversation_id = ask_agent(payload.question, payload.conversation_id)
+    except (ClientAuthenticationError, openai.AuthenticationError) as error:
+        logger.exception("Foundry coach authentication failed")
+        raise HTTPException(
+            status_code=401,
+            detail="Azure authentication for the Foundry coach failed",
+        ) from error
+    except openai.PermissionDeniedError as error:
+        logger.exception("Foundry coach access denied")
+        raise HTTPException(
+            status_code=403,
+            detail="Access to the Foundry coach was denied",
+        ) from error
+    except openai.NotFoundError as error:
+        logger.exception("Foundry coach agent or conversation not found")
+        raise HTTPException(
+            status_code=404,
+            detail="The Foundry coach or conversation was not found",
+        ) from error
+    except openai.BadRequestError as error:
+        logger.exception("Foundry coach rejected the request")
+        raise HTTPException(
+            status_code=400,
+            detail="The Foundry coach rejected the request (check conversation_id)",
+        ) from error
+    except Exception as error:
+        logger.exception("Foundry coach request failed")
+        raise HTTPException(
+            status_code=502,
+            detail="The Foundry coach could not answer right now",
+        ) from error
+
+    if not answer:
+        raise HTTPException(
+            status_code=502,
+            detail="The Foundry coach returned an empty answer",
+        )
+
+    _record_coach_message(
+        client,
+        user_id,
+        access["group_id"] if access else None,
+        conversation_id,
+        payload.question,
+        answer,
+    )
+    return CoachChatResponse(answer=answer, conversation_id=conversation_id)
+
+
+@router.post("/login", response_model=LoginResponse)
+def login(payload: LoginRequest) -> LoginResponse:
+    client = create_admin_client()
+
+    try:
+        auth_result = client.auth.sign_in_with_password(
+            {"email": str(payload.email), "password": payload.password}
+        )
+    except Exception as error:
+        print(f"Login authentication failed: {error}")
+        _record_login_event(client, str(payload.email), False, "invalid_credentials")
+        raise HTTPException(status_code=401, detail="Invalid email or password") from error
+
+    user = auth_result.user
+    if user is None:
+        _record_login_event(client, str(payload.email), False, "invalid_credentials")
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+
+    user_id = str(user.id)
+    profile = (
+        client.table("aspire_profiles")
+        .select("status, is_admin")
+        .eq("id", user_id)
+        .maybe_single()
+        .execute()
+    )
+    profile_data = (profile.data if profile else None) or {}
+    if profile_data.get("status") != "active":
+        _sign_out_and_record(
+            client, user_id, str(payload.email), None, None, "inactive_account"
+        )
+        raise HTTPException(status_code=403, detail="Your account is not active")
+
+    # City and group come from the user's access, not from the login form.
+    access_rows = (
+        client.table("aspire_user_access")
+        .select(
+            "access_role, city_id, group_id, "
+            "aspire_cities(code, is_active), aspire_groups(group_code, is_active)"
+        )
+        .eq("user_id", user_id)
+        .order("created_at")
+        .execute()
+    ).data or []
+    usable = [
+        row
+        for row in access_rows
+        if (row.get("aspire_cities") or {}).get("is_active")
+        and (row["group_id"] is None or (row.get("aspire_groups") or {}).get("is_active"))
+    ]
+    # Prefer an access with an assigned group, then the oldest one.
+    usable.sort(key=lambda row: row["group_id"] is None)
+    access = usable[0] if usable else None
+
+    if access is None and profile_data.get("is_admin"):
+        # Admins don't need a city/group assignment; they land in New York.
+        _record_login_event(client, str(payload.email), True, None, user_id)
+        return LoginResponse(access_role="admin", city_code="NYC", group_code=None)
+
+    if access is None:
+        _sign_out_and_record(
+            client, user_id, str(payload.email), None, None, "access_denied"
+        )
+        raise HTTPException(
+            status_code=403,
+            detail="You do not have access to any active city or group",
+        )
+
+    _record_login_event(
+        client,
+        str(payload.email),
+        True,
+        None,
+        user_id,
+        access["city_id"],
+        access["group_id"],
+    )
+    return LoginResponse(
+        access_role=access["access_role"],
+        city_code=access["aspire_cities"]["code"],
+        group_code=(access.get("aspire_groups") or {}).get("group_code"),
+    )
+
+
+def _record_login_event(
+    client,
+    email: str,
+    succeeded: bool,
+    failure_reason: str | None,
+    user_id: str | None = None,
+    city_id: int | None = None,
+    group_id: int | None = None,
+) -> None:
+    try:
+        client.table("aspire_login_events").insert(
+            {
+                "user_id": user_id,
+                "email": email,
+                "city_id": city_id,
+                "group_id": group_id,
+                "succeeded": succeeded,
+                "failure_reason": failure_reason,
+            }
+        ).execute()
+    except APIError as error:
+        # Audit logging must not turn a valid login into a server error.
+        # A service-role key should bypass RLS; this message identifies a
+        # misconfigured key or an unexpected Supabase project.
+        print(f"Login event could not be recorded: {error}")
+
+
+def _sign_out_and_record(
+    client,
+    user_id: str,
+    email: str,
+    city_id: int | None,
+    group_id: int | None,
+    failure_reason: str,
+) -> None:
+    client.auth.sign_out()
+    _record_login_event(
+        client,
+        email,
+        False,
+        failure_reason,
+        user_id,
+        city_id,
+        group_id,
+    )
