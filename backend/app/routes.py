@@ -9,6 +9,7 @@ from fastapi import APIRouter, Header, HTTPException, Query, Request
 from postgrest.exceptions import APIError
 from storage3.exceptions import StorageApiError
 
+from .config import settings
 from .foundry import ask_agent
 from .schemas import (
     AdminDeckResponse,
@@ -645,6 +646,8 @@ def coach_chat(
     ):
         raise HTTPException(status_code=403, detail="This conversation belongs to another user")
     access = _viewer_group(client, user_id, city_code)
+    if not settings.coach_configured:
+        raise HTTPException(status_code=503, detail="The coach is not configured")
 
     try:
         answer, conversation_id = ask_agent(payload.question, payload.conversation_id)

@@ -109,3 +109,22 @@ def test_coach_hides_agent_failures(client, signed_in, monkeypatch):
 
     assert response.status_code == 502
     assert "network down" not in response.text
+
+
+@pytest.mark.parametrize("missing", ["foundry_project_endpoint", "foundry_agent_name"])
+def test_coach_is_unavailable_without_foundry_settings(client, signed_in, monkeypatch, missing):
+    calls = []
+    monkeypatch.setattr(routes, "ask_agent", lambda *args, **kwargs: calls.append(args))
+    monkeypatch.setattr(routes.settings, missing, "")
+    signed_in.respond("aspire_cities", NYC)
+
+    response = ask(client)
+
+    assert response.status_code == 503
+    assert response.json() == {"detail": "The coach is not configured"}
+    assert calls == []
+
+
+def test_coach_still_needs_a_session_without_foundry_settings(client, supabase, monkeypatch):
+    monkeypatch.setattr(routes.settings, "foundry_agent_name", "")
+    assert ask(client).status_code == 401
