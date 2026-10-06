@@ -715,6 +715,62 @@ def login(payload: LoginRequest) -> LoginResponse:
         raise HTTPException(status_code=401, detail="Invalid email or password")
 
     user_id = str(user.id)
+    try:
+        landing, access = _resolve_access(client, user_id)
+    except _AccessDenied as denied:
+        _sign_out_and_record(client, user_id, str(payload.email), None, None, denied.reason)
+        raise HTTPException(status_code=403, detail=ACCESS_DENIED_DETAILS[denied.reason]) from None
+
+    if access is None:
+        # Admin without a city/group assignment.
+        _record_login_event(client, str(payload.email), True, None, user_id)
+    else:
+        _record_login_event(
+            client,
+            str(payload.email),
+            True,
+            None,
+            user_id,
+            access["city_id"],
+            access["group_id"],
+        )
+    return landing
+
+
+@router.get("/me", response_model=LoginResponse)
+def me(authorization: str | None = Header(default=None)) -> LoginResponse:
+    """Where a signed-in user lands: same rules as /login, from the session token.
+
+    Read-only: no sign-out and no login event. 403 details carry a `code`
+    (`inactive_account` or `access_denied`) so the frontend can translate them.
+    """
+    client = create_admin_client()
+    user = _user_from_token(client, authorization)
+    try:
+        landing, _ = _resolve_access(client, str(user.id))
+    except _AccessDenied as denied:
+        raise HTTPException(
+            status_code=403,
+            detail={"code": denied.reason, "message": ACCESS_DENIED_DETAILS[denied.reason]},
+        ) from None
+    return landing
+
+
+ACCESS_DENIED_DETAILS = {
+    "inactive_account": "Your account is not active",
+    "access_denied": "You do not have access to any active city or group",
+}
+
+
+class _AccessDenied(Exception):
+    def __init__(self, reason: str):
+        super().__init__(reason)
+        self.reason = reason
+
+
+def _resolve_access(client, user_id: str) -> tuple[LoginResponse, dict | None]:
+    """The user's city and group, plus the access row used (None for an admin
+    without one). Raises _AccessDenied for an inactive account or no access."""
     profile = (
         client.table("aspire_profiles")
         .select("status, is_admin")
@@ -724,10 +780,7 @@ def login(payload: LoginRequest) -> LoginResponse:
     )
     profile_data = (profile.data if profile else None) or {}
     if profile_data.get("status") != "active":
-        _sign_out_and_record(
-            client, user_id, str(payload.email), None, None, "inactive_account"
-        )
-        raise HTTPException(status_code=403, detail="Your account is not active")
+        raise _AccessDenied("inactive_account")
 
     # City and group come from the user's access, not from the login form.
     access_rows = (
@@ -752,32 +805,17 @@ def login(payload: LoginRequest) -> LoginResponse:
 
     if access is None and profile_data.get("is_admin"):
         # Admins don't need a city/group assignment; they land in New York.
-        _record_login_event(client, str(payload.email), True, None, user_id)
-        return LoginResponse(access_role="admin", city_code="NYC", group_code=None)
+        return LoginResponse(access_role="admin", city_code="NYC", group_code=None), None
 
     if access is None:
-        _sign_out_and_record(
-            client, user_id, str(payload.email), None, None, "access_denied"
-        )
-        raise HTTPException(
-            status_code=403,
-            detail="You do not have access to any active city or group",
-        )
+        raise _AccessDenied("access_denied")
 
-    _record_login_event(
-        client,
-        str(payload.email),
-        True,
-        None,
-        user_id,
-        access["city_id"],
-        access["group_id"],
-    )
-    return LoginResponse(
+    landing = LoginResponse(
         access_role=access["access_role"],
         city_code=access["aspire_cities"]["code"],
         group_code=(access.get("aspire_groups") or {}).get("group_code"),
     )
+    return landing, access
 
 
 def _record_login_event(

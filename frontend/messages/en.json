@@ -266,8 +266,7 @@
   },
   "DallasPage": {
     "title": "Dallas",
-    "placeholder": "Dallas content will be available soon.",
-    "back": "Back to cities"
+    "placeholder": "Dallas content will be available soon."
   },
   "LoginPage": {
     "error": "We couldn't sign you in. Check your credentials and access.",
@@ -291,7 +290,13 @@
     "supportLink": "Contact support",
     "brandLine": "ASPIRE · NEW YORK · DALLAS",
     "themeToLight": "Light mode",
-    "themeToDark": "Dark mode"
+    "themeToDark": "Dark mode",
+    "notices": {
+      "inactiveAccount": "Your account is not active. Contact the organizers to restore access.",
+      "noAccess": "Your account doesn't have access to an active city or team yet. Contact the organizers.",
+      "unknownCity": "Your account is assigned to a city that isn't available here yet. Contact the organizers.",
+      "unavailable": "We couldn't check your access right now. Please try again in a moment."
+    }
   },
   "DashboardPage": {
     "eyebrow": "Student portal",

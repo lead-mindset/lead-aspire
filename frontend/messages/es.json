@@ -266,8 +266,7 @@
   },
   "DallasPage": {
     "title": "Dallas",
-    "placeholder": "El contenido de Dallas estará disponible pronto.",
-    "back": "Volver a las ciudades"
+    "placeholder": "El contenido de Dallas estará disponible pronto."
   },
   "LoginPage": {
     "error": "No pudimos iniciar tu sesión. Revisa tus credenciales y acceso.",
@@ -291,7 +290,13 @@
     "supportLink": "Contacta al equipo",
     "brandLine": "ASPIRE · NUEVA YORK · DALLAS",
     "themeToLight": "Modo claro",
-    "themeToDark": "Modo oscuro"
+    "themeToDark": "Modo oscuro",
+    "notices": {
+      "inactiveAccount": "Tu cuenta no está activa. Contacta al equipo organizador para recuperar el acceso.",
+      "noAccess": "Tu cuenta todavía no tiene acceso a una ciudad o equipo activo. Contacta al equipo organizador.",
+      "unknownCity": "Tu cuenta está asignada a una ciudad que aún no está disponible aquí. Contacta al equipo organizador.",
+      "unavailable": "No pudimos verificar tu acceso en este momento. Inténtalo de nuevo en unos minutos."
+    }
   },
   "DashboardPage": {
     "eyebrow": "Portal del estudiante",
