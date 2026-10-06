@@ -50,7 +50,8 @@ export function PhaseView({ phase }: { phase: PhaseKey }) {
       </div>
 
       <section className={`dark ${styles.banner}`}>
-        <Image src={withBasePath(info.image)} alt="" fill sizes="(max-width: 960px) 100vw, 80vw" className={styles.bannerBg} />
+        {/* Whole photo at banner height on the right; its dark left edge fades into the banner. */}
+        <Image src={withBasePath(info.image)} alt="" width={1536} height={1024} sizes="360px" className={styles.bannerBg} />
         <div className={styles.bannerOverlay} />
         <div className={styles.bannerContent}>
           <div className={styles.bannerHead}>

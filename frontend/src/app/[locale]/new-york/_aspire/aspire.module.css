@@ -394,6 +394,41 @@
   gap: 20px;
 }
 
+.partnerLogos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.partnerLogos li {
+  display: flex;
+}
+
+.partnerLogos img {
+  width: auto;
+}
+
+/* The Microsoft file is wider than its wordmark: crop the empty right side. */
+.partnerLogos img.partnerMicrosoft {
+  width: 108px;
+  height: 24px;
+  object-fit: cover;
+  object-position: left center;
+}
+
+/* The Mastercard file includes its clear space, so it needs more height to match. */
+.partnerMastercard {
+  height: 44px;
+}
+
+.partnerEy {
+  height: 36px;
+}
+
 .heroTitle {
   margin: 0;
   font: 900 clamp(42px, 4.4vw, 60px) / 1 var(--font-display);
@@ -799,21 +834,27 @@
 .banner {
   position: relative;
   overflow: hidden;
-  height: 200px;
+  height: 240px;
   color: #fff;
   background: #1a1c6e;
   border-radius: 16px;
 }
 
 .bannerBg {
-  object-fit: cover;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: auto;
+  height: 100%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 40%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 40%);
 }
 
 .bannerOverlay {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: linear-gradient(90deg, rgba(22, 24, 100, 0.96) 0%, rgba(40, 36, 140, 0.78) 55%, rgba(40, 36, 140, 0.2) 100%);
+  background: linear-gradient(90deg, rgba(22, 24, 100, 0.96) 0%, rgba(40, 36, 140, 0.6) 50%, rgba(40, 36, 140, 0) 80%);
 }
 
 .bannerContent {
@@ -1608,5 +1649,21 @@
   .coachDock {
     right: 16px;
     bottom: 16px;
+  }
+}
+
+/* Phones: the photo sits behind the text, so dim it to keep the copy readable. */
+@media (max-width: 640px) {
+  .banner {
+    height: auto;
+    min-height: 240px;
+  }
+
+  .bannerBg {
+    opacity: 0.35;
+  }
+
+  .bannerOverlay {
+    background: linear-gradient(90deg, rgba(22, 24, 100, 0.92) 0%, rgba(40, 36, 140, 0.7) 100%);
   }
 }

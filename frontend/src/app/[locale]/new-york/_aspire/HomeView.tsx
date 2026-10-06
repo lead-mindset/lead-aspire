@@ -10,6 +10,13 @@ import { PHASE_KEYS } from "./data";
 import styles from "./aspire.module.css";
 
 const RING = 2 * Math.PI * 54;
+
+// Program partners shown above the hero title. Heights balance each mark's built-in padding.
+const PARTNERS = [
+  { name: "Microsoft", src: "/dashboard/microsoft-logo.svg", width: 190, height: 32, className: styles.partnerMicrosoft },
+  { name: "Mastercard", src: "/dashboard/mastercard-logo.svg", width: 152, height: 108, className: styles.partnerMastercard },
+  { name: "EY", src: "/dashboard/ey-logo-on-dark.svg", width: 69, height: 69, className: styles.partnerEy },
+];
 export function HomeView() {
   const t = useTranslations("Aspire");
   const { viewer, members, progress, currentIndex, setCoachOpen } = useAspire();
@@ -37,6 +44,19 @@ export function HomeView() {
         <div className={styles.heroOverlay} />
         <div className={styles.heroGrid}>
           <div className={`dark ${styles.heroCopy}`}>
+            <ul className={styles.partnerLogos} aria-label={t("home.partners")}>
+              {PARTNERS.map((partner) => (
+                <li key={partner.name}>
+                  <Image
+                    src={withBasePath(partner.src)}
+                    alt={partner.name}
+                    width={partner.width}
+                    height={partner.height}
+                    className={partner.className}
+                  />
+                </li>
+              ))}
+            </ul>
             <span className={styles.eyebrow}>{t("eyebrow")}</span>
             <h1 className={styles.heroTitle}>
               <span>{t("home.titleFirst")}</span>
