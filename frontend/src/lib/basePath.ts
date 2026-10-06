@@ -1,8 +1,9 @@
 /**
- * Base path helpers for Next.js Multi Zones.
+ * Optional base path helpers.
  *
- * Each LEAD child app (Talent, Pulse, Aspire) is served under its own route of
- * www.leadmindset.org (e.g. /talent). Next.js prefixes <Link>, router pushes,
+ * Aspire runs at the root of aspire.leadmindset.org, so BASE_PATH is empty and
+ * withBasePath() returns paths unchanged. It is kept so the app can still be
+ * served under a sub-path (e.g. /aspire) if needed. Next.js prefixes <Link>, router pushes,
  * redirect() and /_next assets automatically. Everything else (images from
  * /public, <img>/<video> tags, client-side fetch, OAuth redirect URLs) must be
  * prefixed manually with withBasePath().

@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 import { normalizeBasePath } from "./src/lib/basePath";
 
-// "" at the root, or e.g. "/talent" when served by leadmain via Multi Zones.
+// "" at the root (aspire.leadmindset.org), or a sub-path such as "/aspire" if ever needed.
 const basePath = normalizeBasePath(process.env.BASE_PATH);
 
 if (basePath && !/^(\/[A-Za-z0-9._~-]+)+$/.test(basePath)) {
