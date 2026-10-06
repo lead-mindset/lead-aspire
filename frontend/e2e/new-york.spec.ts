@@ -47,7 +47,20 @@ test("a phase guide opens in the document viewer", async ({ page }) => {
   await expect(viewer).toBeHidden();
 });
 
+// Same switch as src/lib/features.ts; playwright.config.ts loads .env like Next does.
+const COACH_ENABLED = process.env.NEXT_PUBLIC_COACH_ENABLED === "true";
+
+test("without the coach, the launcher is gone and Ask the coach is disabled", async ({ page }) => {
+  test.skip(COACH_ENABLED, "NEXT_PUBLIC_COACH_ENABLED is true");
+  await page.goto("en/new-york");
+
+  // Both buttons read "Ask the coach"; only the floating launcher has aria-expanded.
+  await expect(page.getByRole("button", { name: t.coach.open, expanded: false })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: t.help.ask })).toBeDisabled();
+});
+
 test("the coach opens and closes without sending anything", async ({ page }) => {
+  test.skip(!COACH_ENABLED, "NEXT_PUBLIC_COACH_ENABLED is not true");
   await page.goto("en/new-york");
 
   // The floating launcher; the help card has a second "Ask the coach" button.

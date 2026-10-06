@@ -7,6 +7,7 @@ import { Footer } from "@/components/brand/Footer";
 import { THEME_STORAGE_KEY } from "@/components/theme/themeScript";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { withBasePath } from "@/lib/basePath";
+import { COACH_ENABLED } from "@/lib/features";
 import { createClient } from "@/lib/supabase/client";
 import { initialsFrom, useAspire } from "./AspireProvider";
 import { CoachWidget } from "./CoachWidget";
@@ -129,7 +130,7 @@ export function AspireShell({ children }: { children: ReactNode }) {
         </div>
       </div>
 
-      <CoachWidget />
+      {COACH_ENABLED && <CoachWidget />}
       <DocViewer />
       <SubmitDialog />
       <WhiteboardDialog />

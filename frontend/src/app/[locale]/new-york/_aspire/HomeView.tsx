@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { withBasePath } from "@/lib/basePath";
+import { COACH_ENABLED } from "@/lib/features";
 import { initialsOf, useAspire } from "./AspireProvider";
 import { TeamLogo, useJourneySteps } from "./TeamLogo";
 import { PHASE_KEYS } from "./data";
@@ -133,7 +134,7 @@ export function HomeView() {
             <h3 className={styles.helpTitle}>{t("help.title")}</h3>
             <p className={styles.helpBody}>{t("help.body")}</p>
             <div className={styles.buttonRow}>
-              <button type="button" className={styles.coachButton} onClick={() => setCoachOpen(true)}>
+              <button type="button" className={styles.coachButton} onClick={() => setCoachOpen(true)} disabled={!COACH_ENABLED}>
                 {t("help.ask")}
               </button>
             </div>

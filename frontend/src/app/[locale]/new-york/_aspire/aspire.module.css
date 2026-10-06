@@ -677,8 +677,13 @@
   cursor: pointer;
 }
 
-.coachButton:hover {
+.coachButton:hover:not(:disabled) {
   background: var(--popover);
+}
+
+.coachButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .outlineLink {
