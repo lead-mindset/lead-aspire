@@ -10,6 +10,11 @@ class Settings(BaseSettings):
     # Optional: without both, the API runs and /api/coach/chat answers 503.
     foundry_project_endpoint: str = ""
     foundry_agent_name: str = ""
+    # Optional service principal for Foundry. Read here (not only from os.environ)
+    # so a local .env works too; see app/azure_auth.py.
+    azure_tenant_id: str = ""
+    azure_client_id: str = ""
+    azure_client_secret: str = ""
 
     @property
     def coach_configured(self) -> bool:
