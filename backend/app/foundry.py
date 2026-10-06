@@ -2,8 +2,8 @@ import logging
 from functools import cache
 
 from azure.ai.projects import AIProjectClient
-from azure.identity import DefaultAzureCredential
 
+from .azure_auth import azure_credential
 from .config import settings
 
 logger = logging.getLogger(__name__)
@@ -17,7 +17,7 @@ def _agent_client():
     """
     project_client = AIProjectClient(
         endpoint=settings.foundry_project_endpoint,
-        credential=DefaultAzureCredential(),
+        credential=azure_credential(),
         allow_preview=True,
     )
     return project_client.get_openai_client(agent_name=settings.foundry_agent_name)
