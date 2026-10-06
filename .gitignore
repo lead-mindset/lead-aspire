@@ -1,61 +1,20 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Frontend
+frontend/node_modules/
+frontend/.next/
+frontend/.env
+frontend/.env.local
+frontend/.env.test
+frontend/tsconfig.tsbuildinfo
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+# Generated directories if commands are run from the repository root
+node_modules/
+.next/
 
-# testing
-/coverage
+# Backend
+backend/.venv/
+backend/__pycache__/
+backend/app/__pycache__/
+backend/.env
 
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# misc
-.DS_Store
-*.pem
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-# env files: allow the example
-!.env.example
-
-# playwright
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-
-# supabase
-supabase/.temp/
-supabase/.branches/
-
-# supabase local secrets
-supabase/.env
-
-# IDEs
+# Local tooling
 .idea/
-.vscode/
