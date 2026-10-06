@@ -9,6 +9,7 @@ import types
 from types import SimpleNamespace
 
 import pytest
+from storage3.exceptions import StorageApiError
 
 # Settings are read at import time; real values from .env are overridden.
 os.environ.update(
@@ -72,7 +73,8 @@ class FakeSupabase:
         self.signed_out = False
         self.token_user = None
         self.password_user = None
-        self.storage = SimpleNamespace(from_=lambda bucket: FakeBucket())
+        self.bucket = FakeBucket()
+        self.storage = SimpleNamespace(from_=lambda bucket: self.bucket)
         self.auth = SimpleNamespace(
             get_user=self._get_user,
             sign_in_with_password=self._sign_in,
@@ -104,14 +106,36 @@ class FakeSupabase:
 
 
 class FakeBucket:
+    """One shared bucket per test: objects by path, plus what was removed or signed."""
+
+    def __init__(self):
+        self.objects: dict[str, dict] = {}
+        self.removed: list[str] = []
+        self.signed_uploads: list[str] = []
+
+    def store(self, path: str, size: int, content_type: str = "application/pdf"):
+        self.objects[path] = {"name": path.rpartition("/")[2], "size": size, "content_type": content_type}
+
     def list(self, *args, **kwargs):
         return []
 
-    def upload(self, *args, **kwargs):
-        return None
+    def upload(self, path, data, options=None):
+        self.store(path, len(data), (options or {}).get("content-type", ""))
 
-    def remove(self, *args, **kwargs):
-        return None
+    def remove(self, paths):
+        self.removed.extend(paths)
+        for path in paths:
+            self.objects.pop(path, None)
+
+    def info(self, path):
+        if path not in self.objects:
+            raise StorageApiError("Object not found", "not_found", 404)
+        return self.objects[path]
+
+    def create_signed_upload_url(self, path, options=None):
+        self.signed_uploads.append(path)
+        url = f"http://supabase.test/storage/v1/object/upload/sign/aspire-team-submissions/{path}?token=tok"
+        return {"signed_url": url, "signedUrl": url, "token": "tok", "path": path}
 
     def create_signed_url(self, path, expires, options=None):
         return {"signedURL": f"http://storage.test/{path}"}

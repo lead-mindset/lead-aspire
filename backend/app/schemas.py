@@ -63,6 +63,26 @@ class TeamSubmissionResponse(BaseModel):
     submission: TeamSubmission | None
 
 
+class DeckUploadUrlRequest(BaseModel):
+    file_name: str = Field(min_length=1, max_length=255)
+    size: int = Field(gt=0)
+    content_type: str = Field(default="", max_length=255)
+    demo_link: str | None = Field(default=None, max_length=2000)
+
+
+class DeckUploadUrlResponse(BaseModel):
+    bucket: str
+    path: str
+    token: str
+    content_type: str
+
+
+class DeckConfirmRequest(BaseModel):
+    path: str | None = Field(default=None, max_length=512)
+    file_name: str | None = Field(default=None, max_length=255)
+    demo_link: str | None = Field(default=None, max_length=2000)
+
+
 class TeamProgressUpdate(BaseModel):
     phase: PhaseKey
     completed: bool

@@ -5,6 +5,8 @@ import { useState, type FormEvent } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { THEME_STORAGE_KEY } from "@/components/theme/themeScript";
 import { withBasePath } from "@/lib/basePath";
+import { cityHome } from "@/lib/cityRoutes";
+import type { LandingNotice } from "@/lib/landing";
 import styles from "./LoginForm.module.css";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
@@ -20,12 +22,13 @@ function toggleTheme() {
   }
 }
 
-export function LoginForm() {
+/** `notice`: why a signed-in user was kept on the login page (see resolveLanding). */
+export function LoginForm({ notice }: { notice?: LandingNotice }) {
   const locale = useLocale();
   const t = useTranslations("LoginPage");
   const [showPassword, setShowPassword] = useState(false);
   const [pending, setPending] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(() => (notice ? t(`notices.${notice}`) : ""));
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -58,6 +61,12 @@ export function LoginForm() {
 
     // The backend resolves the user's city and group from their access.
     const { city_code } = (await response.json()) as { city_code: string };
+    const destination = cityHome(city_code);
+    if (!destination) {
+      setError(t("notices.unknownCity"));
+      setPending(false);
+      return;
+    }
 
     const { createClient } = await import("@/lib/supabase/client");
     const { error: sessionError } = await createClient().auth.signInWithPassword({
@@ -71,7 +80,6 @@ export function LoginForm() {
       return;
     }
 
-    const destination = city_code === "NYC" ? "/new-york" : "/dashboard";
     window.location.assign(withBasePath(`/${locale}${destination}`));
   }
 

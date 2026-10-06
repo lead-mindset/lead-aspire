@@ -266,8 +266,7 @@
   },
   "DallasPage": {
     "title": "Dallas",
-    "placeholder": "Dallas content will be available soon.",
-    "back": "Back to cities"
+    "placeholder": "Dallas content will be available soon."
   },
   "LoginPage": {
     "error": "We couldn't sign you in. Check your credentials and access.",
@@ -291,7 +290,13 @@
     "supportLink": "Contact support",
     "brandLine": "ASPIRE · NEW YORK · DALLAS",
     "themeToLight": "Light mode",
-    "themeToDark": "Dark mode"
+    "themeToDark": "Dark mode",
+    "notices": {
+      "inactiveAccount": "Your account is not active. Contact the organizers to restore access.",
+      "noAccess": "Your account doesn't have access to an active city or team yet. Contact the organizers.",
+      "unknownCity": "Your account is assigned to a city that isn't available here yet. Contact the organizers.",
+      "unavailable": "We couldn't check your access right now. Please try again in a moment."
+    }
   },
   "DashboardPage": {
     "eyebrow": "Student portal",
@@ -516,10 +521,21 @@
       "replaceHint": "Click to replace it with a new file",
       "note": "Your deck is saved for your whole team. Submitting again replaces it.",
       "uploading": "Uploading…",
+      "status": {
+        "prepare": "Checking your file…",
+        "upload": "Uploading your deck…",
+        "confirm": "Saving your submission…"
+      },
+      "successTitle": "Project submitted",
+      "success": "{team}'s submission is saved. Your whole team will see it.",
+      "close": "Close",
       "errors": {
         "type": "Upload a PDF or PowerPoint file (.pdf, .ppt, .pptx).",
         "size": "The file is larger than 50 MB.",
-        "generic": "We couldn't upload your project. Please try again."
+        "generic": "We couldn't upload your project. Please try again.",
+        "prepare": "We couldn't start the upload. Please try again.",
+        "upload": "The upload failed. Check your connection and try again.",
+        "confirm": "Your file was uploaded but we couldn't save the submission. Please try again."
       }
     },
     "projects": {

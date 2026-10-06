@@ -1,0 +1,15 @@
+# Not needed at runtime; keeps the function bundle small.
+tests/
+db/
+scripts/
+requirements-dev.txt
+ruff.toml
+pytest.ini
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Local only: never upload secrets or the virtualenv from `vercel deploy`.
+.env
+.venv/
