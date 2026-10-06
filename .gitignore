@@ -18,3 +18,7 @@ backend/.env
 
 # Local tooling
 .idea/
+
+# Python bytecode
+__pycache__/
+*.pyc

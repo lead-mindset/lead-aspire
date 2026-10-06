@@ -516,10 +516,21 @@
       "replaceHint": "Click to replace it with a new file",
       "note": "Your deck is saved for your whole team. Submitting again replaces it.",
       "uploading": "Uploading…",
+      "status": {
+        "prepare": "Checking your file…",
+        "upload": "Uploading your deck…",
+        "confirm": "Saving your submission…"
+      },
+      "successTitle": "Project submitted",
+      "success": "{team}'s submission is saved. Your whole team will see it.",
+      "close": "Close",
       "errors": {
         "type": "Upload a PDF or PowerPoint file (.pdf, .ppt, .pptx).",
         "size": "The file is larger than 50 MB.",
-        "generic": "We couldn't upload your project. Please try again."
+        "generic": "We couldn't upload your project. Please try again.",
+        "prepare": "We couldn't start the upload. Please try again.",
+        "upload": "The upload failed. Check your connection and try again.",
+        "confirm": "Your file was uploaded but we couldn't save the submission. Please try again."
       }
     },
     "projects": {

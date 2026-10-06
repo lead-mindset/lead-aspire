@@ -516,10 +516,21 @@
       "replaceHint": "Haz clic para reemplazarlo por otro archivo",
       "note": "Tu presentación se guarda para todo el equipo. Si vuelves a enviar, se reemplaza.",
       "uploading": "Subiendo…",
+      "status": {
+        "prepare": "Revisando tu archivo…",
+        "upload": "Subiendo tu presentación…",
+        "confirm": "Guardando tu entrega…"
+      },
+      "successTitle": "Proyecto entregado",
+      "success": "La entrega de {team} quedó guardada. Todo tu equipo la verá.",
+      "close": "Cerrar",
       "errors": {
         "type": "Sube un archivo PDF o PowerPoint (.pdf, .ppt, .pptx).",
         "size": "El archivo pesa más de 50 MB.",
-        "generic": "No pudimos subir tu proyecto. Inténtalo de nuevo."
+        "generic": "No pudimos subir tu proyecto. Inténtalo de nuevo.",
+        "prepare": "No pudimos iniciar la subida. Inténtalo de nuevo.",
+        "upload": "La subida falló. Revisa tu conexión e inténtalo de nuevo.",
+        "confirm": "Tu archivo se subió, pero no pudimos guardar la entrega. Inténtalo de nuevo."
       }
     },
     "projects": {

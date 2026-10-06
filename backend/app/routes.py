@@ -1,11 +1,13 @@
 import logging
 import re
+import secrets
 import time
 
 import openai
 from azure.core.exceptions import ClientAuthenticationError
 from fastapi import APIRouter, Header, HTTPException, Query, Request
 from postgrest.exceptions import APIError
+from storage3.exceptions import StorageApiError
 
 from .foundry import ask_agent
 from .schemas import (
@@ -14,6 +16,9 @@ from .schemas import (
     AdminTeamsResponse,
     CoachChatRequest,
     CoachChatResponse,
+    DeckConfirmRequest,
+    DeckUploadUrlRequest,
+    DeckUploadUrlResponse,
     LoginRequest,
     LoginResponse,
     TeamMember,
@@ -178,6 +183,89 @@ def _current_submission(client, group_id: int) -> dict | None:
     return rows[0] if rows else None
 
 
+def _submission_team(client, authorization: str | None, city_code: str) -> tuple:
+    """(user, access, group_code) for the caller's team, or 401/403/404."""
+    user = _user_from_token(client, authorization)
+    access = _viewer_group(client, str(user.id), city_code)
+    if access is None:
+        raise HTTPException(status_code=403, detail="You are not assigned to a team")
+    group_code = (access.get("aspire_groups") or {}).get("group_code") or str(access["group_id"])
+    return user, access, group_code
+
+
+def _demo_link(demo_link: str | None) -> str | None:
+    link = (demo_link or "").strip() or None
+    if link and not re.match(r"^https?://\S+$", link, re.IGNORECASE):
+        raise HTTPException(status_code=400, detail="The demo link must start with http:// or https://")
+    return link
+
+
+def _deck_content_type(file_name: str) -> str:
+    """MIME type for the deck's extension (never the client's), or 400."""
+    extension = file_name.rpartition(".")[2].lower() if "." in file_name else ""
+    content_type = SUBMISSION_TYPES.get(extension)
+    if content_type is None:
+        raise HTTPException(status_code=400, detail="Upload a PDF or PowerPoint file")
+    return content_type
+
+
+def _deck_storage_name(file_name: str) -> str:
+    return re.sub(r"[^A-Za-z0-9._-]+", "_", file_name)[-120:]
+
+
+def _save_link(client, user_id: str, current: dict | None, link: str | None) -> TeamSubmissionResponse:
+    """Update only the demo link of the team's existing deck."""
+    if current is None:
+        raise HTTPException(status_code=400, detail="Upload your final deck first")
+    row = (
+        client.table("aspire_submissions")
+        .update({"demo_link": link, "submitted_by": user_id})
+        .eq("id", current["id"])
+        .execute()
+    ).data
+    return TeamSubmissionResponse(submission=_submission_out(row[0] if row else current))
+
+
+def _save_deck(
+    client,
+    bucket,
+    user_id: str,
+    group_id: int,
+    current: dict | None,
+    path: str,
+    file_name: str,
+    content_type: str,
+    size: int,
+    link: str | None,
+) -> TeamSubmissionResponse:
+    """Point the team's submission at the stored deck, then drop the previous file."""
+    row = (
+        client.table("aspire_submissions")
+        .upsert(
+            {
+                "group_id": group_id,
+                "storage_path": path,
+                "file_name": file_name,
+                "content_type": content_type,
+                "file_size_bytes": size,
+                "demo_link": link,
+                "submitted_by": user_id,
+            },
+            on_conflict="group_id",
+        )
+        .execute()
+    ).data
+
+    if current and current["storage_path"] != path:
+        try:
+            bucket.remove([current["storage_path"]])
+        except Exception:
+            # The new deck is saved; an orphaned old file is harmless.
+            logger.exception("Could not remove the previous deck %s", current["storage_path"])
+
+    return TeamSubmissionResponse(submission=_submission_out(row[0] if row else None))
+
+
 @team_router.get("/submission", response_model=TeamSubmissionResponse)
 def get_team_submission(
     city_code: str = Query(default="NYC", min_length=1, max_length=10),
@@ -205,71 +293,138 @@ async def upload_team_submission(
     """Upload/replace the team's deck (raw request body) and/or its demo link.
 
     An empty body keeps the current deck and only updates the demo link.
+
+    DEPRECATED: the frontend now uploads straight to Storage through
+    /submission/upload-url and /submission/confirm. Kept until that flow is
+    verified in production; remove it then.
     """
     client = create_admin_client()
-    user = _user_from_token(client, authorization)
-    access = _viewer_group(client, str(user.id), city_code)
-    if access is None:
-        raise HTTPException(status_code=403, detail="You are not assigned to a team")
-
-    link = (demo_link or "").strip() or None
-    if link and not re.match(r"^https?://\S+$", link, re.IGNORECASE):
-        raise HTTPException(status_code=400, detail="The demo link must start with http:// or https://")
+    user, access, group_code = _submission_team(client, authorization, city_code)
+    link = _demo_link(demo_link)
 
     group_id = access["group_id"]
-    group_code = (access.get("aspire_groups") or {}).get("group_code") or str(group_id)
     current = _current_submission(client, group_id)
     data = await request.body()
 
     if not data:
-        if current is None:
-            raise HTTPException(status_code=400, detail="Upload your final deck first")
-        row = (
-            client.table("aspire_submissions")
-            .update({"demo_link": link, "submitted_by": str(user.id)})
-            .eq("id", current["id"])
-            .execute()
-        ).data
-        return TeamSubmissionResponse(submission=_submission_out(row[0] if row else current))
+        return _save_link(client, str(user.id), current, link)
 
     name = (file_name or "").strip()
-    extension = name.rpartition(".")[2].lower() if "." in name else ""
-    content_type = SUBMISSION_TYPES.get(extension)
-    if content_type is None:
-        raise HTTPException(status_code=400, detail="Upload a PDF or PowerPoint file")
+    content_type = _deck_content_type(name)
     if len(data) > SUBMISSION_MAX_BYTES:
         raise HTTPException(status_code=413, detail="The file is larger than 50 MB")
 
-    safe_name = re.sub(r"[^A-Za-z0-9._-]+", "_", name)[-120:]
-    path = f"{group_code}/{int(time.time())}-{safe_name}"
+    path = f"{group_code}/{int(time.time())}-{_deck_storage_name(name)}"
     bucket = client.storage.from_(SUBMISSION_BUCKET)
     bucket.upload(path, data, {"content-type": content_type})
 
-    row = (
-        client.table("aspire_submissions")
-        .upsert(
-            {
-                "group_id": group_id,
-                "storage_path": path,
-                "file_name": name,
-                "content_type": content_type,
-                "file_size_bytes": len(data),
-                "demo_link": link,
-                "submitted_by": str(user.id),
-            },
-            on_conflict="group_id",
-        )
-        .execute()
-    ).data
+    return _save_deck(client, bucket, str(user.id), group_id, current, path, name, content_type, len(data), link)
 
-    if current and current["storage_path"] != path:
-        try:
-            bucket.remove([current["storage_path"]])
-        except Exception:
-            # The new deck is saved; an orphaned old file is harmless.
-            logger.exception("Could not remove the previous deck %s", current["storage_path"])
 
-    return TeamSubmissionResponse(submission=_submission_out(row[0] if row else None))
+# Browsers report "" or a generic type when they can't tell; the extension decides then.
+UNKNOWN_CONTENT_TYPES = {"", "application/octet-stream"}
+
+
+def _base_type(content_type: str | None) -> str:
+    return (content_type or "").split(";")[0].strip().lower()
+
+
+@team_router.post("/submission/upload-url", response_model=DeckUploadUrlResponse)
+def create_submission_upload_url(
+    payload: DeckUploadUrlRequest,
+    city_code: str = Query(default="NYC", min_length=1, max_length=10),
+    authorization: str | None = Header(default=None),
+) -> DeckUploadUrlResponse:
+    """Permission to upload one deck straight to Storage; the file never reaches the API.
+
+    The browser's size and type can be faked: the bucket limits enforce them
+    on upload, and /submission/confirm checks the stored object again.
+    """
+    client = create_admin_client()
+    _, _, group_code = _submission_team(client, authorization, city_code)
+    # Fast fail only; /submission/confirm validates the link it saves.
+    _demo_link(payload.demo_link)
+
+    name = payload.file_name.strip()
+    content_type = _deck_content_type(name)
+    if _base_type(payload.content_type) not in UNKNOWN_CONTENT_TYPES | {content_type}:
+        raise HTTPException(status_code=400, detail="The file type does not match its extension")
+    if payload.size > SUBMISSION_MAX_BYTES:
+        raise HTTPException(status_code=413, detail="The file is larger than 50 MB")
+
+    # Built here, never taken from the client. Every submission gets a new
+    # path, so nothing is overwritten; confirm drops the previous deck.
+    path = f"{group_code}/{int(time.time())}-{secrets.token_hex(4)}-{_deck_storage_name(name)}"
+    signed = client.storage.from_(SUBMISSION_BUCKET).create_signed_upload_url(path)
+    return DeckUploadUrlResponse(
+        bucket=SUBMISSION_BUCKET,
+        path=path,
+        token=signed["token"],
+        content_type=content_type,
+    )
+
+
+def _stored_object(bucket, path: str) -> dict | None:
+    """Storage's own record of the object (real size and type), or None if missing."""
+    try:
+        return bucket.info(path)
+    except StorageApiError as error:
+        if str(error.status) in ("400", "404"):
+            return None
+        raise
+
+
+def _remove_quietly(bucket, path: str) -> None:
+    try:
+        bucket.remove([path])
+    except Exception:
+        logger.exception("Could not remove the rejected upload %s", path)
+
+
+@team_router.post("/submission/confirm", response_model=TeamSubmissionResponse)
+def confirm_submission(
+    payload: DeckConfirmRequest,
+    city_code: str = Query(default="NYC", min_length=1, max_length=10),
+    authorization: str | None = Header(default=None),
+) -> TeamSubmissionResponse:
+    """Save the deck uploaded through /submission/upload-url, and/or the demo link.
+
+    Without a path only the demo link changes. An upload that is never
+    confirmed stays in the bucket as an orphan; there is no cleanup job yet.
+    """
+    client = create_admin_client()
+    user, access, group_code = _submission_team(client, authorization, city_code)
+    link = _demo_link(payload.demo_link)
+
+    group_id = access["group_id"]
+    current = _current_submission(client, group_id)
+    if not payload.path:
+        return _save_link(client, str(user.id), current, link)
+
+    path = payload.path
+    if not path.startswith(f"{group_code}/"):
+        raise HTTPException(status_code=403, detail="This upload does not belong to your team")
+    name = (payload.file_name or "").strip()
+    content_type = _deck_content_type(name)
+    expected = rf"{re.escape(group_code)}/\d+-[0-9a-f]{{8}}-{re.escape(_deck_storage_name(name))}"
+    if not re.fullmatch(expected, path):
+        raise HTTPException(status_code=400, detail="The file name does not match the upload")
+
+    bucket = client.storage.from_(SUBMISSION_BUCKET)
+    stored = _stored_object(bucket, path)
+    if stored is None:
+        raise HTTPException(status_code=400, detail="The deck was not uploaded. Please try again.")
+
+    size = int(stored.get("size") or 0)
+    if size > SUBMISSION_MAX_BYTES:
+        _remove_quietly(bucket, path)
+        raise HTTPException(status_code=413, detail="The file is larger than 50 MB")
+    # The stored type is what the browser declared on upload, not sniffed content.
+    if size == 0 or _base_type(stored.get("content_type")) != content_type:
+        _remove_quietly(bucket, path)
+        raise HTTPException(status_code=400, detail="Upload a PDF or PowerPoint file")
+
+    return _save_deck(client, bucket, str(user.id), group_id, current, path, name, content_type, size, link)
 
 
 @admin_router.get("/teams/{group_code}/deck", response_model=AdminDeckResponse)

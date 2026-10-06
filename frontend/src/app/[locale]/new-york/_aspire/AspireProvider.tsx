@@ -17,6 +17,19 @@ function toSubmission(row: ApiSubmission): Submission | null {
   return row ? { deck: row.file_name, link: row.demo_link ?? "", submittedAt: row.submitted_at } : null;
 }
 
+/** Deck submission: get upload permission, upload to Storage, confirm with the backend. */
+export type SubmitStep = "prepare" | "upload" | "confirm";
+
+type UploadPermission = { bucket: string; path: string; token: string; content_type: string };
+
+function postJson(path: string, payload: unknown) {
+  return fetchWithSession(`${path}?city_code=NYC`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+}
+
 /** What the document viewer is showing: a phase guide, or a submitted deck. */
 export type ViewerTarget =
   | { kind: "doc"; doc: DocKey }
@@ -37,7 +50,11 @@ type AspireState = {
   members: string[];
   submission: Submission | null;
   /** Uploads `file` (or keeps the current deck when null) and saves the demo link. */
-  submit: (file: File | null, link: string) => Promise<{ ok: true } | { ok: false; error: string | null }>;
+  submit: (
+    file: File | null,
+    link: string,
+    onStep?: (step: SubmitStep) => void,
+  ) => Promise<{ ok: true } | { ok: false; step: SubmitStep; error: string | null }>;
   submitOpen: boolean;
   setSubmitOpen: (open: boolean) => void;
   openTarget: ViewerTarget | null;
@@ -196,25 +213,54 @@ export function AspireProvider({ viewer, children }: { viewer: AspireViewer; chi
     [completed],
   );
 
-  const submit = useCallback<AspireState["submit"]>(async (file, link) => {
-    const params = new URLSearchParams({ city_code: "NYC" });
-    if (link) params.set("demo_link", link);
-    if (file) params.set("file_name", file.name);
-
+  const submit = useCallback<AspireState["submit"]>(async (file, link, onStep) => {
+    let step: SubmitStep = "prepare";
     try {
-      // The deck travels as the raw request body; an empty body only updates the link.
-      const response = await fetchWithSession(`/api/team/submission?${params}`, {
-        method: "POST",
-        headers: { "Content-Type": file?.type || "application/octet-stream" },
-        body: file ?? undefined,
+      // 1. The backend checks the team, type and size and signs one upload path.
+      let path: string | null = null;
+      if (file) {
+        onStep?.(step);
+        const response = await postJson("/api/team/submission/upload-url", {
+          file_name: file.name,
+          size: file.size,
+          content_type: file.type,
+          demo_link: link || null,
+        });
+        if (!response) return { ok: false, step, error: null };
+        const body = (await response.json()) as Partial<UploadPermission> & { detail?: string };
+        if (!response.ok || !body.bucket || !body.path || !body.token) {
+          return { ok: false, step, error: body.detail ?? null };
+        }
+
+        // 2. The file goes straight to Supabase Storage, never through the backend.
+        step = "upload";
+        onStep?.(step);
+        const { createClient } = await import("@/lib/supabase/client");
+        // The File's own type travels in the multipart body; browsers sometimes
+        // leave it empty for PowerPoint, so re-label it with the server's type.
+        const labeled = new File([file], file.name, { type: body.content_type });
+        const { error } = await createClient()
+          .storage.from(body.bucket)
+          .uploadToSignedUrl(body.path, body.token, labeled);
+        if (error) return { ok: false, step, error: null };
+        path = body.path;
+      }
+
+      // 3. The backend checks the stored file and saves it (or only the link).
+      step = "confirm";
+      onStep?.(step);
+      const response = await postJson("/api/team/submission/confirm", {
+        path,
+        file_name: file?.name ?? null,
+        demo_link: link || null,
       });
-      if (!response) return { ok: false, error: null };
+      if (!response) return { ok: false, step, error: null };
       const body = (await response.json()) as { submission?: ApiSubmission; detail?: string };
-      if (!response.ok) return { ok: false, error: body.detail ?? null };
+      if (!response.ok) return { ok: false, step, error: body.detail ?? null };
       setSubmission(toSubmission(body.submission ?? null));
       return { ok: true };
     } catch {
-      return { ok: false, error: null };
+      return { ok: false, step, error: null };
     }
   }, []);
 
