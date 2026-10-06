@@ -116,9 +116,6 @@ export function HomeView() {
               <button type="button" className={styles.coachButton} onClick={() => setCoachOpen(true)}>
                 {t("help.ask")}
               </button>
-              <Link href="/new-york/guides" className={styles.outlineLink}>
-                {t("help.guides")}
-              </Link>
             </div>
           </div>
           <Image
