@@ -218,8 +218,10 @@ export function DallasLogin({ initialStep, unavailable }: Props) {
         </section>
 
         <section className={styles.formPanel}>
+          {/* Distinct keys: without them React reuses the Step 1 inputs for
+              Step 2, and the typed email and code show up as the names. */}
           {step === "credentials" ? (
-            <form className={styles.card} onSubmit={signIn}>
+            <form key="credentials" className={styles.card} onSubmit={signIn}>
               <header className={styles.cardHeader}>
                 <h2 className={styles.cardHeading}>{t("welcome")}</h2>
                 <p className={styles.cardIntro}>{t("formIntro")}</p>
@@ -269,7 +271,7 @@ export function DallasLogin({ initialStep, unavailable }: Props) {
               </button>
             </form>
           ) : (
-            <form className={styles.card} onSubmit={saveProfile}>
+            <form key="profile" className={styles.card} onSubmit={saveProfile}>
               <header className={styles.cardHeader}>
                 <h2 className={styles.cardHeading}>{t("profile.heading")}</h2>
                 <p className={styles.cardIntro}>{t("profile.intro")}</p>
