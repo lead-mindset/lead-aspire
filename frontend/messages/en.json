@@ -636,6 +636,49 @@
       "back": "← Back to submission"
     }
   },
+  "DallasLogin": {
+    "title": "Dallas sign in",
+    "brandLabel": "Lead Aspire Dallas introduction",
+    "brandLine": "ASPIRE · DALLAS",
+    "eyebrow": "Student innovation competition · Dallas",
+    "heading": "Ideas today.",
+    "headingAccent": "Impact tomorrow.",
+    "intro": "Sign in with your email and the event code shared at the venue.",
+    "welcome": "Welcome to Dallas",
+    "formIntro": "First time here? Your account is created when you sign in.",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "you@example.com",
+    "codeLabel": "Event code",
+    "codePlaceholder": "Enter the event code",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "themeToLight": "Light mode",
+    "themeToDark": "Dark mode",
+    "profile": {
+      "heading": "Tell us who you are",
+      "intro": "Enter your name and pick the team on your table sign.",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "team": "Team",
+      "teamPlaceholder": "Choose your team",
+      "teamsLoading": "Loading teams…",
+      "teamFinal": "You can’t change your team after saving. Ask an organizer if you picked the wrong one.",
+      "submit": "Save and continue",
+      "saving": "Saving…",
+      "notYou": "Not your email?",
+      "signOut": "Sign out"
+    },
+    "errors": {
+      "invalid": "We couldn’t sign you in. Check your email and the event code.",
+      "invalidEmail": "Enter a valid email address.",
+      "busy": "Too many people are signing in right now. Wait a minute and try again.",
+      "connection": "The login service is unavailable. Try again in a moment.",
+      "unavailable": "We couldn’t check your sign-in right now. Please try again in a moment.",
+      "teams": "We couldn’t load the teams. Refresh the page to try again.",
+      "profile": "We couldn’t save your details. Please try again.",
+      "sessionExpired": "Your session ended. Sign in again."
+    }
+  },
   "LoginPage": {
     "error": "We couldn't sign you in. Check your credentials and access.",
     "brandLabel": "Lead Aspire introduction",

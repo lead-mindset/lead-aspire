@@ -1,7 +1,7 @@
 // Content for the Dallas Aspire app (design: LEAD Aspire Dallas).
 // Visible text lives in messages under "Dallas"; this file holds structure
-// and mock data only. Replace the mock team, members and leaderboard with
-// backend data once the Dallas API exists.
+// and mock data only. The student, team and members come from /api/dallas/me;
+// the leaderboard is still mock.
 
 export const PHASE_KEYS = [
   "team",
@@ -25,17 +25,6 @@ export const PHASE_MINUTES: Record<PhaseKey, number> = {
   respond: 25,
   deliver: 40,
 };
-
-// Mock team until the backend provides the signed-in student's team.
-export const MOCK_TEAM = { num: "08" };
-export const MOCK_MEMBERS = [
-  "Valeria R.",
-  "Jorge M.",
-  "Camila S.",
-  "Andrés L.",
-  "Daniela P.",
-  "Mateo C.",
-];
 
 const PURPLE = "var(--brand-purple)";
 const ROSE = "var(--brand-rose)";

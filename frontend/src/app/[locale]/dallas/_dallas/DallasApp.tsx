@@ -11,7 +11,6 @@ import { createClient } from "@/lib/supabase/client";
 import {
   MOCK_BOARD,
   MOCK_PODIUM,
-  MOCK_TEAM,
   PHASE_KEYS,
   PHASE_MINUTES,
   type PhaseKey,
@@ -24,6 +23,12 @@ import {
   nextScreen,
   type DallasState,
 } from "./logic";
+import {
+  memberName,
+  teamBadge,
+  type DallasStudent,
+  type DallasTeam,
+} from "./student";
 import {
   AdviseView,
   BriefView,
@@ -52,10 +57,16 @@ function toggleTheme() {
 }
 
 /**
- * Dallas challenge (design: LEAD Aspire Dallas). State lives in memory for
- * now; swap `useState` for backend calls once the Dallas API exists.
+ * Dallas challenge (design: LEAD Aspire Dallas). The student and team come
+ * from /api/dallas/me; the challenge state still lives in memory.
  */
-export function DallasApp() {
+export function DallasApp({
+  student,
+  team,
+}: {
+  student: DallasStudent;
+  team: DallasTeam;
+}) {
   const router = useRouter();
   const [state, setState] = useState<DallasState>(INITIAL_STATE);
   const [secondsLeft, setSecondsLeft] = useState(0);
@@ -87,17 +98,25 @@ export function DallasApp() {
 
   async function signOut() {
     await createClient().auth.signOut();
-    router.replace("/login");
+    router.replace("/dallas/login");
     router.refresh();
   }
 
   if (state.screen === "results") {
-    return <ResultsView onBack={() => go("deliver")} onSignOut={signOut} />;
+    return (
+      <ResultsView
+        team={team}
+        onBack={() => go("deliver")}
+        onSignOut={signOut}
+      />
+    );
   }
 
   return (
     <Shell
       state={state}
+      team={team}
+      members={student.members.map(memberName)}
       phase={state.screen}
       secondsLeft={secondsLeft}
       go={go}
@@ -109,6 +128,8 @@ export function DallasApp() {
 
 type ShellProps = {
   state: DallasState;
+  team: DallasTeam;
+  members: string[];
   phase: PhaseKey;
   secondsLeft: number;
   go: (screen: Screen) => void;
@@ -118,6 +139,8 @@ type ShellProps = {
 
 function Shell({
   state,
+  team,
+  members,
   phase,
   secondsLeft,
   go,
@@ -129,7 +152,7 @@ function Shell({
   const doneCount = state.done.length;
   const left = PHASE_KEYS.length - doneCount;
   const blocked = blockReason(phase, state);
-  const teamName = t("teamName", { num: MOCK_TEAM.num });
+  const teamName = t("teamName", { num: team.number });
 
   function next() {
     if (blocked) return;
@@ -194,7 +217,7 @@ function Shell({
 
         <div className={styles.user}>
           <span className={styles.avatar} aria-hidden="true">
-            {MOCK_TEAM.num}
+            {teamBadge(team)}
           </span>
           <div className={styles.userText}>
             <span className={styles.userName}>{teamName}</span>
@@ -219,7 +242,7 @@ function Shell({
           <div className={styles.teamBar}>
             <div className={styles.teamId}>
               <span className={styles.teamLogo} aria-hidden="true">
-                {MOCK_TEAM.num}
+                {teamBadge(team)}
               </span>
               <div className={styles.teamIdText}>
                 <b className={styles.teamIdName}>{teamName}</b>
@@ -274,7 +297,9 @@ function Shell({
             )}
           </div>
 
-          {phase === "team" && <TeamView state={state} update={update} />}
+          {phase === "team" && (
+            <TeamView state={state} update={update} members={members} />
+          )}
           {phase === "brief" && <BriefView state={state} update={update} />}
           {phase === "discover" && (
             <DiscoverView state={state} update={update} />
@@ -323,9 +348,11 @@ function Shell({
 }
 
 function ResultsView({
+  team,
   onBack,
   onSignOut,
 }: {
+  team: DallasTeam;
   onBack: () => void;
   onSignOut: () => void;
 }) {
@@ -357,7 +384,7 @@ function ResultsView({
                 <span className={styles.podiumPoints}>
                   {t("results.points", { points: entry.points })}
                 </span>
-                {entry.team === MOCK_TEAM.num && (
+                {entry.team === teamBadge(team) && (
                   <span className={styles.yourTeam}>
                     {t("results.yourTeam")}
                   </span>

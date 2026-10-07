@@ -25,6 +25,8 @@ export const getAspireViewer = cache(async (): Promise<AspireViewer | null> => {
   const { data: auth } = await supabase.auth.getUser();
   const user = auth.user;
   if (!user) return null;
+  // Dallas accounts (marked by the Dallas login) never see the New York app.
+  if (user.app_metadata?.aspire_city === "DFW") return null;
 
   const { data: city } = await supabase
     .from("aspire_cities")

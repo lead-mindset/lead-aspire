@@ -13,7 +13,6 @@ import {
   METRICS_MAX,
   MISSING_KEYS,
   MISSING_MAX,
-  MOCK_MEMBERS,
   OUTCOME_KEYS,
   REC_KEYS,
   RECS,
@@ -87,7 +86,11 @@ function CheckRow({
 
 // ---------- 01 Team ----------
 
-export function TeamView({ state, update }: ViewProps) {
+export function TeamView({
+  state,
+  update,
+  members,
+}: ViewProps & { members: string[] }) {
   const t = useTranslations("Dallas.teamSetup");
   const assigned = Object.values(state.members).filter(Boolean).length;
 
@@ -122,7 +125,7 @@ export function TeamView({ state, update }: ViewProps) {
               }
             >
               <option value="">{t("assign")}</option>
-              {MOCK_MEMBERS.map((member) => (
+              {members.map((member) => (
                 <option key={member} value={member}>
                   {member}
                 </option>

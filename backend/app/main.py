@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .config import settings
+from .dallas_routes import dallas_router
 from .routes import admin_router, coach_router, router, team_router
 
 app = FastAPI(title="Lead Aspire API", version="0.1.0")
@@ -25,6 +26,7 @@ app.include_router(router)
 app.include_router(coach_router)
 app.include_router(team_router)
 app.include_router(admin_router)
+app.include_router(dallas_router)
 
 
 @app.get("/health")

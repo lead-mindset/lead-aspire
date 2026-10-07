@@ -636,6 +636,49 @@
       "back": "← Volver a la propuesta"
     }
   },
+  "DallasLogin": {
+    "title": "Iniciar sesión en Dallas",
+    "brandLabel": "Presentación de Lead Aspire Dallas",
+    "brandLine": "ASPIRE · DALLAS",
+    "eyebrow": "Competencia de innovación estudiantil · Dallas",
+    "heading": "Ideas hoy.",
+    "headingAccent": "Impacto mañana.",
+    "intro": "Inicia sesión con tu correo y el código del evento que compartimos en el lugar.",
+    "welcome": "Bienvenido a Dallas",
+    "formIntro": "¿Primera vez? Tu cuenta se crea al iniciar sesión.",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "tu@ejemplo.com",
+    "codeLabel": "Código del evento",
+    "codePlaceholder": "Ingresa el código del evento",
+    "submit": "Iniciar sesión",
+    "submitting": "Iniciando sesión…",
+    "themeToLight": "Modo claro",
+    "themeToDark": "Modo oscuro",
+    "profile": {
+      "heading": "Cuéntanos quién eres",
+      "intro": "Ingresa tu nombre y elige el equipo que aparece en el letrero de tu mesa.",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "team": "Equipo",
+      "teamPlaceholder": "Elige tu equipo",
+      "teamsLoading": "Cargando equipos…",
+      "teamFinal": "No podrás cambiar de equipo después de guardar. Si te equivocaste, pide ayuda a un organizador.",
+      "submit": "Guardar y continuar",
+      "saving": "Guardando…",
+      "notYou": "¿No es tu correo?",
+      "signOut": "Cerrar sesión"
+    },
+    "errors": {
+      "invalid": "No pudimos iniciar tu sesión. Revisa tu correo y el código del evento.",
+      "invalidEmail": "Ingresa un correo electrónico válido.",
+      "busy": "Muchas personas están iniciando sesión. Espera un minuto e inténtalo de nuevo.",
+      "connection": "El servicio de inicio de sesión no está disponible. Inténtalo de nuevo en un momento.",
+      "unavailable": "No pudimos verificar tu sesión. Inténtalo de nuevo en un momento.",
+      "teams": "No pudimos cargar los equipos. Actualiza la página para intentarlo de nuevo.",
+      "profile": "No pudimos guardar tus datos. Inténtalo de nuevo.",
+      "sessionExpired": "Tu sesión terminó. Inicia sesión de nuevo."
+    }
+  },
   "LoginPage": {
     "error": "No pudimos iniciar tu sesión. Revisa tus credenciales y acceso.",
     "brandLabel": "Introducción de Lead Aspire",
