@@ -145,6 +145,7 @@ class FakeBucket:
 def supabase(monkeypatch) -> FakeSupabase:
     fake = FakeSupabase()
     monkeypatch.setattr(routes, "create_admin_client", lambda: fake)
+    monkeypatch.setattr(routes, "shared_admin_client", lambda: fake)
     return fake
 
 
