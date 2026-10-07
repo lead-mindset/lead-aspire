@@ -1,0 +1,4 @@
+# Copy to e2e/login-check-emails.txt (gitignored) and list one email per line.
+# Blank lines and anything after # are ignored.
+student1@example.org
+student2@example.org

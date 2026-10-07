@@ -1,20 +1,19 @@
-import { use } from "react";
-import { useTranslations } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { DallasApp } from "./_dallas/DallasApp";
 
 type Props = {
   params: Promise<{ locale: string }>;
 };
 
-export default function DallasPage({ params }: Props) {
-  const { locale } = use(params);
-  setRequestLocale(locale);
-  const t = useTranslations("DallasPage");
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "DallasPage" });
+  return { title: t("title") };
+}
 
-  return (
-    <section className="mx-auto flex min-h-[70vh] max-w-[1200px] flex-col items-center justify-center gap-5 px-4 py-7 text-center sm:py-8">
-      <h1>{t("title")}</h1>
-      <p className="text-ink-muted">{t("placeholder")}</p>
-    </section>
-  );
+export default async function DallasPage({ params }: Props) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  return <DallasApp />;
 }

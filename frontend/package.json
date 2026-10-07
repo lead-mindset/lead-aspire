@@ -11,6 +11,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:e2e": "playwright test",
+    "check:logins": "playwright test -c playwright.login-check.config.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
