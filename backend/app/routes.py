@@ -3,14 +3,12 @@ import re
 import secrets
 import time
 
-import openai
-from azure.core.exceptions import ClientAuthenticationError
 from fastapi import APIRouter, Header, HTTPException, Query, Request
 from postgrest.exceptions import APIError
+from starlette.concurrency import run_in_threadpool
 from storage3.exceptions import StorageApiError
 
 from .config import settings
-from .foundry import ask_agent
 from .schemas import (
     AdminDeckResponse,
     AdminTeam,
@@ -29,7 +27,7 @@ from .schemas import (
     TeamSubmission,
     TeamSubmissionResponse,
 )
-from .supabase import create_admin_client
+from .supabase import create_admin_client, shared_admin_client
 
 router = APIRouter(prefix="/api/auth")
 coach_router = APIRouter(prefix="/api/coach")
@@ -99,7 +97,7 @@ def _is_admin(client, user_id: str) -> bool:
 @admin_router.get("/teams", response_model=AdminTeamsResponse)
 def get_admin_teams(authorization: str | None = Header(default=None)) -> AdminTeamsResponse:
     """Every active team with its member count, for the organizer results table."""
-    client = create_admin_client()
+    client = shared_admin_client()
     user = _user_from_token(client, authorization)
     if not _is_admin(client, str(user.id)):
         raise HTTPException(status_code=403, detail="Admins only")
@@ -273,7 +271,7 @@ def get_team_submission(
     authorization: str | None = Header(default=None),
 ) -> TeamSubmissionResponse:
     """The caller's team's final deck and demo link, if submitted."""
-    client = create_admin_client()
+    client = shared_admin_client()
     user = _user_from_token(client, authorization)
     access = _viewer_group(client, str(user.id), city_code)
     if access is None:
@@ -299,14 +297,29 @@ async def upload_team_submission(
     /submission/upload-url and /submission/confirm. Kept until that flow is
     verified in production; remove it then.
     """
-    client = create_admin_client()
-    user, access, group_code = _submission_team(client, authorization, city_code)
+    # Async only to read the raw body; the sync Supabase calls run in the
+    # threadpool (each helper takes its worker thread's client) so they don't
+    # block the event loop.
+    user, access, group_code, current = await run_in_threadpool(
+        _submission_context, authorization, city_code
+    )
     link = _demo_link(demo_link)
-
-    group_id = access["group_id"]
-    current = _current_submission(client, group_id)
     data = await request.body()
+    return await run_in_threadpool(
+        _store_submission, user, access, group_code, current, data, file_name, link
+    )
 
+
+def _submission_context(authorization: str | None, city_code: str) -> tuple:
+    client = shared_admin_client()
+    user, access, group_code = _submission_team(client, authorization, city_code)
+    return user, access, group_code, _current_submission(client, access["group_id"])
+
+
+def _store_submission(
+    user, access, group_code: str, current: dict | None, data: bytes, file_name: str | None, link: str | None
+) -> TeamSubmissionResponse:
+    client = shared_admin_client()
     if not data:
         return _save_link(client, str(user.id), current, link)
 
@@ -319,6 +332,7 @@ async def upload_team_submission(
     bucket = client.storage.from_(SUBMISSION_BUCKET)
     bucket.upload(path, data, {"content-type": content_type})
 
+    group_id = access["group_id"]
     return _save_deck(client, bucket, str(user.id), group_id, current, path, name, content_type, len(data), link)
 
 
@@ -341,7 +355,7 @@ def create_submission_upload_url(
     The browser's size and type can be faked: the bucket limits enforce them
     on upload, and /submission/confirm checks the stored object again.
     """
-    client = create_admin_client()
+    client = shared_admin_client()
     _, _, group_code = _submission_team(client, authorization, city_code)
     # Fast fail only; /submission/confirm validates the link it saves.
     _demo_link(payload.demo_link)
@@ -393,7 +407,7 @@ def confirm_submission(
     Without a path only the demo link changes. An upload that is never
     confirmed stays in the bucket as an orphan; there is no cleanup job yet.
     """
-    client = create_admin_client()
+    client = shared_admin_client()
     user, access, group_code = _submission_team(client, authorization, city_code)
     link = _demo_link(payload.demo_link)
 
@@ -433,7 +447,7 @@ def get_admin_team_deck(
     group_code: str, authorization: str | None = Header(default=None)
 ) -> AdminDeckResponse:
     """Short-lived links to one team's deck, for the admin viewer."""
-    client = create_admin_client()
+    client = shared_admin_client()
     user = _user_from_token(client, authorization)
     if not _is_admin(client, str(user.id)):
         raise HTTPException(status_code=403, detail="Admins only")
@@ -477,7 +491,7 @@ def get_team_progress(
     authorization: str | None = Header(default=None),
 ) -> TeamProgressResponse:
     """Phases the caller's team has marked complete."""
-    client = create_admin_client()
+    client = shared_admin_client()
     user = _user_from_token(client, authorization)
     access = _viewer_group(client, str(user.id), city_code)
     if access is None:
@@ -496,7 +510,7 @@ def update_team_progress(
     One phase per call, so teammates toggling different phases don't overwrite
     each other.
     """
-    client = create_admin_client()
+    client = shared_admin_client()
     user = _user_from_token(client, authorization)
     access = _viewer_group(client, str(user.id), city_code)
     if access is None:
@@ -525,7 +539,7 @@ def get_team_members(
     authorization: str | None = Header(default=None),
 ) -> TeamMembersResponse:
     """Members of the caller's own group in a city (from the Supabase session token)."""
-    client = create_admin_client()
+    client = shared_admin_client()
     user = _user_from_token(client, authorization)
     access = _viewer_group(client, str(user.id), city_code)
     if access is None:
@@ -630,6 +644,13 @@ def _record_coach_message(
         logger.exception("Coach message could not be recorded")
 
 
+def ask_agent(question: str, conversation_id: str | None = None) -> tuple[str, str]:
+    """app.foundry.ask_agent, imported on first use to keep the Azure SDK out of cold starts."""
+    from .foundry import ask_agent as foundry_ask_agent
+
+    return foundry_ask_agent(question, conversation_id)
+
+
 @coach_router.post("/chat", response_model=CoachChatResponse)
 def coach_chat(
     payload: CoachChatRequest,
@@ -638,7 +659,7 @@ def coach_chat(
 ) -> CoachChatResponse:
     # Sync route: FastAPI runs it in a threadpool, so the blocking SDK call
     # does not stall the event loop.
-    client = create_admin_client()
+    client = shared_admin_client()
     user = _user_from_token(client, authorization)
     user_id = str(user.id)
     if payload.conversation_id and _conversation_owned_by_other(
@@ -648,6 +669,11 @@ def coach_chat(
     access = _viewer_group(client, user_id, city_code)
     if not settings.coach_configured:
         raise HTTPException(status_code=503, detail="The coach is not configured")
+
+    # Imported here, not at module load: openai and the Azure SDK add ~1 s to
+    # every cold start, and only this route needs them.
+    import openai
+    from azure.core.exceptions import ClientAuthenticationError
 
     try:
         answer, conversation_id = ask_agent(payload.question, payload.conversation_id)
@@ -701,10 +727,16 @@ def coach_chat(
 
 @router.post("/login", response_model=LoginResponse)
 def login(payload: LoginRequest) -> LoginResponse:
-    client = create_admin_client()
+    # Two clients on purpose. The sign-in stores this user's session on
+    # `session_client` (supabase-py then sends their token on its database
+    # calls), so it is created for this request only and never shared.
+    # Lookups and login events use the shared service-role client, keyed only
+    # by values from the sign-in result.
+    session_client = create_admin_client()
+    client = shared_admin_client()
 
     try:
-        auth_result = client.auth.sign_in_with_password(
+        auth_result = session_client.auth.sign_in_with_password(
             {"email": str(payload.email), "password": payload.password}
         )
     except Exception as error:
@@ -721,16 +753,18 @@ def login(payload: LoginRequest) -> LoginResponse:
     try:
         landing, access = _resolve_access(client, user_id)
     except _AccessDenied as denied:
-        _sign_out_and_record(client, user_id, str(payload.email), None, None, denied.reason)
+        _sign_out_and_record(session_client, client, user_id, str(payload.email), None, None, denied.reason)
         raise HTTPException(status_code=403, detail=ACCESS_DENIED_DETAILS[denied.reason]) from None
 
+    # The email Supabase verified, not the one typed in the request.
+    verified_email = user.email or str(payload.email)
     if access is None:
         # Admin without a city/group assignment.
-        _record_login_event(client, str(payload.email), True, None, user_id)
+        _record_login_event(client, verified_email, True, None, user_id)
     else:
         _record_login_event(
             client,
-            str(payload.email),
+            verified_email,
             True,
             None,
             user_id,
@@ -747,7 +781,7 @@ def me(authorization: str | None = Header(default=None)) -> LoginResponse:
     Read-only: no sign-out and no login event. 403 details carry a `code`
     (`inactive_account` or `access_denied`) so the frontend can translate them.
     """
-    client = create_admin_client()
+    client = shared_admin_client()
     user = _user_from_token(client, authorization)
     try:
         landing, _ = _resolve_access(client, str(user.id))
@@ -849,6 +883,7 @@ def _record_login_event(
 
 
 def _sign_out_and_record(
+    session_client,
     client,
     user_id: str,
     email: str,
@@ -856,7 +891,8 @@ def _sign_out_and_record(
     group_id: int | None,
     failure_reason: str,
 ) -> None:
-    client.auth.sign_out()
+    """Sign out on the per-request client that holds the session; record on the shared one."""
+    session_client.auth.sign_out()
     _record_login_event(
         client,
         email,

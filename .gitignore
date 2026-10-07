@@ -22,3 +22,9 @@ backend/.env
 # Python bytecode
 __pycache__/
 *.pyc
+
+# Load test (secrets, test accounts, results)
+loadtest/.env
+loadtest/test_users.csv
+loadtest/results/
+loadtest/.venv/
