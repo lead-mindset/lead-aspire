@@ -50,6 +50,7 @@ next-env.d.ts
 /blob-report/
 /playwright/.cache/
 /e2e/.auth/
+/e2e/login-check-emails.txt
 
 # supabase
 supabase/.temp/

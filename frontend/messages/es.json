@@ -265,8 +265,376 @@
     "footer": "LEAD Aspire · Competencia de innovación estudiantil"
   },
   "DallasPage": {
-    "title": "Dallas",
-    "placeholder": "El contenido de Dallas estará disponible pronto."
+    "title": "Dallas"
+  },
+  "Dallas": {
+    "brandSub": "ASPIRE · DALLAS",
+    "challenge": "Reto Microsoft AI Specialist · Dallas",
+    "teamName": "Equipo {num}",
+    "city": "Dallas",
+    "nav": {
+      "label": "Fases del reto",
+      "section": "EL RETO",
+      "completed": "Completada"
+    },
+    "phases": {
+      "team": "Equipo",
+      "brief": "Brief",
+      "discover": "Descubrir",
+      "diagnose": "Diagnosticar",
+      "advise": "Asesorar",
+      "respond": "Responder",
+      "deliver": "Entregar"
+    },
+    "user": {
+      "signOut": "Cerrar sesión"
+    },
+    "theme": {
+      "toLight": "Modo claro",
+      "toDark": "Modo oscuro"
+    },
+    "progress": {
+      "label": "Progreso del equipo · {pct}%",
+      "left": "{count, plural, one {# fase restante} other {# fases restantes}}",
+      "complete": "Todas las fases completadas",
+      "timer": "Tiempo restante en esta fase"
+    },
+    "footer": {
+      "back": "← Atrás",
+      "continue": "Continuar →",
+      "submit": "Enviar recomendación final →",
+      "hints": {
+        "team": "Asigna al menos un rol",
+        "brief": "Responde la pregunta 1 para continuar",
+        "diagnose": "Elige exactamente 3 causas raíz",
+        "advise": "Agrega al menos una recomendación",
+        "deliver": "Completa las secciones 1, 3 y 6"
+      }
+    },
+    "selected": "{count} de {max} seleccionadas",
+    "answerPlaceholder": "Escribe tu respuesta aquí…",
+    "teamSetup": {
+      "title": "Arma tu equipo de Microsoft",
+      "subtitle": "Asigna un rol a cada integrante. Cada perspectiva cuenta.",
+      "assigned": "{count} de {total} roles asignados",
+      "assign": "Asignar integrante…",
+      "roles": {
+        "ae": {
+          "title": "Account Executive",
+          "desc": "Relación con el cliente, objetivos de negocio y valor."
+        },
+        "ai": {
+          "title": "AI Specialist",
+          "desc": "Entiende las capacidades y la estrategia de IA del cliente."
+        },
+        "csa": {
+          "title": "Cloud Solution Architect",
+          "desc": "Viabilidad técnica, arquitectura y optimización."
+        },
+        "csm": {
+          "title": "Customer Success Manager",
+          "desc": "Adopción, gestión del cambio y resultados medibles."
+        },
+        "ba": {
+          "title": "Analista de negocio / datos",
+          "desc": "Analiza el uso, el costo y el desempeño del negocio."
+        },
+        "sg": {
+          "title": "Seguridad y gobernanza",
+          "desc": "Riesgo, cumplimiento e IA responsable."
+        }
+      }
+    },
+    "brief": {
+      "title": "Nuevo mensaje del cliente",
+      "from": "De:",
+      "fromValue": "CIO, Contoso",
+      "to": "Para:",
+      "toValue": "Equipo de cuenta de Microsoft",
+      "subject": "Asunto:",
+      "subjectValue": "Ayúdennos a entender nuestro uso y costos de IA",
+      "greeting": "Hola, equipo de Microsoft:",
+      "p1": "En los últimos seis meses ampliamos de forma significativa el uso de IA generativa en toda la organización. El consumo de IA ya es casi tres veces lo que proyectamos y Finanzas está preocupado por el aumento de los costos operativos.",
+      "p2": "Estamos considerando poner límites de uso en toda la empresa. Antes de decidir, queremos la recomendación de Microsoft. Necesitamos entender qué está causando este aumento y qué nos recomiendan hacer.",
+      "signoff": "Gracias,",
+      "signature": "CIO, Contoso",
+      "tasks": "Tus tareas",
+      "q1": "1. ¿Qué le pide el cliente a Microsoft que le ayude a resolver?",
+      "q2": "2. ¿Qué información te falta?",
+      "missing": {
+        "usage": "Uso de IA por carga de trabajo",
+        "cost": "Costo por carga de trabajo",
+        "roi": "Resultados de negocio / ROI",
+        "adoption": "Adopción de los empleados",
+        "security": "Incidentes de seguridad",
+        "models": "Selección de modelos y arquitectura"
+      }
+    },
+    "discover": {
+      "title": "Resumen de datos del cliente",
+      "subtitle": "Explora la información disponible. Haz clic en cada carga de trabajo para saber más.",
+      "kpis": {
+        "tokens": {
+          "label": "Tokens mensuales",
+          "delta": "+170% vs. plan"
+        },
+        "cost": {
+          "label": "Costo mensual de IA",
+          "delta": "+160% vs. plan"
+        },
+        "adoption": {
+          "label": "Adopción de empleados",
+          "delta": "+32% vs. hace 6 meses"
+        },
+        "workloads": {
+          "label": "Cargas de IA activas",
+          "delta": "+3 nuevas"
+        }
+      },
+      "columns": {
+        "workload": "Carga de trabajo",
+        "tokens": "Tokens / mes",
+        "cost": "Costo / mes",
+        "adoption": "Adopción",
+        "value": "Valor"
+      },
+      "overview": "Resumen",
+      "details": "Detalles",
+      "tokenUsage": "Uso de tokens",
+      "monthlyCost": "Costo mensual",
+      "impact": "Impacto en el negocio",
+      "owner": "Responsable",
+      "model": "Modelo",
+      "users": "Usuarios",
+      "monitoring": "Monitoreo"
+    },
+    "values": {
+      "high": "Alto",
+      "medium": "Medio",
+      "low": "Bajo",
+      "unknown": "Desconocido"
+    },
+    "workloads": {
+      "support": {
+        "name": "IA de atención al cliente",
+        "desc": "Agente virtual para consultas de clientes.",
+        "trend": "+48% vs. plan",
+        "owner": "Servicio al cliente",
+        "users": "1,200 agentes",
+        "monitoring": "Parcial",
+        "notes": {
+          "0": "El tiempo promedio de resolución bajó 31%",
+          "1": "La satisfacción del cliente subió 8%",
+          "2": "Los casos pendientes bajaron 24%",
+          "3": "Usa GPT-4o para casos complejos"
+        }
+      },
+      "sales": {
+        "name": "Asistente de ventas",
+        "desc": "Redacta propuestas y resume la actividad del CRM.",
+        "trend": "+22% vs. plan",
+        "owner": "Operaciones de ventas",
+        "users": "640 vendedores",
+        "monitoring": "Sí",
+        "notes": {
+          "0": "El tiempo para preparar propuestas bajó 40%",
+          "1": "Notas del pipeline resumidas automáticamente",
+          "2": "Alta satisfacción de los vendedores"
+        }
+      },
+      "marketing": {
+        "name": "IA de contenido de marketing",
+        "desc": "Genera textos e imágenes para campañas.",
+        "trend": "+65% vs. plan",
+        "owner": "Marketing",
+        "users": "180 especialistas",
+        "monitoring": "No",
+        "notes": {
+          "0": "Prompts largos con contexto repetido",
+          "1": "Muchas regeneraciones por pieza",
+          "2": "Impacto poco claro en los resultados de campaña"
+        }
+      },
+      "hr": {
+        "name": "Asistente de RR. HH.",
+        "desc": "Responde preguntas sobre políticas de RR. HH.",
+        "trend": "+30% vs. plan",
+        "owner": "RR. HH.",
+        "users": "9,000 empleados",
+        "monitoring": "No",
+        "notes": {
+          "0": "Baja adopción desde el lanzamiento",
+          "1": "Se superpone con el bot de conocimiento interno",
+          "2": "Usa un modelo premium para preguntas simples"
+        }
+      },
+      "knowledge": {
+        "name": "Bot de conocimiento interno",
+        "desc": "Busca en documentos y wikis internos.",
+        "trend": "+90% vs. plan",
+        "owner": "TI",
+        "users": "9,000 empleados",
+        "monitoring": "No",
+        "notes": {
+          "0": "Nadie mide su valor de negocio",
+          "1": "Respuestas duplicadas con el asistente de RR. HH.",
+          "2": "El uso crece rápidamente"
+        }
+      },
+      "experiments": {
+        "name": "Experimentos de IA",
+        "desc": "Proyectos de prueba en distintos equipos.",
+        "trend": "Nuevo",
+        "owner": "Varios",
+        "users": "~60 creadores",
+        "monitoring": "No",
+        "notes": {
+          "0": "Sin proceso de aprobación",
+          "1": "Varias herramientas externas no aprobadas",
+          "2": "Sin clasificación de datos"
+        }
+      }
+    },
+    "diagnose": {
+      "title": "¿Qué está pasando realmente?",
+      "subtitle": "Clasifica cada carga de trabajo e identifica las causas raíz.",
+      "workload": "Carga de trabajo",
+      "classification": "Tu clasificación",
+      "select": "Seleccionar…",
+      "classes": {
+        "protect": "Proteger",
+        "optimize": "Optimizar",
+        "investigate": "Investigar",
+        "retire": "Reducir / Retirar"
+      },
+      "causesTitle": "Las 3 causas raíz principales",
+      "causesHelp": "Selecciona las tres causas principales según la evidencia.",
+      "causes": {
+        "adoption": "Adopción excesiva de IA en general",
+        "models": "Selección ineficiente de modelos",
+        "prompts": "Mal diseño de prompts / flujos",
+        "duplicates": "Soluciones de IA duplicadas",
+        "governance": "Falta de gobernanza",
+        "experiments": "Experimentación de bajo valor",
+        "monitoring": "Falta de monitoreo",
+        "training": "Capacitación insuficiente de los empleados",
+        "value": "Mala medición del valor de negocio",
+        "capacity": "Capacidad de IA insuficiente"
+      }
+    },
+    "advise": {
+      "title": "Arma tu recomendación",
+      "subtitle": "Selecciona hasta 5 recomendaciones para el cliente.",
+      "available": "Recomendaciones disponibles",
+      "strategy": "Tu estrategia ({count}/{max})",
+      "add": "Agregar",
+      "added": "Agregada ✓",
+      "empty": "Todavía no agregaste recomendaciones.",
+      "impact": "Impacto proyectado",
+      "live": "· estimación en vivo",
+      "effects": {
+        "cost": "Costo operativo",
+        "value": "Valor de negocio",
+        "adoption": "Adopción",
+        "risk": "Riesgo de seguridad"
+      },
+      "timeToImplement": "Tiempo de implementación",
+      "time": {
+        "short": "Corto",
+        "medium": "Medio",
+        "long": "Largo"
+      }
+    },
+    "recs": {
+      "mon": {
+        "title": "Implementar monitoreo del uso de IA",
+        "sub": "Más visibilidad del uso de tokens y del costo.",
+        "time": "4–6 semanas"
+      },
+      "opt": {
+        "title": "Optimizar los flujos de mayor consumo",
+        "sub": "Mejorar prompts, flujos y selección de modelos.",
+        "time": "6–10 semanas"
+      },
+      "exp": {
+        "title": "Ampliar la IA de atención al cliente",
+        "sub": "Escalar la solución por su alto valor de negocio.",
+        "time": "8–12 semanas"
+      },
+      "hr": {
+        "title": "Consolidar los agentes de RR. HH. duplicados",
+        "sub": "Eliminar soluciones superpuestas.",
+        "time": "2–4 semanas"
+      },
+      "gov": {
+        "title": "Introducir un marco de gobernanza de IA",
+        "sub": "Políticas, controles e IA responsable.",
+        "time": "6–10 semanas"
+      },
+      "trn": {
+        "title": "Programa de capacitación en IA",
+        "sub": "Impulsar una mejor adopción y uso.",
+        "time": "4–6 semanas"
+      }
+    },
+    "respond": {
+      "title": "Actualización del cliente",
+      "subtitle": "Acaba de llegar información nueva. Revisa y ajusta tu recomendación.",
+      "cfoTitle": "Mensaje del CFO",
+      "cfo": "Finanzas exige una <b>reducción del 20%</b> en el gasto operativo proyectado de IA para el próximo trimestre.",
+      "cisoTitle": "Mensaje del CISO",
+      "ciso": "Una revisión interna detectó empleados ingresando información sensible de clientes en una herramienta de IA generativa no aprobada.",
+      "updateTitle": "Actualiza tu recomendación",
+      "updateHelp": "Puedes hacer hasta {max} cambios a tu estrategia anterior.",
+      "changes": "Cambios usados: {count}/{max}",
+      "current": "TU RECOMENDACIÓN ACTUAL",
+      "revised": "RECOMENDACIÓN REVISADA",
+      "remove": "— Quitar —",
+      "slot": "Recomendación {n}"
+    },
+    "deliver": {
+      "title": "Recomendación final",
+      "subtitle": "Completa tu resumen ejecutivo para el cliente.",
+      "situation": "1. Situación del cliente",
+      "situationHelp": "Resume lo que está pasando (máx. {max} caracteres).",
+      "rootCause": "2. Causa raíz",
+      "rootCauseHelp": "¿Qué está causando realmente el problema?",
+      "msRec": "3. Recomendación de Microsoft",
+      "msRecHelp": "Enumera tus 3 a 5 acciones clave y por qué.",
+      "outcomes": "4. Resultados esperados",
+      "outcomesHelp": "Selecciona las áreas de impacto esperadas y sus metas.",
+      "outcomeItems": {
+        "cost": "Reducir el costo operativo en",
+        "value": "Aumentar el valor de negocio en",
+        "adoption": "Aumentar la adopción en",
+        "risk": "Reducir el riesgo de seguridad en",
+        "governance": "Mejorar la madurez de la gobernanza"
+      },
+      "target": "Meta de {outcome} (%)",
+      "metrics": "5. Métricas de éxito",
+      "metricsHelp": "Selecciona 3 KPI para medir el éxito.",
+      "metricItems": {
+        "costPerToken": "Costo por 1K tokens",
+        "adoption": "Tasa de adopción de empleados",
+        "csat": "Satisfacción del cliente (CSAT)",
+        "resolution": "Tiempo de resolución",
+        "roi": "ROI de IA / ganancias de productividad",
+        "incidents": "Tasa de incidentes de seguridad"
+      },
+      "statement": "6. Mensaje ejecutivo",
+      "statementHelp": "Tienes un minuto con el CIO del cliente. ¿Qué le dices?",
+      "statementPlaceholder": "Escribe tu mensaje ejecutivo de 60 segundos aquí…"
+    },
+    "results": {
+      "eyebrow": "LEAD ASPIRE · DALLAS",
+      "title": "Reto completado",
+      "subtitle": "El cliente revisó todas las propuestas.",
+      "points": "{points} puntos",
+      "yourTeam": "TU EQUIPO",
+      "finalists": "Finalistas",
+      "finalistsHelp": "Presenta tu recomendación al cliente.",
+      "back": "← Volver a la propuesta"
+    }
   },
   "LoginPage": {
     "error": "No pudimos iniciar tu sesión. Revisa tus credenciales y acceso.",

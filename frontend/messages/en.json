@@ -265,8 +265,376 @@
     "footer": "LEAD Aspire · Student Innovation Competition"
   },
   "DallasPage": {
-    "title": "Dallas",
-    "placeholder": "Dallas content will be available soon."
+    "title": "Dallas"
+  },
+  "Dallas": {
+    "brandSub": "ASPIRE · DALLAS",
+    "challenge": "Microsoft AI Specialist Challenge · Dallas",
+    "teamName": "Team {num}",
+    "city": "Dallas",
+    "nav": {
+      "label": "Challenge phases",
+      "section": "THE CHALLENGE",
+      "completed": "Completed"
+    },
+    "phases": {
+      "team": "Team",
+      "brief": "Brief",
+      "discover": "Discover",
+      "diagnose": "Diagnose",
+      "advise": "Advise",
+      "respond": "Respond",
+      "deliver": "Deliver"
+    },
+    "user": {
+      "signOut": "Sign out"
+    },
+    "theme": {
+      "toLight": "Light mode",
+      "toDark": "Dark mode"
+    },
+    "progress": {
+      "label": "Team progress · {pct}%",
+      "left": "{count, plural, one {# phase left} other {# phases left}}",
+      "complete": "All phases complete",
+      "timer": "Time left in this phase"
+    },
+    "footer": {
+      "back": "← Back",
+      "continue": "Continue →",
+      "submit": "Submit final recommendation →",
+      "hints": {
+        "team": "Assign at least one role",
+        "brief": "Answer question 1 to continue",
+        "diagnose": "Pick exactly 3 root causes",
+        "advise": "Add at least one recommendation",
+        "deliver": "Complete sections 1, 3 and 6"
+      }
+    },
+    "selected": "{count} of {max} selected",
+    "answerPlaceholder": "Write your answer here…",
+    "teamSetup": {
+      "title": "Build your Microsoft team",
+      "subtitle": "Assign a role to each team member. Every perspective matters.",
+      "assigned": "{count} of {total} roles assigned",
+      "assign": "Assign member…",
+      "roles": {
+        "ae": {
+          "title": "Account Executive",
+          "desc": "Customer relationship, business goals and value."
+        },
+        "ai": {
+          "title": "AI Specialist",
+          "desc": "Understands the customer's AI capabilities and strategy."
+        },
+        "csa": {
+          "title": "Cloud Solution Architect",
+          "desc": "Technical feasibility, architecture and optimization."
+        },
+        "csm": {
+          "title": "Customer Success Manager",
+          "desc": "Adoption, change management and measurable outcomes."
+        },
+        "ba": {
+          "title": "Business / Data Analyst",
+          "desc": "Analyzes usage, cost and business performance."
+        },
+        "sg": {
+          "title": "Security & Governance",
+          "desc": "Risk, compliance and responsible AI."
+        }
+      }
+    },
+    "brief": {
+      "title": "New message from the customer",
+      "from": "From:",
+      "fromValue": "CIO, Contoso",
+      "to": "To:",
+      "toValue": "Microsoft Account Team",
+      "subject": "Subject:",
+      "subjectValue": "Help us understand our AI usage and costs",
+      "greeting": "Hi Microsoft team,",
+      "p1": "Over the last six months, we've significantly expanded our use of generative AI across the organization. AI consumption is now nearly three times what we originally projected and Finance has raised concerns about increasing operating costs.",
+      "p2": "We're considering introducing usage limits across the company. Before we make that decision, we'd like Microsoft's recommendation. We need to understand what's driving this increase and what you recommend we do next.",
+      "signoff": "Thank you,",
+      "signature": "CIO, Contoso",
+      "tasks": "Your tasks",
+      "q1": "1. What is the customer asking Microsoft to help solve?",
+      "q2": "2. What information are you missing?",
+      "missing": {
+        "usage": "AI usage by workload",
+        "cost": "Cost by workload",
+        "roi": "Business outcomes / ROI",
+        "adoption": "Employee adoption",
+        "security": "Security incidents",
+        "models": "Model selection and architecture"
+      }
+    },
+    "discover": {
+      "title": "Customer data overview",
+      "subtitle": "Explore the available information. Click into each workload to learn more.",
+      "kpis": {
+        "tokens": {
+          "label": "Monthly tokens",
+          "delta": "+170% vs. plan"
+        },
+        "cost": {
+          "label": "Monthly AI cost",
+          "delta": "+160% vs. plan"
+        },
+        "adoption": {
+          "label": "Employee adoption",
+          "delta": "+32% vs. 6 months"
+        },
+        "workloads": {
+          "label": "Active AI workloads",
+          "delta": "+3 new"
+        }
+      },
+      "columns": {
+        "workload": "Workload",
+        "tokens": "Tokens / mo",
+        "cost": "Cost / mo",
+        "adoption": "Adoption",
+        "value": "Value"
+      },
+      "overview": "Overview",
+      "details": "Details",
+      "tokenUsage": "Token usage",
+      "monthlyCost": "Monthly cost",
+      "impact": "Business impact",
+      "owner": "Owner",
+      "model": "Model",
+      "users": "Users",
+      "monitoring": "Monitoring"
+    },
+    "values": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low",
+      "unknown": "Unknown"
+    },
+    "workloads": {
+      "support": {
+        "name": "Customer Support AI",
+        "desc": "Virtual agent for customer inquiries.",
+        "trend": "+48% vs. plan",
+        "owner": "Customer Service",
+        "users": "1,200 agents",
+        "monitoring": "Partial",
+        "notes": {
+          "0": "Average resolution time decreased 31%",
+          "1": "Customer satisfaction increased 8%",
+          "2": "Support backlog decreased 24%",
+          "3": "Using GPT-4o for complex cases"
+        }
+      },
+      "sales": {
+        "name": "Sales Assistant",
+        "desc": "Drafts proposals and summarizes CRM activity.",
+        "trend": "+22% vs. plan",
+        "owner": "Sales Ops",
+        "users": "640 sellers",
+        "monitoring": "Yes",
+        "notes": {
+          "0": "Proposal prep time down 40%",
+          "1": "Pipeline notes auto-summarized",
+          "2": "Strong seller satisfaction"
+        }
+      },
+      "marketing": {
+        "name": "Marketing Content AI",
+        "desc": "Generates campaign copy and imagery.",
+        "trend": "+65% vs. plan",
+        "owner": "Marketing",
+        "users": "180 marketers",
+        "monitoring": "No",
+        "notes": {
+          "0": "Long prompts with repeated context",
+          "1": "Many regenerations per asset",
+          "2": "Unclear impact on campaign results"
+        }
+      },
+      "hr": {
+        "name": "HR Assistant",
+        "desc": "Answers HR policy questions.",
+        "trend": "+30% vs. plan",
+        "owner": "HR",
+        "users": "9,000 employees",
+        "monitoring": "No",
+        "notes": {
+          "0": "Low adoption since launch",
+          "1": "Overlaps with Internal Knowledge Bot",
+          "2": "Uses a premium model for simple Q&A"
+        }
+      },
+      "knowledge": {
+        "name": "Internal Knowledge Bot",
+        "desc": "Searches internal documents and wikis.",
+        "trend": "+90% vs. plan",
+        "owner": "IT",
+        "users": "9,000 employees",
+        "monitoring": "No",
+        "notes": {
+          "0": "No owner tracking business value",
+          "1": "Duplicate answers with HR Assistant",
+          "2": "Usage growing quickly"
+        }
+      },
+      "experiments": {
+        "name": "AI Experiments",
+        "desc": "Sandbox projects across teams.",
+        "trend": "New",
+        "owner": "Various",
+        "users": "~60 builders",
+        "monitoring": "No",
+        "notes": {
+          "0": "No approval process",
+          "1": "Several unapproved external tools",
+          "2": "No data classification"
+        }
+      }
+    },
+    "diagnose": {
+      "title": "What's actually happening?",
+      "subtitle": "Classify each workload and identify the root causes.",
+      "workload": "Workload",
+      "classification": "Your classification",
+      "select": "Select…",
+      "classes": {
+        "protect": "Protect",
+        "optimize": "Optimize",
+        "investigate": "Investigate",
+        "retire": "Reduce / Retire"
+      },
+      "causesTitle": "Top 3 root causes",
+      "causesHelp": "Select the three main causes based on the evidence.",
+      "causes": {
+        "adoption": "Excessive overall AI adoption",
+        "models": "Inefficient model selection",
+        "prompts": "Poor prompt / workflow design",
+        "duplicates": "Duplicate AI solutions",
+        "governance": "Lack of governance",
+        "experiments": "Low-value experimentation",
+        "monitoring": "Lack of monitoring",
+        "training": "Insufficient employee training",
+        "value": "Poor measurement of business value",
+        "capacity": "Inadequate AI capacity"
+      }
+    },
+    "advise": {
+      "title": "Build your recommendation",
+      "subtitle": "Select up to 5 recommendations for the customer.",
+      "available": "Available recommendations",
+      "strategy": "Your strategy ({count}/{max})",
+      "add": "Add",
+      "added": "Added ✓",
+      "empty": "No recommendations added yet.",
+      "impact": "Projected impact",
+      "live": "· live estimate",
+      "effects": {
+        "cost": "Operating cost",
+        "value": "Business value",
+        "adoption": "Adoption",
+        "risk": "Security risk"
+      },
+      "timeToImplement": "Time to implement",
+      "time": {
+        "short": "Short",
+        "medium": "Medium",
+        "long": "Long"
+      }
+    },
+    "recs": {
+      "mon": {
+        "title": "Implement AI usage monitoring",
+        "sub": "Better visibility into token usage and cost.",
+        "time": "4–6 weeks"
+      },
+      "opt": {
+        "title": "Optimize high-consumption workflows",
+        "sub": "Improve prompts, workflows and model selection.",
+        "time": "6–10 weeks"
+      },
+      "exp": {
+        "title": "Expand Customer Support AI",
+        "sub": "Scale the solution based on strong business value.",
+        "time": "8–12 weeks"
+      },
+      "hr": {
+        "title": "Consolidate duplicate HR agents",
+        "sub": "Eliminate overlapping solutions.",
+        "time": "2–4 weeks"
+      },
+      "gov": {
+        "title": "Introduce AI governance framework",
+        "sub": "Policies, controls and responsible AI.",
+        "time": "6–10 weeks"
+      },
+      "trn": {
+        "title": "Employee AI training program",
+        "sub": "Drive better adoption and usage.",
+        "time": "4–6 weeks"
+      }
+    },
+    "respond": {
+      "title": "Customer update",
+      "subtitle": "New information has just arrived. Review and adjust your recommendation.",
+      "cfoTitle": "Message from the CFO",
+      "cfo": "Finance requires a <b>20% reduction</b> in projected AI operating expense next quarter.",
+      "cisoTitle": "Message from the CISO",
+      "ciso": "An internal review identified employees entering sensitive customer information into an unapproved generative AI tool.",
+      "updateTitle": "Update your recommendation",
+      "updateHelp": "You can make up to {max} changes to your previous strategy.",
+      "changes": "Changes used: {count}/{max}",
+      "current": "YOUR CURRENT RECOMMENDATION",
+      "revised": "REVISED RECOMMENDATION",
+      "remove": "— Remove —",
+      "slot": "Recommendation {n}"
+    },
+    "deliver": {
+      "title": "Final recommendation",
+      "subtitle": "Complete your executive brief for the customer.",
+      "situation": "1. Customer situation",
+      "situationHelp": "Summarize what is happening (max {max} characters).",
+      "rootCause": "2. Root cause",
+      "rootCauseHelp": "What is actually driving the issue?",
+      "msRec": "3. Microsoft recommendation",
+      "msRecHelp": "List your 3–5 key actions and why.",
+      "outcomes": "4. Expected outcomes",
+      "outcomesHelp": "Select the expected impact areas and targets.",
+      "outcomeItems": {
+        "cost": "Reduce operating cost by",
+        "value": "Increase business value by",
+        "adoption": "Increase adoption by",
+        "risk": "Reduce security risk by",
+        "governance": "Improve governance maturity"
+      },
+      "target": "{outcome} target (%)",
+      "metrics": "5. Success metrics",
+      "metricsHelp": "Select 3 KPIs to measure success.",
+      "metricItems": {
+        "costPerToken": "Cost per 1K tokens",
+        "adoption": "Employee adoption rate",
+        "csat": "Customer satisfaction (CSAT)",
+        "resolution": "Resolution time",
+        "roi": "AI ROI / productivity gains",
+        "incidents": "Security incident rate"
+      },
+      "statement": "6. Executive statement",
+      "statementHelp": "You have one minute with the customer's CIO. What do you tell them?",
+      "statementPlaceholder": "Write your 60-second executive statement here…"
+    },
+    "results": {
+      "eyebrow": "LEAD ASPIRE · DALLAS",
+      "title": "Challenge complete",
+      "subtitle": "The customer has reviewed all submissions.",
+      "points": "{points} points",
+      "yourTeam": "YOUR TEAM",
+      "finalists": "Finalists",
+      "finalistsHelp": "Present your recommendation to the customer.",
+      "back": "← Back to submission"
+    }
   },
   "LoginPage": {
     "error": "We couldn't sign you in. Check your credentials and access.",
@@ -275,12 +643,12 @@
     "heading": "Ideas today.",
     "headingAccent": "Impact tomorrow.",
     "intro": "Sign in to collaborate with real customers, apply AI, and build solutions for greater impact.",
-    "welcome": "Welcome back",
-    "formIntro": "Sign in to continue your innovation journey.",
+    "welcome": "Welcome",
+    "formIntro": "Sign in to start your innovation journey.",
     "emailLabel": "Email address",
     "emailPlaceholder": "you@example.com",
-    "passwordLabel": "Password",
-    "passwordPlaceholder": "Enter your password",
+    "passwordLabel": "Event Code",
+    "passwordPlaceholder": "Enter your Event Code",
     "showPassword": "Show",
     "hidePassword": "Hide",
     "apiConnectionError": "The login service is unavailable. Confirm that the backend is running on port 8000.",
@@ -379,7 +747,7 @@
       "titleFirst": "Ideas today.",
       "titleAccent": "Real impact",
       "titleLast": "tomorrow.",
-      "intro": "Collaborate with Mastercard, apply AI, and solve real-world challenges.",
+      "intro": "Collaborate with Mastercard, strategize with EY, and apply AI and solve real-world challenges with Microsoft",
       "start": "Start your journey",
       "continue": "Continue: {phase}",
       "review": "Review your journey"
