@@ -51,7 +51,15 @@ def _user_from_token(client, authorization: str | None):
         raise HTTPException(status_code=401, detail="Invalid session token") from error
     if user is None:
         raise HTTPException(status_code=401, detail="Invalid session token")
+    if _is_dallas_user(user):
+        # Dallas accounts use /api/dallas/* only (app/dallas_routes.py).
+        raise HTTPException(status_code=403, detail="This account is not a New York account")
     return user
+
+
+def _is_dallas_user(user) -> bool:
+    """Marked by the Dallas login (app_metadata cannot be changed by the user)."""
+    return (getattr(user, "app_metadata", None) or {}).get("aspire_city") == "DFW"
 
 
 def _viewer_group(client, user_id: str, city_code: str) -> dict | None:
@@ -750,6 +758,10 @@ def login(payload: LoginRequest) -> LoginResponse:
         raise HTTPException(status_code=401, detail="Invalid email or password")
 
     user_id = str(user.id)
+    if _is_dallas_user(user):
+        # Dallas accounts have no password; refuse them here too in case one is set.
+        _sign_out_and_record(session_client, client, user_id, str(payload.email), None, None, "access_denied")
+        raise HTTPException(status_code=403, detail=ACCESS_DENIED_DETAILS["access_denied"])
     try:
         landing, access = _resolve_access(client, user_id)
     except _AccessDenied as denied:

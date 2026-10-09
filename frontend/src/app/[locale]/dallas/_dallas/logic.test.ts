@@ -3,6 +3,7 @@ import {
   baseStrategy,
   blockReason,
   countChanges,
+  firstOpenPhase,
   INITIAL_STATE,
   nextScreen,
   projectImpact,
@@ -61,8 +62,23 @@ describe("Respond revisions", () => {
 describe("blockReason", () => {
   it("requires each phase's inputs before continuing", () => {
     expect(blockReason("team", INITIAL_STATE)).toBe("team");
+    // The team needs a name and at least one role.
     expect(
-      blockReason("team", { ...INITIAL_STATE, members: { ae: "Jorge M." } }),
+      blockReason("team", { ...INITIAL_STATE, members: { ae: "u1" } }),
+    ).toBe("team");
+    expect(
+      blockReason("team", {
+        ...INITIAL_STATE,
+        teamName: "  ",
+        members: { ae: "u1" },
+      }),
+    ).toBe("team");
+    expect(
+      blockReason("team", {
+        ...INITIAL_STATE,
+        teamName: "Lone Star",
+        members: { ae: "u1" },
+      }),
     ).toBeNull();
     expect(blockReason("brief", { ...INITIAL_STATE, briefAnswer: "   " })).toBe(
       "brief",
@@ -86,6 +102,25 @@ describe("blockReason", () => {
         msRec: "y",
         statement: "z",
       }),
+    ).toBeNull();
+  });
+});
+
+describe("firstOpenPhase", () => {
+  it("is the first phase not completed, or null when all are", () => {
+    expect(firstOpenPhase([])).toBe("team");
+    expect(firstOpenPhase(["team", "brief"])).toBe("discover");
+    expect(firstOpenPhase(["team", "discover"])).toBe("brief");
+    expect(
+      firstOpenPhase([
+        "team",
+        "brief",
+        "discover",
+        "diagnose",
+        "advise",
+        "respond",
+        "deliver",
+      ]),
     ).toBeNull();
   });
 });

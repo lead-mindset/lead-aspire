@@ -269,13 +269,14 @@
   },
   "Dallas": {
     "brandSub": "ASPIRE · DALLAS",
-    "challenge": "Reto Microsoft AI Specialist · Dallas",
+    "challenge": "Equipo {num} · Reto Microsoft AI Specialist · Dallas",
     "teamName": "Equipo {num}",
     "city": "Dallas",
     "nav": {
       "label": "Fases del reto",
       "section": "EL RETO",
-      "completed": "Completada"
+      "completed": "Completada",
+      "home": "Inicio"
     },
     "phases": {
       "team": "Equipo",
@@ -304,12 +305,13 @@
       "continue": "Continuar →",
       "submit": "Enviar recomendación final →",
       "hints": {
-        "team": "Asigna al menos un rol",
+        "team": "Ponle nombre a tu equipo y asigna al menos un rol",
         "brief": "Responde la pregunta 1 para continuar",
         "diagnose": "Elige exactamente 3 causas raíz",
         "advise": "Agrega al menos una recomendación",
         "deliver": "Completa las secciones 1, 3 y 6"
-      }
+      },
+      "refused": "No pudimos guardar tu progreso. Revisa tus respuestas e inténtalo de nuevo."
     },
     "selected": "{count} de {max} seleccionadas",
     "answerPlaceholder": "Escribe tu respuesta aquí…",
@@ -318,32 +320,10 @@
       "subtitle": "Asigna un rol a cada integrante. Cada perspectiva cuenta.",
       "assigned": "{count} de {total} roles asignados",
       "assign": "Asignar integrante…",
-      "roles": {
-        "ae": {
-          "title": "Account Executive",
-          "desc": "Relación con el cliente, objetivos de negocio y valor."
-        },
-        "ai": {
-          "title": "AI Specialist",
-          "desc": "Entiende las capacidades y la estrategia de IA del cliente."
-        },
-        "csa": {
-          "title": "Cloud Solution Architect",
-          "desc": "Viabilidad técnica, arquitectura y optimización."
-        },
-        "csm": {
-          "title": "Customer Success Manager",
-          "desc": "Adopción, gestión del cambio y resultados medibles."
-        },
-        "ba": {
-          "title": "Analista de negocio / datos",
-          "desc": "Analiza el uso, el costo y el desempeño del negocio."
-        },
-        "sg": {
-          "title": "Seguridad y gobernanza",
-          "desc": "Riesgo, cumplimiento e IA responsable."
-        }
-      }
+      "nameLabel": "1. Ponle nombre a tu equipo",
+      "namePlaceholder": "p. ej. Lone Star Labs",
+      "nameLocked": "El nombre del equipo queda fijo al completar la fase Equipo.",
+      "rolesLabel": "2. Asigna un rol a cada integrante"
     },
     "brief": {
       "title": "Nuevo mensaje del cliente",
@@ -634,6 +614,74 @@
       "finalists": "Finalistas",
       "finalistsHelp": "Presenta tu recomendación al cliente.",
       "back": "← Volver a la propuesta"
+    },
+    "yourTeam": "Tu equipo",
+    "unavailable": "No pudimos cargar tu equipo en este momento.",
+    "retry": "Intentar de nuevo",
+    "home": {
+      "eyebrow": "ASPIRE DALLAS · RETO MICROSOFT AI SPECIALIST",
+      "titleFirst": "Ideas hoy.",
+      "titleAccent": "Impacto real",
+      "titleLast": "mañana.",
+      "intro": "Forma parte de un equipo de cuenta de Microsoft, analiza un caso real de un cliente y entrega tu recomendación, todo en vivo, en siete fases con tiempo.",
+      "start": "Comenzar: arma tu equipo →",
+      "continue": "Continuar: {phase} →",
+      "results": "Ver resultados →",
+      "teamPill": "Dallas · Equipo {num} · {count} de {total} roles asignados",
+      "teamSubSet": "Equipo de cuenta de Microsoft",
+      "teamSubEmpty": "Elige un nombre de equipo y sus roles para empezar.",
+      "progressTitle": "Tu progreso",
+      "howTitle": "Cómo funciona",
+      "howBody": "Cada fase tiene tiempo. Tu equipo responde dentro de la plataforma, sin descargar archivos. Primero elige el nombre del equipo y los roles; el reloj empieza cuando abres el brief."
+    },
+    "sync": {
+      "saving": "Guardando…",
+      "saved": "Todos los cambios guardados",
+      "error": "Aún no se guardó. Reintentando…",
+      "lastEdited": "Última edición de {name}"
+    }
+  },
+  "DallasLogin": {
+    "title": "Iniciar sesión en Dallas",
+    "brandLabel": "Presentación de Lead Aspire Dallas",
+    "brandLine": "ASPIRE · DALLAS",
+    "eyebrow": "Competencia de innovación estudiantil · Dallas",
+    "heading": "Ideas hoy.",
+    "headingAccent": "Impacto mañana.",
+    "intro": "Inicia sesión con tu correo y el código del evento que compartimos en el lugar.",
+    "welcome": "Bienvenido a Dallas",
+    "formIntro": "¿Primera vez? Tu cuenta se crea al iniciar sesión.",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "tu@ejemplo.com",
+    "codeLabel": "Código del evento",
+    "codePlaceholder": "Ingresa el código del evento",
+    "submit": "Iniciar sesión",
+    "submitting": "Iniciando sesión…",
+    "themeToLight": "Modo claro",
+    "themeToDark": "Modo oscuro",
+    "profile": {
+      "heading": "Cuéntanos quién eres",
+      "intro": "Ingresa tu nombre y elige el equipo que aparece en el letrero de tu mesa.",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "team": "Equipo",
+      "teamPlaceholder": "Elige tu equipo",
+      "teamsLoading": "Cargando equipos…",
+      "teamFinal": "No podrás cambiar de equipo después de guardar. Si te equivocaste, pide ayuda a un organizador.",
+      "submit": "Guardar y continuar",
+      "saving": "Guardando…",
+      "notYou": "¿No es tu correo?",
+      "signOut": "Cerrar sesión"
+    },
+    "errors": {
+      "invalid": "No pudimos iniciar tu sesión. Revisa tu correo y el código del evento.",
+      "invalidEmail": "Ingresa un correo electrónico válido.",
+      "busy": "Muchas personas están iniciando sesión. Espera un minuto e inténtalo de nuevo.",
+      "connection": "El servicio de inicio de sesión no está disponible. Inténtalo de nuevo en un momento.",
+      "unavailable": "No pudimos verificar tu sesión. Inténtalo de nuevo en un momento.",
+      "teams": "No pudimos cargar los equipos. Actualiza la página para intentarlo de nuevo.",
+      "profile": "No pudimos guardar tus datos. Inténtalo de nuevo.",
+      "sessionExpired": "Tu sesión terminó. Inicia sesión de nuevo."
     }
   },
   "LoginPage": {

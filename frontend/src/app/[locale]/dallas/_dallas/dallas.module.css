@@ -1481,3 +1481,318 @@
     display: none;
   }
 }
+
+/* ---------- Empty image slots (dallas-mockup-v2 image-slot) ---------- */
+
+.slot {
+  display: block;
+  flex: none;
+  background: var(--muted);
+  border: 1px dashed var(--border);
+}
+
+.teamLogoSlot {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+.teamLogoLarge {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+
+.mascotSlot {
+  width: 140px;
+  height: 120px;
+  border-radius: 12px;
+}
+
+/* ---------- Team name, save status ---------- */
+
+.textInput {
+  height: 50px;
+  padding: 0 16px;
+  color: var(--foreground);
+  font: inherit;
+  font-size: 16px;
+  background: var(--muted);
+  border: 1px solid var(--input);
+  border-radius: 10px;
+  outline: none;
+}
+
+.textInput:focus-visible {
+  border-color: var(--brand-purple);
+}
+
+.textInput:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.syncLine {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 18px;
+  margin: -8px 2px 0;
+  color: var(--muted-foreground);
+  font-size: 13px;
+}
+
+.syncError {
+  color: var(--destructive, var(--brand-red));
+}
+
+/* ---------- Home (dallas-mockup-v2 "01b Home") ---------- */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  color: var(--foreground);
+  background: #030c40;
+}
+
+.heroSlot {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: transparent;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(3, 12, 64, 0.96) 0%,
+    rgba(3, 12, 64, 0.85) 50%,
+    rgba(3, 12, 64, 0.6) 100%
+  );
+}
+
+.heroGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+  align-items: center;
+  gap: 36px;
+  padding: 44px 44px 48px;
+}
+
+.heroCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.heroTitle {
+  margin: 0;
+  font: 900 clamp(42px, 4.4vw, 60px) / 1 var(--font-display);
+  letter-spacing: -0.04em;
+}
+
+.heroTitle span {
+  display: block;
+}
+
+.gradientText {
+  background: linear-gradient(
+    120deg,
+    var(--brand-orange),
+    var(--brand-red) 40%,
+    var(--brand-rose) 72%,
+    var(--brand-purple)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.heroIntro {
+  max-width: 480px;
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.heroCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 52px;
+  padding: 0 28px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  background: var(--gradient-cta);
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.heroCta:hover {
+  filter: brightness(1.1);
+}
+
+.heroCards {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.homeCard {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 22px;
+  padding: 24px 26px;
+  background: var(--card);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(10, 10, 60, 0.25);
+}
+
+.homeCardText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 180px;
+}
+
+.homeCardText p {
+  margin: 0;
+  font-size: 16px;
+}
+
+.homePill {
+  align-self: flex-start;
+  padding: 6px 14px;
+  color: oklch(0.72 0.15 287);
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--purple-soft);
+  border-radius: 999px;
+}
+
+.homeTeamName {
+  margin: 0;
+  font: 700 32px/1.05 var(--font-display);
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.ring {
+  position: relative;
+  flex: none;
+  width: 116px;
+  height: 116px;
+}
+
+.ring svg {
+  transform: rotate(-90deg);
+}
+
+.ringTrack,
+.ringValue {
+  fill: none;
+  stroke-width: 9;
+}
+
+.ringTrack {
+  stroke: var(--muted);
+}
+
+.ringValue {
+  stroke: oklch(0.72 0.15 287);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s;
+}
+
+.ringLabel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 26px var(--font-display);
+}
+
+.homeProgressTitle {
+  margin: 0 0 4px;
+  font: 600 20px/1.1 var(--font-display);
+}
+
+.homeSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.homeStep {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted-foreground);
+  font-size: 15px;
+}
+
+.homeStepDone {
+  color: var(--foreground);
+}
+
+.homeStepCurrent {
+  color: oklch(0.72 0.15 287);
+  font-weight: 700;
+}
+
+.homeStepDot {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: #fff;
+  font-size: 11px;
+  background: var(--muted);
+  border-radius: 50%;
+}
+
+.homeStepDone .homeStepDot {
+  background: var(--brand-purple);
+}
+
+.homeStepCurrent .homeStepDot {
+  background: oklch(0.72 0.15 287);
+}
+
+.howSection {
+  padding: 36px 44px 60px;
+}
+
+.howCard {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 28px;
+  padding: 24px 28px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+@media (max-width: 640px) {
+  .heroGrid,
+  .howSection {
+    padding-inline: 16px;
+  }
+}

@@ -13,12 +13,9 @@ import {
   METRICS_MAX,
   MISSING_KEYS,
   MISSING_MAX,
-  MOCK_MEMBERS,
   OUTCOME_KEYS,
   REC_KEYS,
   RECS,
-  ROLE_KEYS,
-  ROLES,
   SITUATION_MAX,
   STRATEGY_MAX,
   WORKLOAD_KEYS,
@@ -35,9 +32,15 @@ import {
   type DallasState,
 } from "./logic";
 import type { Update } from "./DallasApp";
+import { CONTENT, useText } from "./content";
+import { memberName } from "./student";
+import type { TeamMember } from "./teamSync";
 import styles from "./dallas.module.css";
 
 type ViewProps = { state: DallasState; update: Update };
+
+/** Same limit as the backend (dallas_challenge.TEAM_NAME_MAX) and the mockup. */
+const TEAM_NAME_MAX = 32;
 
 const cx = (...names: (string | false | undefined)[]) =>
   names.filter(Boolean).join(" ");
@@ -87,8 +90,14 @@ function CheckRow({
 
 // ---------- 01 Team ----------
 
-export function TeamView({ state, update }: ViewProps) {
+export function TeamView({
+  state,
+  update,
+  members,
+  nameLocked,
+}: ViewProps & { members: TeamMember[]; nameLocked: boolean }) {
   const t = useTranslations("Dallas.teamSetup");
+  const text = useText();
   const assigned = Object.values(state.members).filter(Boolean).length;
 
   return (
@@ -96,35 +105,50 @@ export function TeamView({ state, update }: ViewProps) {
       <div className={styles.head}>
         <Heading title={t("title")} subtitle={t("subtitle")} />
         <span className={styles.pill}>
-          {t("assigned", { count: assigned, total: ROLE_KEYS.length })}
+          {t("assigned", { count: assigned, total: CONTENT.roles.length })}
         </span>
       </div>
+      <label className={styles.field}>
+        <b className={styles.fieldTitle}>{t("nameLabel")}</b>
+        <input
+          className={styles.textInput}
+          value={state.teamName}
+          maxLength={TEAM_NAME_MAX}
+          placeholder={t("namePlaceholder")}
+          disabled={nameLocked}
+          onChange={(e) => update({ teamName: e.target.value })}
+        />
+        {nameLocked && (
+          <span className={styles.fieldHelp}>{t("nameLocked")}</span>
+        )}
+      </label>
+      <b className={styles.fieldTitle}>{t("rolesLabel")}</b>
       <div className={styles.roles}>
-        {ROLE_KEYS.map((key) => (
+        {CONTENT.roles.map((role) => (
           <div
-            key={key}
+            key={role.key}
             className={styles.role}
-            style={{ "--role": ROLES[key].color } as CSSProperties}
+            style={{ "--role": role.color } as CSSProperties}
           >
             <span className={styles.roleBadge} aria-hidden="true">
-              {ROLES[key].abbr}
+              {role.abbr}
             </span>
-            <b className={styles.roleTitle}>{t(`roles.${key}.title`)}</b>
-            <span className={styles.roleDesc}>{t(`roles.${key}.desc`)}</span>
+            <b className={styles.roleTitle}>{text(role.title)}</b>
+            <span className={styles.roleDesc}>{text(role.desc)}</span>
             <select
               className={styles.select}
-              aria-label={t(`roles.${key}.title`)}
-              value={state.members[key] ?? ""}
+              aria-label={text(role.title)}
+              value={state.members[role.key] ?? ""}
               onChange={(e) =>
                 update((s) => ({
-                  members: { ...s.members, [key]: e.target.value },
+                  members: { ...s.members, [role.key]: e.target.value },
                 }))
               }
             >
               <option value="">{t("assign")}</option>
-              {MOCK_MEMBERS.map((member) => (
-                <option key={member} value={member}>
-                  {member}
+              {members.map((member) => (
+                <option key={member.user_id} value={member.user_id}>
+                  {memberName(member)}
                 </option>
               ))}
             </select>
