@@ -1,7 +1,7 @@
-// Content for the Dallas Aspire app (design: LEAD Aspire Dallas).
-// Visible text lives in messages under "Dallas"; this file holds structure
-// and mock data only. The student, team and members come from /api/dallas/me;
-// the leaderboard is still mock.
+// Structure for the Dallas Aspire app (design: dallas-mockup-v2). Case
+// content is moving to content.ts (phases and roles are there already); the
+// rest still lives here and in messages under "Dallas" until Stages B and C.
+// The leaderboard is still mock.
 
 export const PHASE_KEYS = [
   "team",
@@ -13,35 +13,10 @@ export const PHASE_KEYS = [
   "deliver",
 ] as const;
 export type PhaseKey = (typeof PHASE_KEYS)[number];
-export type Screen = PhaseKey | "results";
-
-/** Minutes on the countdown for each phase (0 = no timer). */
-export const PHASE_MINUTES: Record<PhaseKey, number> = {
-  team: 0,
-  brief: 25,
-  discover: 35,
-  diagnose: 35,
-  advise: 40,
-  respond: 25,
-  deliver: 40,
-};
+export type Screen = "home" | PhaseKey | "results";
 
 const PURPLE = "var(--brand-purple)";
-const ROSE = "var(--brand-rose)";
 const RED = "var(--brand-red)";
-const ORANGE = "var(--brand-orange)";
-
-export const ROLE_KEYS = ["ae", "ai", "csa", "csm", "ba", "sg"] as const;
-export type RoleKey = (typeof ROLE_KEYS)[number];
-
-export const ROLES: Record<RoleKey, { abbr: string; color: string }> = {
-  ae: { abbr: "AE", color: RED },
-  ai: { abbr: "AI", color: PURPLE },
-  csa: { abbr: "CSA", color: ROSE },
-  csm: { abbr: "CSM", color: "oklch(0.6 0.15 155)" },
-  ba: { abbr: "BA", color: ORANGE },
-  sg: { abbr: "SG", color: "oklch(0.6 0.15 250)" },
-};
 
 export const MISSING_KEYS = [
   "usage",

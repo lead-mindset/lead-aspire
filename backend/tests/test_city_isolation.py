@@ -24,6 +24,10 @@ DALLAS_ROUTES = [
     ("get", "/api/dallas/me", None),
     ("get", "/api/dallas/teams", None),
     ("post", "/api/dallas/profile", {"first_name": "A", "last_name": "B", "team_id": 1}),
+    ("get", "/api/dallas/team/state", None),
+    ("post", "/api/dallas/team/phases/brief/answers", {"patch": {"q1": "x"}}),
+    ("post", "/api/dallas/team/phases/brief/open", None),
+    ("post", "/api/dallas/team/phases/brief/complete", None),
 ]
 
 
@@ -105,11 +109,13 @@ def test_a_new_york_token_with_real_app_metadata_still_works(client, signed_in):
 
 @pytest.fixture
 def dallas_fakes(supabase, monkeypatch):
-    from app import dallas_routes
+    from app import dallas_challenge, dallas_routes
 
     supabase.auth.admin = FakeAdmin()
     supabase.session_client = FakeSessionClient()
+    supabase.rpc = lambda *args: pytest.fail("no database function may run")
     monkeypatch.setattr(dallas_routes, "shared_admin_client", lambda: supabase)
+    monkeypatch.setattr(dallas_challenge, "shared_admin_client", lambda: supabase)
     monkeypatch.setattr(dallas_routes, "create_admin_client", lambda: supabase.session_client)
     return supabase
 

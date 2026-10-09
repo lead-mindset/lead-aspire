@@ -16,6 +16,8 @@ from fastapi import APIRouter, Header, HTTPException
 from postgrest.exceptions import APIError
 from supabase_auth.errors import AuthApiError
 
+from .dallas_auth import DALLAS_CITY, dallas_student, is_dallas_user
+from .dallas_challenge import challenge_router
 from .dallas_schemas import (
     DallasLoginRequest,
     DallasLoginResponse,
@@ -28,19 +30,16 @@ from .dallas_schemas import (
 from .supabase import create_admin_client, shared_admin_client
 
 dallas_router = APIRouter(prefix="/api/dallas")
+# The challenge (team answers, timers, progress) lives in its own module.
+dallas_router.include_router(challenge_router)
 logger = logging.getLogger(__name__)
 
-DALLAS_CITY = "DFW"
 # One message for a wrong code, an unknown email and a non-Dallas account, so
 # the form does not reveal which emails exist.
 LOGIN_FAILED = "Invalid email or event code"
 LOGIN_BUSY = "Too many sign-ins right now. Wait a minute and try again."
 # GoTrue error codes for "this email already has an account".
 EMAIL_TAKEN_CODES = {"email_exists", "user_already_exists"}
-
-
-def _is_dallas_user(user) -> bool:
-    return (getattr(user, "app_metadata", None) or {}).get("aspire_city") == DALLAS_CITY
 
 
 def _auth_unavailable(error: Exception) -> HTTPException:
@@ -112,7 +111,7 @@ def dallas_login(payload: DallasLoginRequest) -> DallasLoginResponse:
 
     # Checked on every login, not only on creation: a New York (or any other)
     # account with this email never gets a session here.
-    if not _is_dallas_user(link.user):
+    if not is_dallas_user(link.user):
         logger.warning("Dallas login refused for a non-Dallas account")
         raise HTTPException(status_code=401, detail=LOGIN_FAILED)
 
@@ -146,31 +145,6 @@ def dallas_login(payload: DallasLoginRequest) -> DallasLoginResponse:
 
 
 # --- Signed-in Dallas routes -------------------------------------------------
-
-
-def _dallas_student(client, authorization: str | None) -> dict:
-    """The caller's aspire_dallas_students row, or 401 (no/invalid token) / 403 (not Dallas)."""
-    if not authorization or not authorization.lower().startswith("bearer "):
-        raise HTTPException(status_code=401, detail="Missing session token")
-    try:
-        user = client.auth.get_user(authorization[7:].strip()).user
-    except Exception as error:
-        raise HTTPException(status_code=401, detail="Invalid session token") from error
-    if user is None:
-        raise HTTPException(status_code=401, detail="Invalid session token")
-    if not _is_dallas_user(user):
-        raise HTTPException(status_code=403, detail="This account is not a Dallas account")
-
-    rows = (
-        client.table("aspire_dallas_students")
-        .select("user_id, email, first_name, last_name, team_id")
-        .eq("user_id", str(user.id))
-        .limit(1)
-        .execute()
-    ).data or []
-    if not rows:
-        raise HTTPException(status_code=403, detail="This account is not a Dallas account")
-    return rows[0]
 
 
 def _team_out(row: dict) -> DallasTeam:
@@ -226,14 +200,14 @@ def _me(client, student: dict) -> DallasMeResponse:
 def dallas_me(authorization: str | None = Header(default=None)) -> DallasMeResponse:
     """The signed-in student, their team and its members (team is null before Step 2)."""
     client = shared_admin_client()
-    return _me(client, _dallas_student(client, authorization))
+    return _me(client, dallas_student(client, authorization))
 
 
 @dallas_router.get("/teams", response_model=DallasTeamsResponse)
 def dallas_teams(authorization: str | None = Header(default=None)) -> DallasTeamsResponse:
     """Teams a student can pick in Step 2."""
     client = shared_admin_client()
-    _dallas_student(client, authorization)
+    dallas_student(client, authorization)
     rows = (
         client.table("aspire_dallas_teams")
         .select("id, team_number, name")
@@ -257,7 +231,7 @@ def save_dallas_profile(
     changed even by a request that slips past this check.
     """
     client = shared_admin_client()
-    student = _dallas_student(client, authorization)
+    student = dallas_student(client, authorization)
     if student.get("team_id") is not None:
         raise HTTPException(status_code=409, detail=TEAM_LOCKED)
     if _active_team(client, payload.team_id) is None:

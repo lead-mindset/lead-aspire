@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>:root,[data-dark]{--bg:oklch(0.235 0.105 272);--card:oklch(0.28 0.105 272);--muted:oklch(0.30 0.10 272);--sec:oklch(0.31 0.10 272);--fg:oklch(0.955 0.012 272);--mfg:oklch(0.75 0.05 272);--border:oklch(0.75 0.07 272 / 20%);--input:oklch(0.78 0.06 272 / 26%);--purl:oklch(0.72 0.15 287);--redl:oklch(0.78 0.14 20);--suc:oklch(0.74 0.16 155);--warn:oklch(0.8 0.14 70);color-scheme:dark}:root[data-theme="light"]{--bg:oklch(0.975 0.008 272);--card:oklch(0.995 0.004 272);--muted:oklch(0.94 0.012 272);--sec:oklch(0.93 0.012 272);--fg:oklch(0.28 0.05 272);--mfg:oklch(0.5 0.03 272);--border:oklch(0.85 0.02 272 / 60%);--input:oklch(0.8 0.02 272 / 70%);--purl:oklch(0.52 0.2 287);--redl:oklch(0.55 0.22 24);--suc:oklch(0.55 0.14 155);--warn:oklch(0.58 0.15 60);color-scheme:light}body{margin:0;font-family:'Geist',system-ui,sans-serif;background:var(--bg);color:var(--fg)}*{box-sizing:border-box}a{color:var(--purl);text-decoration:none}a:hover{color:var(--purl)}input,select,button,textarea{font-family:inherit}input[type=checkbox]{accent-color:oklch(0.5584 0.2066 286.65);width:18px;height:18px;margin:0;flex:none}</style>
+</helmet>
+
+<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="01 Login" style="position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:84px 24px 48px;background:radial-gradient(120% 90% at 100% 100%,oklch(0.487 0.2087 322.04 / 25%) 0%,transparent 55%),linear-gradient(160deg,#0a1128 0%,#030c40 60%,#1e2a4a 100%)">
+  <button onClick="{{ toggleTheme }}" style="position:absolute;top:20px;right:20px;height:38px;padding:0 16px;white-space:nowrap;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font-size:13px;font-weight:600;cursor:pointer">{{ themeLabel }}</button>
+  <div style="width:100%;max-width:1050px;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,.12);box-shadow:0 30px 80px rgba(0,0,0,.45)">
+    <div data-dark="" style="padding:52px;background:linear-gradient(180deg,color-mix(in oklch,oklch(0.5584 0.2066 286.65) 10%,var(--card)),var(--card) 45%);color:#fff;display:flex;flex-direction:column;gap:36px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <image-slot id="lead-mark" shape="rect" fit="contain" placeholder="LEAD “L” mark" style="width:72px;height:48px"></image-slot>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span style="font:800 20px/1 'Montserrat',sans-serif;letter-spacing:.02em">LEAD</span>
+          <span style="font:700 11px/1 'Montserrat',sans-serif;letter-spacing:.18em;color:var(--mfg)">ASPIRE · NEW YORK · DALLAS</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <span style="font:800 12px/1 'Montserrat',sans-serif;letter-spacing:.22em;color:var(--mfg)">ASPIRE · STUDENT INNOVATION COMPETITION</span>
+        <h1 style="margin:0;font:900 clamp(44px,5.4vw,62px)/.98 'Montserrat',sans-serif;letter-spacing:-.045em">
+          <span style="display:block">Ideas today.</span>
+          <span style="display:block;background:linear-gradient(120deg,oklch(0.55 0.19 45),oklch(0.56 0.21 20) 40%,oklch(0.487 0.2087 322.04) 72%,oklch(0.5584 0.2066 286.65));-webkit-background-clip:text;background-clip:text;color:transparent">Impact</span>
+          <span style="display:block;background:linear-gradient(120deg,oklch(0.55 0.19 45),oklch(0.56 0.21 20) 40%,oklch(0.487 0.2087 322.04) 72%,oklch(0.5584 0.2066 286.65));-webkit-background-clip:text;background-clip:text;color:transparent">tomorrow.</span>
+        </h1>
+        <p style="margin:0;max-width:400px;font-size:17px;line-height:1.65;color:var(--mfg);text-wrap:pretty">Sign in to collaborate with real customers, apply AI, and build solutions for greater impact.</p>
+      </div>
+    </div>
+    <form onSubmit="{{ signIn }}" style="padding:56px 64px;background:var(--card);display:flex;flex-direction:column;gap:24px;justify-content:center">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <h2 style="margin:0;font:800 32px/1.1 'Montserrat',sans-serif;letter-spacing:-.03em;color:var(--fg)">Welcome back</h2>
+        <p style="margin:0;font-size:16px;color:var(--mfg)">Sign in to continue your innovation journey.</p>
+      </div>
+      <label style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:14px;font-weight:700">Email address</span>
+        <input type="email" value="{{ email }}" onChange="{{ setEmail }}" placeholder="you@school.edu" style="height:54px;padding:0 18px;border-radius:10px;border:1px solid var(--border);background:var(--muted);font-size:16px;color:var(--fg);outline:none">
+      </label>
+      <label style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:14px;font-weight:700">Event code</span>
+        <div style="position:relative;display:flex">
+          <input type="{{ codeType }}" value="{{ code }}" onChange="{{ setCode }}" placeholder="Shared at kickoff" style="flex:1;height:54px;padding:0 70px 0 18px;border-radius:10px;border:1px solid var(--border);background:var(--muted);font-size:16px;color:var(--fg);outline:none">
+          <button type="button" onClick="{{ toggleCode }}" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);border:0;background:none;font-size:13px;font-weight:700;color:var(--purl);cursor:pointer">{{ codeLabel }}</button>
+        </div>
+        <span style="font-size:13px;color:var(--mfg)">Same code for every participant. Your team and city are matched from your email.</span>
+      </label>
+      <button type="submit" style="height:56px;border:0;border-radius:10px;background:linear-gradient(120deg,oklch(0.5584 0.2066 286.65),oklch(0.487 0.2087 322.04));color:#fff;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 10px 24px rgba(124,108,240,.3)" style-hover="filter:brightness(1.06)">Sign in →</button>
+      <p style="margin:0;text-align:center;font-size:14px;color:var(--mfg)">Need help accessing your account? <a href="#" style="font-weight:700">Contact support</a></p>
+    </form>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isResults }}" hint-placeholder-val="{{ false }}">
+<div data-dark="" data-screen-label="09 Results" style="position:relative;min-height:100vh;overflow:hidden;background:#030c40;color:var(--fg)">
+  <div style="position:absolute;inset:0"><image-slot id="dallas-results-bg" shape="rect" placeholder="Event / stage photo"></image-slot></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(3,12,64,.85),rgba(3,12,64,.96))"></div>
+  <div style="position:relative;max-width:1100px;margin:0 auto;padding:64px 32px;display:flex;flex-direction:column;align-items:center;gap:40px;pointer-events:none">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center">
+      <span style="font:800 12px 'Montserrat',sans-serif;letter-spacing:.2em;color:var(--mfg)">LEAD ASPIRE · DALLAS</span>
+      <h1 style="margin:0;font:800 clamp(36px,4vw,52px)/1.05 'Montserrat',sans-serif;letter-spacing:-.03em">Challenge complete</h1>
+      <p style="margin:0;font-size:18px;color:var(--mfg)">The customer has reviewed all submissions.</p>
+    </div>
+    <div style="display:flex;align-items:flex-end;justify-content:center;gap:20px;flex-wrap:wrap">
+      <div style="width:230px;padding:28px 20px;border-radius:16px;border:2px solid oklch(0.72 0.15 287);background:rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;gap:8px"><span style="width:40px;height:40px;border-radius:50%;background:oklch(0.5584 0.2066 286.65);display:flex;align-items:center;justify-content:center;font:800 18px 'Montserrat',sans-serif;color:#fff">2</span><b style="font:700 24px 'Montserrat',sans-serif">Team 14</b><span style="font-size:18px;color:var(--mfg)">87 points</span></div>
+      <div style="width:270px;padding:40px 20px;border-radius:18px;border:2px solid oklch(0.8 0.14 70);background:rgba(255,255,255,.1);display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:0 0 60px oklch(0.8 0.14 70 / 25%)"><span style="width:48px;height:48px;border-radius:50%;background:oklch(0.8 0.14 70);display:flex;align-items:center;justify-content:center;font:800 22px 'Montserrat',sans-serif;color:#030c40">1</span><b style="font:800 30px 'Montserrat',sans-serif">{{ teamName }}</b><span style="font-size:20px;font-weight:600">89 points</span><span style="padding:4px 12px;border-radius:999px;background:oklch(0.8 0.14 70 / 20%);color:oklch(0.86 0.12 75);font-size:12.5px;font-weight:700">YOUR TEAM</span></div>
+      <div style="width:230px;padding:28px 20px;border-radius:16px;border:2px solid oklch(0.56 0.21 20);background:rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;gap:8px"><span style="width:40px;height:40px;border-radius:50%;background:oklch(0.56 0.21 20);display:flex;align-items:center;justify-content:center;font:800 18px 'Montserrat',sans-serif;color:#fff">3</span><b style="font:700 24px 'Montserrat',sans-serif">Team 03</b><span style="font-size:18px;color:var(--mfg)">85 points</span></div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center">
+      <b style="font:700 22px 'Montserrat',sans-serif">Finalists</b>
+      <span style="font-size:16px;color:var(--mfg)">Present your recommendation to the customer.</span>
+    </div>
+    <div style="width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px">
+      <sc-for list="{{ board }}" as="b" hint-placeholder-count="5">
+        <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid var(--border)"><span style="width:34px;height:34px;border-radius:8px;background:var(--sec);display:flex;align-items:center;justify-content:center;font:800 15px 'Montserrat',sans-serif">{{ b.rank }}</span><div style="display:flex;flex-direction:column"><span style="font-size:13px;color:var(--mfg)">{{ b.team }}</span><b style="font-size:20px">{{ b.pts }}</b></div></div>
+      </sc-for>
+    </div>
+    <div style="display:flex;gap:10px;pointer-events:auto">
+      <button onClick="{{ goDeliver }}" style="height:46px;padding:0 20px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.06);color:var(--fg);font-size:14px;font-weight:700;cursor:pointer">← Back to submission</button>
+      <button onClick="{{ signOut }}" style="height:46px;padding:0 20px;border-radius:10px;border:1px solid var(--border);background:rgba(255,255,255,.06);color:var(--fg);font-size:14px;font-weight:700;cursor:pointer">Sign out</button>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isApp }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;min-height:100vh">
+  <aside data-dark="" style="flex:none;width:256px;background:oklch(0.2 0.095 272);color:var(--fg);display:flex;flex-direction:column;padding:24px 14px;gap:4px;position:sticky;top:0;height:100vh;overflow:auto">
+    <div style="display:flex;align-items:center;gap:12px;padding:0 10px 20px">
+      <image-slot id="lead-mark" shape="rect" fit="contain" placeholder="L" style="width:48px;height:34px"></image-slot>
+      <div style="display:flex;flex-direction:column;gap:3px"><span style="font:800 17px/1 'Montserrat',sans-serif">LEAD</span><span style="font:700 10px/1 'Montserrat',sans-serif;letter-spacing:.18em;color:var(--mfg)">ASPIRE · DALLAS</span></div>
+    </div>
+    <button onClick="{{ goHome }}" style="display:flex;align-items:center;gap:12px;height:46px;padding:0 14px;border:0;border-left:3px solid {{ homeNav.bar }};border-radius:8px;background:{{ homeNav.bg }};color:{{ homeNav.fg }};font-size:15px;font-weight:600;text-align:left;cursor:pointer">Home</button>
+    <span style="padding:18px 14px 8px;font:800 10.5px 'Montserrat',sans-serif;letter-spacing:.16em;color:var(--mfg)">THE CHALLENGE</span>
+    <sc-for list="{{ phases }}" as="p" hint-placeholder-count="7">
+      <button onClick="{{ p.go }}" style="display:flex;align-items:center;gap:12px;min-height:46px;padding:0 14px;border:0;border-left:3px solid {{ p.bar }};border-radius:8px;background:{{ p.bg }};color:{{ p.fg }};font-size:15px;font-weight:600;text-align:left;cursor:pointer"><span style="width:28px;height:28px;flex:none;border-radius:6px;background:{{ p.badge }};color:#fff;display:flex;align-items:center;justify-content:center;font:800 12px 'Montserrat',sans-serif">{{ p.num }}</span><span style="flex:1">{{ p.label }}</span><span style="color:var(--suc)">{{ p.mark }}</span></button>
+    </sc-for>
+    <div style="flex:1"></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:14px 10px 0;border-top:1px solid var(--border)">
+      <span style="width:38px;height:38px;border-radius:50%;background:oklch(0.5584 0.2066 286.65);color:#fff;display:flex;align-items:center;justify-content:center;font:700 13px 'Montserrat',sans-serif">{{ teamInitials }}</span>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column"><span style="font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ teamName }}</span><span style="font-size:12px;color:var(--mfg)">Dallas</span></div>
+      <button onClick="{{ signOut }}" style="border:0;background:none;color:var(--mfg);font-size:12px;cursor:pointer">Sign out</button>
+    </div>
+    <button onClick="{{ toggleTheme }}" style="margin-top:10px;height:38px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--fg);font-size:13px;font-weight:600;cursor:pointer" style-hover="background:var(--muted)">{{ themeLabel }}</button>
+  </aside>
+
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column">
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="01b Home" style="display:flex;flex-direction:column">
+      <section data-dark="" style="position:relative;overflow:hidden;color:var(--fg);background:#030c40">
+        <div style="position:absolute;inset:0"><image-slot id="dallas-hero-bg" shape="rect" placeholder="Hero background photo"></image-slot></div>
+        <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(3,12,64,.96) 0%,rgba(3,12,64,.85) 50%,rgba(3,12,64,.6) 100%)"></div>
+        <div style="position:relative;padding:44px 44px 48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:36px;align-items:center;pointer-events:none">
+          <div style="display:flex;flex-direction:column;gap:20px;pointer-events:auto">
+            <span style="font:800 12px/1 'Montserrat',sans-serif;letter-spacing:.22em;color:var(--mfg)">ASPIRE DALLAS · MICROSOFT AI SPECIALIST CHALLENGE</span>
+            <h1 style="margin:0;font:900 clamp(42px,4.4vw,60px)/1 'Montserrat',sans-serif;letter-spacing:-.04em">
+              <span style="display:block">Ideas today.</span>
+              <span style="display:block;background:linear-gradient(120deg,oklch(0.55 0.19 45),oklch(0.56 0.21 20) 40%,oklch(0.487 0.2087 322.04) 72%,oklch(0.5584 0.2066 286.65));-webkit-background-clip:text;background-clip:text;color:transparent">Real impact</span>
+              <span style="display:block">tomorrow.</span>
+            </h1>
+            <p style="margin:0;max-width:480px;font-size:18px;line-height:1.5;color:var(--mfg)">Step into a Microsoft account team, analyze a real customer scenario, and deliver your recommendation — all live, in seven timed phases.</p>
+            <div><button onClick="{{ startJourney }}" style="display:inline-flex;align-items:center;gap:10px;height:52px;padding:0 28px;border:0;border-radius:8px;background:linear-gradient(120deg,oklch(0.5584 0.2066 286.65),oklch(0.487 0.2087 322.04));color:#fff;font-weight:700;font-size:16px;cursor:pointer" style-hover="filter:brightness(1.1)">{{ startLabel }}</button></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:18px;pointer-events:auto">
+            <div style="background:var(--card);border-radius:16px;padding:26px;display:flex;gap:22px;align-items:center;box-shadow:0 20px 40px rgba(10,10,60,.25);flex-wrap:wrap">
+              <image-slot id="dallas-team-logo" shape="circle" placeholder="Team logo" style="width:120px;height:120px"></image-slot>
+              <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:10px">
+                <span style="align-self:flex-start;padding:6px 14px;border-radius:999px;background:oklch(0.5584 0.2066 286.65 / 16%);color:var(--purl);font-size:13px;font-weight:700">Dallas · {{ rolesAssigned }}</span>
+                <h2 style="margin:0;font:700 32px/1.05 'Montserrat',sans-serif;letter-spacing:-.02em">{{ teamName }}</h2>
+                <p style="margin:0;font-size:16px;color:var(--mfg)">{{ teamSub }}</p>
+              </div>
+            </div>
+            <div style="background:var(--card);border-radius:16px;padding:24px 26px;display:flex;align-items:center;gap:26px;box-shadow:0 20px 40px rgba(10,10,60,.25);flex-wrap:wrap">
+              <div style="position:relative;width:116px;height:116px;flex:none">
+                <svg width="116" height="116" viewBox="0 0 124 124" style="transform:rotate(-90deg)">
+                  <circle cx="62" cy="62" r="54" fill="none" stroke="var(--muted)" stroke-width="9"></circle>
+                  <circle cx="62" cy="62" r="54" fill="none" stroke="oklch(0.72 0.15 287)" stroke-width="9" stroke-linecap="round" stroke-dasharray="339.3" stroke-dashoffset="{{ ringOffset }}" style="transition:stroke-dashoffset .5s"></circle>
+                </svg>
+                <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 26px 'Montserrat',sans-serif">{{ pctLabel }}</span>
+              </div>
+              <div style="flex:1;min-width:180px;display:flex;flex-direction:column;gap:8px">
+                <h3 style="margin:0 0 4px;font:600 20px/1.1 'Montserrat',sans-serif">Your progress</h3>
+                <sc-for list="{{ phases }}" as="s" hint-placeholder-count="7">
+                  <div style="display:flex;align-items:center;gap:12px;font-size:15px;font-weight:{{ s.homeWeight }};color:{{ s.homeColor }}">
+                    <span style="width:18px;height:18px;flex:none;border-radius:50%;background:{{ s.dot }};color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center">{{ s.mark }}</span>{{ s.label }}
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section style="padding:36px 44px 60px">
+        <div style="display:flex;align-items:center;gap:28px;flex-wrap:wrap;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px 28px">
+          <div style="flex:1;min-width:280px;display:flex;flex-direction:column;gap:8px">
+            <h3 style="margin:0;font:600 22px/1.2 'Montserrat',sans-serif">How it works</h3>
+            <p style="margin:0;font-size:16px;line-height:1.5;color:var(--mfg)">Each phase is timed. Your team answers inside the platform — no files to download. Choose your team name and roles first; the clock starts when you open the brief.</p>
+          </div>
+          <image-slot id="mascot" shape="rect" fit="contain" placeholder="Coach mascot" style="width:140px;height:120px"></image-slot>
+        </div>
+      </section>
+    </div>
+    </sc-if>
+    <sc-if value="{{ isPhase }}" hint-placeholder-val="{{ false }}">
+    <div style="display:flex;flex-direction:column;padding:24px 36px 48px;gap:22px">
+    <div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap;padding:16px 22px;border-radius:14px;background:var(--card);border:1px solid var(--border)">
+      <div style="display:flex;align-items:center;gap:12px;min-width:190px">
+        <image-slot id="dallas-team-logo" shape="circle" placeholder=" " style="width:44px;height:44px"></image-slot>
+        <div style="display:flex;flex-direction:column;gap:2px"><b style="font:700 17px/1.1 'Montserrat',sans-serif">{{ teamName }}</b><span style="font-size:13px;color:var(--mfg)">Microsoft AI Specialist Challenge · Dallas</span></div>
+      </div>
+      <div style="flex:1 1 360px;min-width:0;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13.5px"><span style="font-weight:700;white-space:nowrap">Team progress · {{ pctLabel }}</span><span style="color:var(--mfg);white-space:nowrap">{{ remainingLabel }}</span></div>
+        <div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px">
+          <sc-for list="{{ phases }}" as="s" hint-placeholder-count="7">
+            <div title="{{ s.label }}" style="display:flex;flex-direction:column;gap:6px;min-width:0"><div style="height:8px;border-radius:999px;background:{{ s.seg }}"></div><span style="font-size:12px;font-weight:{{ s.weight }};color:{{ s.segText }};white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ s.label }}</span></div>
+          </sc-for>
+        </div>
+      </div>
+      <sc-if value="{{ hasTimer }}" hint-placeholder-val="{{ false }}">
+        <span title="Time left in this phase" style="display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:999px;border:1.5px solid {{ timerColor }};color:{{ timerColor }};font:700 15px 'Montserrat',sans-serif;font-variant-numeric:tabular-nums"><span style="width:8px;height:8px;border-radius:50%;background:{{ timerColor }}"></span>{{ timer }}</span>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ isTeam }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="02 Team setup" style="display:flex;flex-direction:column;gap:22px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
+        <div style="display:flex;flex-direction:column;gap:6px"><h1 style="margin:0;font:700 30px/1.1 'Montserrat',sans-serif;letter-spacing:-.02em">Build your Microsoft team</h1><p style="margin:0;font-size:16px;color:var(--mfg)">Assign a role to each team member. Every perspective matters.</p></div>
+        <span style="padding:8px 14px;border-radius:999px;background:var(--muted);font-size:14px;font-weight:600;color:var(--mfg)">{{ rolesAssigned }}</span>
+      </div>
+      <label style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px;max-width:560px">
+        <b style="font-size:16px">1. Name your team</b>
+        <input value="{{ teamNameInput }}" onChange="{{ setTeamName }}" maxlength="32" placeholder="e.g. Lone Star Labs" style="height:52px;padding:0 16px;border-radius:10px;border:1px solid var(--input);background:var(--muted);color:var(--fg);font-size:17px;font-weight:600;outline:none">
+      </label>
+      <b style="font-size:16px">2. Assign a role to each team member</b>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px">
+        <sc-for list="{{ roles }}" as="r" hint-placeholder-count="6">
+          <div style="background:var(--card);border:1px solid var(--border);border-top:4px solid {{ r.color }};border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:10px">
+            <span style="width:40px;height:40px;border-radius:10px;background:{{ r.tint }};color:{{ r.color }};display:flex;align-items:center;justify-content:center;font:800 14px 'Montserrat',sans-serif">{{ r.abbr }}</span>
+            <b style="font:700 17px/1.2 'Montserrat',sans-serif">{{ r.title }}</b>
+            <span style="flex:1;font-size:14.5px;line-height:1.4;color:var(--mfg)">{{ r.desc }}</span>
+            <select value="{{ r.member }}" onChange="{{ r.set }}" style="height:44px;padding:0 10px;border-radius:10px;border:1px solid var(--input);background:var(--muted);color:var(--fg);font-size:14.5px">
+              <option value="">Assign member…</option>
+              <sc-for list="{{ memberOptions }}" as="m" hint-placeholder-count="6"><option value="{{ m }}">{{ m }}</option></sc-for>
+            </select>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+    </sc-if>
+
+    <sc-if value="{{ isBrief }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="03 Brief" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:20px;align-items:start">
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px;display:flex;flex-direction:column;gap:18px">
+        <h1 style="margin:0;font:700 26px/1.15 'Montserrat',sans-serif;letter-spacing:-.02em">New message from the customer</h1>
+        <div style="padding:14px 16px;border-radius:10px;background:var(--muted);font-size:15px;line-height:1.6"><div><b>From:</b> CIO, Contoso</div><div><b>To:</b> Microsoft Account Team</div><div><b>Subject:</b> Help us understand our AI usage and costs</div></div>
+        <div style="display:flex;flex-direction:column;gap:14px;font-size:16px;line-height:1.6;text-wrap:pretty">
+          <p style="margin:0">Hi Microsoft team,</p>
+          <p style="margin:0">Over the last six months, we've significantly expanded our use of generative AI across the organization. AI consumption is now nearly three times what we originally projected and Finance has raised concerns about increasing operating costs.</p>
+          <p style="margin:0">We're considering introducing usage limits across the company. Before we make that decision, we'd like Microsoft's recommendation. We need to understand what's driving this increase and what you recommend we do next.</p>
+          <p style="margin:0">Thank you,<br>CIO, Contoso</p>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px;display:flex;flex-direction:column;gap:22px">
+        <h2 style="margin:0;font:700 22px 'Montserrat',sans-serif;color:var(--purl)">Your tasks</h2>
+        <label style="display:flex;flex-direction:column;gap:10px">
+          <b style="font-size:16px">1. What is the customer asking Microsoft to help solve?</b>
+          <textarea value="{{ briefAnswer }}" onChange="{{ setBriefAnswer }}" rows="4" placeholder="Write your answer here…" style="padding:14px;border-radius:10px;border:1px solid var(--input);background:var(--muted);color:var(--fg);font-size:15px;line-height:1.5;resize:vertical;outline:none"></textarea>
+        </label>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><b style="font-size:16px">2. What information are you missing?</b><span style="font-size:13.5px;color:var(--mfg)">{{ missingCount }}</span></div>
+          <sc-for list="{{ missingOpts }}" as="o" hint-placeholder-count="6">
+            <label style="display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:{{ o.bg }};font-size:15px;cursor:pointer"><input type="checkbox" checked="{{ o.checked }}" onChange="{{ o.toggle }}">{{ o.label }}</label>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <sc-if value="{{ isDiscover }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="04 Discover" style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:6px"><h1 style="margin:0;font:700 30px/1.1 'Montserrat',sans-serif;letter-spacing:-.02em">Customer data overview</h1><p style="margin:0;font-size:16px;color:var(--mfg)">Explore the available information. Click into each workload to learn more.</p></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:4px"><b style="font:800 28px 'Montserrat',sans-serif">27M</b><span style="font-size:14.5px">Monthly tokens</span><span style="font-size:13.5px;color:var(--redl)">+170% vs. plan</span></div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:4px"><b style="font:800 28px 'Montserrat',sans-serif">$54K</b><span style="font-size:14.5px">Monthly AI cost</span><span style="font-size:13.5px;color:var(--redl)">+160% vs. plan</span></div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:4px"><b style="font:800 28px 'Montserrat',sans-serif">68%</b><span style="font-size:14.5px">Employee adoption</span><span style="font-size:13.5px;color:var(--suc)">+32% vs. 6 months</span></div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:4px"><b style="font:800 28px 'Montserrat',sans-serif">6</b><span style="font-size:14.5px">Active AI workloads</span><span style="font-size:13.5px;color:var(--mfg)">+3 new</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:18px;align-items:start">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden">
+          <div style="display:grid;grid-template-columns:minmax(150px,2fr) repeat(4,minmax(70px,1fr));gap:10px;padding:12px 18px;background:var(--muted);font-size:12.5px;font-weight:700;color:var(--mfg)"><span>Workload</span><span>Tokens / mo</span><span>Cost / mo</span><span>Adoption</span><span>Value</span></div>
+          <sc-for list="{{ workloads }}" as="w" hint-placeholder-count="6">
+            <button onClick="{{ w.select }}" style="width:100%;display:grid;grid-template-columns:minmax(150px,2fr) repeat(4,minmax(70px,1fr));gap:10px;align-items:center;padding:14px 18px;border:0;border-top:1px solid var(--border);border-left:3px solid {{ w.bar }};background:{{ w.rowBg }};color:var(--fg);font-size:15px;text-align:left;cursor:pointer"><b style="font-weight:600">{{ w.name }}</b><span>{{ w.tokens }}</span><span>{{ w.cost }}</span><span>{{ w.adoption }}</span><span style="justify-self:start;padding:3px 10px;border-radius:999px;background:{{ w.valueBg }};color:{{ w.valueFg }};font-size:12.5px;font-weight:700">{{ w.value }}</span></button>
+          </sc-for>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;flex-direction:column;gap:4px"><b style="font:700 20px 'Montserrat',sans-serif">{{ wl.name }}</b><span style="font-size:14.5px;color:var(--mfg)">{{ wl.desc }}</span></div>
+          <div style="display:flex;gap:6px;padding:4px;border-radius:10px;background:var(--muted)">
+            <button onClick="{{ tabOverview }}" style="flex:1;height:36px;border:0;border-radius:8px;background:{{ tabOvBg }};color:var(--fg);font-size:14px;font-weight:700;cursor:pointer">Overview</button>
+            <button onClick="{{ tabDetails }}" style="flex:1;height:36px;border:0;border-radius:8px;background:{{ tabDtBg }};color:var(--fg);font-size:14px;font-weight:700;cursor:pointer">Details</button>
+          </div>
+          <sc-if value="{{ isOverview }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+              <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:12.5px;color:var(--mfg)">Token usage</span><b style="font-size:19px">{{ wl.tokens }}</b><span style="font-size:12.5px;color:var(--redl)">{{ wl.trend }}</span></div>
+              <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:12.5px;color:var(--mfg)">Monthly cost</span><b style="font-size:19px">{{ wl.cost }}</b></div>
+              <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:12.5px;color:var(--mfg)">Business impact</span><b style="font-size:19px;color:{{ wl.valueFg }}">{{ wl.value }}</b></div>
+            </div>
+            <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:15px;line-height:1.4">
+              <sc-for list="{{ wl.notes }}" as="n" hint-placeholder-count="4"><li>{{ n }}</li></sc-for>
+            </ul>
+          </sc-if>
+          <sc-if value="{{ isDetails }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:10px;font-size:15px">
+              <div style="display:flex;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--border)"><span style="color:var(--mfg)">Owner</span><b>{{ wl.owner }}</b></div>
+              <div style="display:flex;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--border)"><span style="color:var(--mfg)">Model</span><b>{{ wl.model }}</b></div>
+              <div style="display:flex;justify-content:space-between;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--border)"><span style="color:var(--mfg)">Users</span><b>{{ wl.users }}</b></div>
+              <div style="display:flex;justify-content:space-between;gap:12px"><span style="color:var(--mfg)">Monitoring</span><b>{{ wl.monitoring }}</b></div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <sc-if value="{{ isDiagnose }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="05 Diagnose" style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:6px"><h1 style="margin:0;font:700 30px/1.1 'Montserrat',sans-serif;letter-spacing:-.02em">What's actually happening?</h1><p style="margin:0;font-size:16px;color:var(--mfg)">Classify each workload and identify the root causes.</p></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:18px;align-items:start">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden">
+          <div style="display:grid;grid-template-columns:1fr 200px;gap:12px;padding:12px 18px;background:var(--muted);font-size:12.5px;font-weight:700;color:var(--mfg)"><span>Workload</span><span>Your classification</span></div>
+          <sc-for list="{{ diagRows }}" as="d" hint-placeholder-count="6">
+            <div style="display:grid;grid-template-columns:1fr 200px;gap:12px;align-items:center;padding:12px 18px;border-top:1px solid var(--border);font-size:15px">
+              <b style="font-weight:600">{{ d.name }}</b>
+              <select value="{{ d.value }}" onChange="{{ d.set }}" style="height:42px;padding:0 10px;border-radius:10px;border:1.5px solid {{ d.color }};background:{{ d.tint }};color:{{ d.fg }};font-size:14.5px;font-weight:700">
+                <option value="">Select…</option><option value="Protect">Protect</option><option value="Optimize">Optimize</option><option value="Investigate">Investigate</option><option value="Reduce / Retire">Reduce / Retire</option>
+              </select>
+            </div>
+          </sc-for>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><b style="font:700 19px 'Montserrat',sans-serif">Top 3 root causes</b><span style="font-size:13.5px;color:var(--mfg)">{{ causeCount }}</span></div>
+          <span style="font-size:14.5px;color:var(--mfg)">Select the three main causes based on the evidence.</span>
+          <sc-for list="{{ causes }}" as="c" hint-placeholder-count="10">
+            <label style="display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px;background:{{ c.bg }};font-size:15px;cursor:pointer;opacity:{{ c.opacity }}"><input type="checkbox" checked="{{ c.checked }}" onChange="{{ c.toggle }}">{{ c.label }}</label>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <sc-if value="{{ isAdvise }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="06 Advise" style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:6px"><h1 style="margin:0;font:700 30px/1.1 'Montserrat',sans-serif;letter-spacing:-.02em">Build your recommendation</h1><p style="margin:0;font-size:16px;color:var(--mfg)">Select up to 5 recommendations for the customer.</p></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:18px;align-items:start">
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden">
+          <div style="display:flex;gap:6px;padding:10px;background:var(--muted)">
+            <button onClick="{{ tabAvail }}" style="flex:1;height:38px;border:0;border-radius:8px;background:{{ tabAvBg }};color:{{ tabAvFg }};font-size:14px;font-weight:700;cursor:pointer">Available recommendations</button>
+            <button onClick="{{ tabStrategy }}" style="flex:1;height:38px;border:0;border-radius:8px;background:{{ tabStBg }};color:{{ tabStFg }};font-size:14px;font-weight:700;cursor:pointer">{{ strategyLabel }}</button>
+          </div>
+          <sc-for list="{{ recList }}" as="r" hint-placeholder-count="6">
+            <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 18px;border-top:1px solid var(--border)">
+              <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:3px"><b style="font-size:15.5px">{{ r.title }}</b><span style="font-size:13.5px;color:var(--mfg)">{{ r.sub }}</span></div>
+              <span style="width:40px;font-weight:700;color:var(--warn)">{{ r.cost }}</span>
+              <span style="width:84px;font-size:13.5px;color:var(--mfg)">{{ r.time }}</span>
+              <button onClick="{{ r.toggle }}" style="width:88px;height:36px;border-radius:8px;border:1.5px solid oklch(0.5584 0.2066 286.65);background:{{ r.btnBg }};color:{{ r.btnFg }};font-size:13.5px;font-weight:700;cursor:pointer;opacity:{{ r.opacity }}">{{ r.btnLabel }}</button>
+            </div>
+          </sc-for>
+          <sc-if value="{{ recEmpty }}" hint-placeholder-val="{{ false }}"><div style="padding:28px 18px;border-top:1px solid var(--border);font-size:15px;color:var(--mfg);text-align:center">No recommendations added yet.</div></sc-if>
+        </div>
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:18px">
+          <b style="font:700 19px 'Montserrat',sans-serif">Projected impact <span style="font:500 14px 'Geist',sans-serif;color:var(--mfg)">· live estimate</span></b>
+          <sc-for list="{{ impact }}" as="i" hint-placeholder-count="4">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;justify-content:space-between;font-size:15px"><span>{{ i.label }}</span><b style="color:{{ i.color }}">{{ i.value }}</b></div>
+              <div style="height:8px;border-radius:999px;background:var(--muted);overflow:hidden"><div style="height:100%;width:{{ i.width }};border-radius:999px;background:{{ i.color }};transition:width .3s"></div></div>
+            </div>
+          </sc-for>
+          <div style="display:flex;justify-content:space-between;padding-top:14px;border-top:1px solid var(--border);font-size:15px"><span>Time to implement</span><b style="color:var(--warn)">{{ timeToImpl }}</b></div>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <sc-if value="{{ isRespond }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="07 Respond" style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:6px"><h1 style="margin:0;font:700 30px/1.1 'Montserrat',sans-serif;letter-spacing:-.02em">Customer update</h1><p style="margin:0;font-size:16px;color:var(--mfg)">New information has just arrived. Review and adjust your recommendation.</p></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px">
+        <div style="padding:20px;border-radius:14px;background:oklch(0.56 0.21 20 / 12%);border:1px solid oklch(0.56 0.21 20 / 35%);display:flex;flex-direction:column;gap:6px"><b style="font:700 17px 'Montserrat',sans-serif">Message from the CFO</b><span style="font-size:15.5px;line-height:1.5">Finance requires a <b style="color:var(--redl)">20% reduction</b> in projected AI operating expense next quarter.</span></div>
+        <div style="padding:20px;border-radius:14px;background:oklch(0.8 0.14 70 / 12%);border:1px solid oklch(0.8 0.14 70 / 35%);display:flex;flex-direction:column;gap:6px"><b style="font:700 17px 'Montserrat',sans-serif">Message from the CISO</b><span style="font-size:15.5px;line-height:1.5">An internal review identified employees entering sensitive customer information into an unapproved generative AI tool.</span></div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap"><div style="display:flex;flex-direction:column;gap:4px"><b style="font:700 19px 'Montserrat',sans-serif">Update your recommendation</b><span style="font-size:14.5px;color:var(--mfg)">You can make up to 2 changes to your previous strategy.</span></div><span style="align-self:flex-start;padding:6px 14px;border-radius:999px;background:{{ changesBg }};color:{{ changesFg }};font-size:13.5px;font-weight:700">Changes used: {{ changesUsed }}/2</span></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:13px;font-weight:700;color:var(--mfg)">YOUR CURRENT RECOMMENDATION</span>
+            <sc-for list="{{ baseList }}" as="b" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:12px;min-height:46px;padding:0 14px;border-radius:10px;background:var(--muted);font-size:15px"><span style="width:24px;height:24px;flex:none;border-radius:6px;background:var(--sec);display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700">{{ b.n }}</span>{{ b.title }}</div>
+            </sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <span style="font-size:13px;font-weight:700;color:var(--mfg)">REVISED RECOMMENDATION</span>
+            <sc-for list="{{ revisedRows }}" as="r" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:12px">
+                <span style="width:24px;height:24px;flex:none;border-radius:6px;background:{{ r.badge }};color:{{ r.badgeFg }};display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700">{{ r.n }}</span>
+                <select value="{{ r.value }}" onChange="{{ r.set }}" style="flex:1;min-width:0;height:46px;padding:0 10px;border-radius:10px;border:1.5px solid {{ r.border }};background:var(--muted);color:var(--fg);font-size:15px">
+                  <option value="">— Remove —</option>
+                  <sc-for list="{{ recOptions }}" as="o" hint-placeholder-count="6"><option value="{{ o.id }}">{{ o.title }}</option></sc-for>
+                </select>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+    </sc-if>
+
+    <sc-if value="{{ isDeliver }}" hint-placeholder-val="{{ false }}">
+    <section data-screen-label="08 Deliver" style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:6px"><h1 style="margin:0;font:700 30px/1.1 'Montserrat',sans-serif;letter-spacing:-.02em">Final recommendation</h1><p style="margin:0;font-size:16px;color:var(--mfg)">Complete your executive brief for the customer.</p></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:18px;align-items:start">
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <label style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px"><b style="font-size:16px">1. Customer situation</b><span style="font-size:14px;color:var(--mfg)">Summarize what is happening (max 500 characters).</span><textarea value="{{ situation }}" onChange="{{ setSituation }}" maxlength="500" rows="4" placeholder="Write your answer here…" style="padding:14px;border-radius:10px;border:1px solid var(--input);background:var(--muted);color:var(--fg);font-size:15px;line-height:1.5;resize:vertical;outline:none"></textarea><span style="align-self:flex-end;font-size:12.5px;color:var(--mfg)">{{ situationCount }}/500</span></label>
+          <label style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px"><b style="font-size:16px">2. Root cause</b><span style="font-size:14px;color:var(--mfg)">What is actually driving the issue?</span><textarea value="{{ rootCause }}" onChange="{{ setRootCause }}" rows="4" placeholder="Write your answer here…" style="padding:14px;border-radius:10px;border:1px solid var(--input);background:var(--muted);color:var(--fg);font-size:15px;line-height:1.5;resize:vertical;outline:none"></textarea></label>
+          <label style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px"><b style="font-size:16px">3. Microsoft recommendation</b><span style="font-size:14px;color:var(--mfg)">List your 3–5 key actions and why.</span><textarea value="{{ msRec }}" onChange="{{ setMsRec }}" rows="5" placeholder="Write your answer here…" style="padding:14px;border-radius:10px;border:1px solid var(--input);background:var(--muted);color:var(--fg);font-size:15px;line-height:1.5;resize:vertical;outline:none"></textarea></label>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px">
+            <b style="font-size:16px">4. Expected outcomes</b><span style="font-size:14px;color:var(--mfg)">Select the expected impact areas and targets.</span>
+            <sc-for list="{{ outcomes }}" as="o" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:12px;padding:6px 0;font-size:15px">
+                <label style="flex:1;display:flex;align-items:center;gap:12px;cursor:pointer"><input type="checkbox" checked="{{ o.checked }}" onChange="{{ o.toggle }}">{{ o.label }}</label>
+                <div style="display:flex;align-items:center;gap:6px;opacity:{{ o.opacity }}"><input type="number" min="0" max="100" value="{{ o.pct }}" onChange="{{ o.setPct }}" disabled="{{ o.off }}" style="width:70px;height:38px;padding:0 10px;border-radius:8px;border:1px solid var(--input);background:var(--muted);color:var(--fg);font-size:15px;text-align:right"><span style="color:var(--mfg)">%</span></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><b style="font-size:16px">5. Success metrics</b><span style="font-size:13.5px;color:var(--mfg)">{{ metricCount }}</span></div><span style="font-size:14px;color:var(--mfg)">Select 3 KPIs to measure success.</span>
+            <sc-for list="{{ metrics }}" as="m" hint-placeholder-count="6">
+              <label style="display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:10px;background:{{ m.bg }};font-size:15px;cursor:pointer;opacity:{{ m.opacity }}"><input type="checkbox" checked="{{ m.checked }}" onChange="{{ m.toggle }}">{{ m.label }}</label>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <label style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px"><b style="font-size:16px">6. Executive statement</b><span style="font-size:14px;color:var(--mfg)">You have one minute with the customer's CIO. What do you tell them?</span><textarea value="{{ statement }}" onChange="{{ setStatement }}" rows="3" placeholder="Write your 60-second executive statement here…" style="padding:14px;border-radius:10px;border:1px solid var(--input);background:var(--muted);color:var(--fg);font-size:15px;line-height:1.5;resize:vertical;outline:none"></textarea></label>
+    </section>
+    </sc-if>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding-top:6px">
+      <button onClick="{{ back }}" style="height:48px;padding:0 20px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--fg);font-size:15px;font-weight:700;cursor:pointer">← Back</button>
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <span style="font-size:14px;color:var(--mfg)">{{ hint }}</span>
+        <button onClick="{{ next }}" disabled="{{ cantNext }}" style="height:48px;padding:0 26px;border:0;border-radius:10px;background:linear-gradient(120deg,oklch(0.5584 0.2066 286.65),oklch(0.487 0.2087 322.04));color:#fff;font-size:15px;font-weight:700;cursor:pointer;opacity:{{ nextOpacity }}" style-hover="filter:brightness(1.1)">{{ nextLabel }}</button>
+      </div>
+    </div>
+    </div>
+    </sc-if>
+  </main>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;login&quot;,&quot;home&quot;,&quot;team&quot;,&quot;brief&quot;,&quot;discover&quot;,&quot;diagnose&quot;,&quot;advise&quot;,&quot;respond&quot;,&quot;deliver&quot;,&quot;results&quot;],&quot;default&quot;:&quot;login&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;dark&quot;,&quot;light&quot;],&quot;default&quot;:&quot;dark&quot;,&quot;tsType&quot;:&quot;'dark'|'light'&quot;}}">
+const PUR = 'oklch(0.5584 0.2066 286.65)', ROSE = 'oklch(0.487 0.2087 322.04)', RED = 'oklch(0.56 0.21 20)', ORANGE = 'oklch(0.55 0.19 45)';
+const GRAD = `linear-gradient(90deg,${PUR},${ROSE})`;
+const PH = [
+  { k: 'team', label: 'Team', t: 0 }, { k: 'brief', label: 'Brief', t: 25 }, { k: 'discover', label: 'Discover', t: 35 },
+  { k: 'diagnose', label: 'Diagnose', t: 35 }, { k: 'advise', label: 'Advise', t: 40 }, { k: 'respond', label: 'Respond', t: 25 }, { k: 'deliver', label: 'Deliver', t: 40 }
+];
+const MEMBERS = ['Valeria R.', 'Jorge M.', 'Camila S.', 'Andrés L.', 'Daniela P.', 'Mateo C.'];
+const ROLES = [
+  ['AE', 'Account Executive', 'Customer relationship, business goals and value.', RED],
+  ['AI', 'AI Specialist', "Understands the customer's AI capabilities and strategy.", PUR],
+  ['CSA', 'Cloud Solution Architect', 'Technical feasibility, architecture and optimization.', ROSE],
+  ['CSM', 'Customer Success Manager', 'Adoption, change management and measurable outcomes.', 'oklch(0.6 0.15 155)'],
+  ['BA', 'Business / Data Analyst', 'Analyzes usage, cost and business performance.', ORANGE],
+  ['SG', 'Security & Governance', 'Risk, compliance and responsible AI.', 'oklch(0.6 0.15 250)']
+];
+const MISSING = ['AI usage by workload', 'Cost by workload', 'Business outcomes / ROI', 'Employee adoption', 'Security incidents', 'Model selection and architecture'];
+const WL = [
+  { name: 'Customer Support AI', tokens: '10.2M', cost: '$20K', adoption: '91%', value: 'High', trend: '+48% vs. plan', desc: 'Virtual agent for customer inquiries.', owner: 'Customer Service', model: 'GPT-4o', users: '1,200 agents', monitoring: 'Partial', notes: ['Average resolution time decreased 31%', 'Customer satisfaction increased 8%', 'Support backlog decreased 24%', 'Using GPT-4o for complex cases'] },
+  { name: 'Sales Assistant', tokens: '4.1M', cost: '$8K', adoption: '82%', value: 'High', trend: '+22% vs. plan', desc: 'Drafts proposals and summarizes CRM activity.', owner: 'Sales Ops', model: 'GPT-4o mini', users: '640 sellers', monitoring: 'Yes', notes: ['Proposal prep time down 40%', 'Pipeline notes auto-summarized', 'Strong seller satisfaction'] },
+  { name: 'Marketing Content AI', tokens: '5.0M', cost: '$10K', adoption: '71%', value: 'Medium', trend: '+65% vs. plan', desc: 'Generates campaign copy and imagery.', owner: 'Marketing', model: 'GPT-4o + DALL·E', users: '180 marketers', monitoring: 'No', notes: ['Long prompts with repeated context', 'Many regenerations per asset', 'Unclear impact on campaign results'] },
+  { name: 'HR Assistant', tokens: '2.8M', cost: '$6K', adoption: '23%', value: 'Low', trend: '+30% vs. plan', desc: 'Answers HR policy questions.', owner: 'HR', model: 'GPT-4o', users: '9,000 employees', monitoring: 'No', notes: ['Low adoption since launch', 'Overlaps with Internal Knowledge Bot', 'Uses a premium model for simple Q&A'] },
+  { name: 'Internal Knowledge Bot', tokens: '4.5M', cost: '$9K', adoption: '64%', value: 'Unknown', trend: '+90% vs. plan', desc: 'Searches internal documents and wikis.', owner: 'IT', model: 'GPT-4o', users: '9,000 employees', monitoring: 'No', notes: ['No owner tracking business value', 'Duplicate answers with HR Assistant', 'Usage growing quickly'] },
+  { name: 'AI Experiments', tokens: '1.4M', cost: '$3K', adoption: 'N/A', value: 'Unknown', trend: 'New', desc: 'Sandbox projects across teams.', owner: 'Various', model: 'Mixed', users: '~60 builders', monitoring: 'No', notes: ['No approval process', 'Several unapproved external tools', 'No data classification'] }
+];
+const VAL = { High: ['oklch(0.74 0.16 155 / 16%)', 'var(--suc)'], Medium: ['oklch(0.8 0.14 70 / 16%)', 'var(--warn)'], Low: ['oklch(0.56 0.21 20 / 16%)', 'var(--redl)'], Unknown: ['var(--muted)', 'var(--mfg)'] };
+const CLS = { Protect: 'oklch(0.65 0.15 155)', Optimize: PUR, Investigate: 'oklch(0.75 0.14 70)', 'Reduce / Retire': RED };
+const CAUSES = ['Excessive overall AI adoption', 'Inefficient model selection', 'Poor prompt / workflow design', 'Duplicate AI solutions', 'Lack of governance', 'Low-value experimentation', 'Lack of monitoring', 'Insufficient employee training', 'Poor measurement of business value', 'Inadequate AI capacity'];
+const RECS = [
+  { id: 'mon', title: 'Implement AI usage monitoring', sub: 'Better visibility into token usage and cost.', cost: '$$', time: '4–6 weeks', w: 5, fx: [4, 2, 0, 5] },
+  { id: 'opt', title: 'Optimize high-consumption workflows', sub: 'Improve prompts, workflows and model selection.', cost: '$$', time: '6–10 weeks', w: 8, fx: [9, 4, 1, 0] },
+  { id: 'exp', title: 'Expand Customer Support AI', sub: 'Scale the solution based on strong business value.', cost: '$$$', time: '8–12 weeks', w: 10, fx: [-3, 9, 4, 0] },
+  { id: 'hr', title: 'Consolidate duplicate HR agents', sub: 'Eliminate overlapping solutions.', cost: '$', time: '2–4 weeks', w: 3, fx: [5, 2, 1, 3] },
+  { id: 'gov', title: 'Introduce AI governance framework', sub: 'Policies, controls and responsible AI.', cost: '$$', time: '6–10 weeks', w: 8, fx: [1, 2, 0, 12] },
+  { id: 'trn', title: 'Employee AI training program', sub: 'Drive better adoption and usage.', cost: '$$', time: '4–6 weeks', w: 5, fx: [0, 3, 7, 5] }
+];
+const DEFAULT_STRAT = ['mon', 'opt', 'exp', 'gov', 'trn'];
+const OUTCOMES = ['Reduce operating cost by', 'Increase business value by', 'Increase adoption by', 'Reduce security risk by', 'Improve governance maturity'];
+const METRICS = ['Cost per 1K tokens', 'Employee adoption rate', 'Customer satisfaction (CSAT)', 'Resolution time', 'AI ROI / productivity gains', 'Security incident rate'];
+const BOARD = [[4, 'Team 06', 82], [5, 'Team 11', 79], [6, 'Team 02', 78], [7, 'Team 09', 75], [8, 'Team 05', 73]];
+
+class Component extends DCLogic {
+  state = {
+    screen: null, theme: null, email: 'student.dallas@leadmindset.org', code: 'LEADASPIRE2026', showCode: false,
+    done: {}, members: {}, teamName: '', briefAnswer: '', missing: ['Cost by workload'], wl: 0, wlTab: 'overview',
+    diag: {}, causes: [], strategy: [], recTab: 'avail', revised: null,
+    situation: '', rootCause: '', msRec: '', statement: '', outcomes: {}, metrics: [], timeLeft: 0
+  };
+  theme() { return this.state.theme ?? this.props.theme ?? 'dark'; }
+  componentDidMount() {
+    document.documentElement.dataset.theme = this.theme();
+    const p = PH.find(x => x.k === (this.props.startScreen ?? 'login'));
+    if (p) this.setState({ timeLeft: p.t * 60 });
+    this.iv = setInterval(() => this.state.timeLeft > 0 && this.setState(s => ({ timeLeft: s.timeLeft - 1 })), 1000);
+  }
+  componentWillUnmount() { clearInterval(this.iv); }
+  componentDidUpdate(prev) {
+    if (prev.startScreen !== this.props.startScreen) this.setState({ screen: null });
+    if (prev.theme !== this.props.theme && this.state.theme) this.setState({ theme: null });
+    document.documentElement.dataset.theme = this.theme();
+  }
+  go(k) {
+    const p = PH.find(x => x.k === k);
+    const patch = { screen: k, timeLeft: p ? p.t * 60 : 0 };
+    if (k === 'respond' && !this.state.revised) patch.revised = [...this.base()];
+    this.setState(patch); window.scrollTo(0, 0);
+  }
+  base() { return this.state.strategy.length ? this.state.strategy : DEFAULT_STRAT; }
+  toggleIn(key, v, max) {
+    this.setState(s => { const a = s[key]; if (a.includes(v)) return { [key]: a.filter(x => x !== v) }; if (max && a.length >= max) return null; return { [key]: [...a, v] }; });
+  }
+  renderVals() {
+    const S = this.state;
+    const screen = S.screen ?? this.props.startScreen ?? 'login';
+    const th = this.theme();
+    const idx = PH.findIndex(p => p.k === screen);
+    const doneN = PH.filter(p => S.done[p.k]).length;
+    const firstOpen = PH.findIndex(p => !S.done[p.k]);
+    const tn = S.teamName.trim();
+    const phases = PH.map((p, i) => {
+      const a = i === idx, d = !!S.done[p.k];
+      return { ...p, num: String(i + 1).padStart(2, '0'), badge: i % 2 ? PUR : RED, mark: d ? '✓' : '', go: () => this.go(p.k),
+        bg: a ? 'rgba(255,255,255,.1)' : 'transparent', fg: a ? '#fff' : 'var(--mfg)', bar: a ? PUR : 'transparent',
+        dot: d ? PUR : i === firstOpen ? 'var(--purl)' : 'var(--muted)', homeColor: i === firstOpen ? 'var(--purl)' : d ? 'var(--fg)' : 'var(--mfg)', homeWeight: i === firstOpen ? 700 : 400,
+        seg: d ? GRAD : a ? 'oklch(0.5584 0.2066 286.65 / 40%)' : 'var(--muted)', segText: a ? 'var(--purl)' : d ? 'var(--fg)' : 'var(--mfg)', weight: a ? 700 : 500 };
+    });
+    const mm = Math.floor(S.timeLeft / 60), ss = S.timeLeft % 60;
+    const roles = ROLES.map(([abbr, title, desc, color]) => ({ abbr, title, desc, color, tint: `color-mix(in oklch,${color} 18%,transparent)`, member: S.members[title] || '', set: e => this.setState({ members: { ...S.members, [title]: e.target.value } }) }));
+    const assigned = Object.values(S.members).filter(Boolean).length;
+    const w = WL[S.wl];
+    const strategy = S.strategy;
+    const fx = [0, 0, 0, 0]; let maxW = 0;
+    strategy.forEach(id => { const r = RECS.find(x => x.id === id); r.fx.forEach((v, j) => fx[j] += v); maxW = Math.max(maxW, r.w); });
+    const recSource = S.recTab === 'avail' ? RECS : RECS.filter(r => strategy.includes(r.id));
+    const base = this.base(), rev = S.revised || base;
+    const changes = rev.filter((v, i) => v !== base[i]).length;
+    const title = id => (RECS.find(r => r.id === id) || {}).title || '—';
+    const canNext = {
+      team: !!tn && assigned >= 1, brief: S.briefAnswer.trim().length > 0, discover: true, diagnose: S.causes.length === 3,
+      advise: strategy.length > 0, respond: true, deliver: !!(S.situation.trim() && S.msRec.trim() && S.statement.trim())
+    }[screen] ?? true;
+    const hints = { team: 'Name your team and assign at least one role', brief: 'Answer question 1 to continue', diagnose: 'Pick exactly 3 root causes', advise: 'Add at least one recommendation', deliver: 'Complete sections 1, 3 and 6' };
+    return {
+      isLogin: screen === 'login', isResults: screen === 'results', isApp: idx >= 0 || screen === 'home', isHome: screen === 'home', isPhase: idx >= 0,
+      goHome: () => this.go('home'),
+      homeNav: screen === 'home' ? { bg: 'rgba(255,255,255,.1)', fg: '#fff', bar: PUR } : { bg: 'transparent', fg: 'var(--mfg)', bar: 'transparent' },
+      teamName: tn || 'Your team', teamInitials: tn ? tn.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase() : '?',
+      teamSub: tn ? 'Microsoft account team' : 'Choose a team name and your roles to get started.',
+      teamNameInput: S.teamName, setTeamName: e => this.setState({ teamName: e.target.value }),
+      ringOffset: 339.3 * (1 - doneN / 7),
+      startLabel: firstOpen < 0 ? 'See results →' : firstOpen === 0 ? 'Start: set up your team →' : `Continue: ${PH[firstOpen].label} →`,
+      startJourney: () => this.go(firstOpen < 0 ? 'results' : PH[firstOpen].k),
+      isTeam: screen === 'team', isBrief: screen === 'brief', isDiscover: screen === 'discover', isDiagnose: screen === 'diagnose', isAdvise: screen === 'advise', isRespond: screen === 'respond', isDeliver: screen === 'deliver',
+      themeLabel: th === 'dark' ? 'Light mode' : 'Dark mode', toggleTheme: () => this.setState({ theme: th === 'dark' ? 'light' : 'dark' }),
+      email: S.email, setEmail: e => this.setState({ email: e.target.value }), code: S.code, setCode: e => this.setState({ code: e.target.value }),
+      codeType: S.showCode ? 'text' : 'password', codeLabel: S.showCode ? 'Hide' : 'Show', toggleCode: () => this.setState({ showCode: !S.showCode }),
+      signIn: e => { e.preventDefault(); if (/\.ny@|newyork/i.test(S.email)) { window.location.href = 'LEAD Aspire v3.dc.html'; return; } this.go('home'); },
+      signOut: () => this.go('login'), goDeliver: () => this.go('deliver'),
+      phases, pctLabel: Math.round(doneN / 7 * 100) + '%', remainingLabel: doneN === 7 ? 'All phases complete' : `${7 - doneN} phases left`,
+      hasTimer: idx > 0, timer: `${String(mm).padStart(2, '0')}:${String(ss).padStart(2, '0')}`, timerColor: S.timeLeft < 300 ? 'var(--redl)' : 'var(--purl)',
+      roles, memberOptions: MEMBERS, rolesAssigned: `${assigned} of 6 roles assigned`,
+      briefAnswer: S.briefAnswer, setBriefAnswer: e => this.setState({ briefAnswer: e.target.value }),
+      missingCount: `${S.missing.length} of 3 selected`,
+      missingOpts: MISSING.map(l => { const c = S.missing.includes(l); return { label: l, checked: c, bg: c ? 'oklch(0.5584 0.2066 286.65 / 14%)' : 'var(--muted)', toggle: () => this.toggleIn('missing', l, 3) }; }),
+      workloads: WL.map((x, i) => ({ ...x, valueBg: VAL[x.value][0], valueFg: VAL[x.value][1], rowBg: i === S.wl ? 'oklch(0.5584 0.2066 286.65 / 14%)' : 'transparent', bar: i === S.wl ? PUR : 'transparent', select: () => this.setState({ wl: i }) })),
+      wl: { ...w, valueFg: VAL[w.value][1] },
+      isOverview: S.wlTab === 'overview', isDetails: S.wlTab === 'details',
+      tabOverview: () => this.setState({ wlTab: 'overview' }), tabDetails: () => this.setState({ wlTab: 'details' }),
+      tabOvBg: S.wlTab === 'overview' ? 'var(--card)' : 'transparent', tabDtBg: S.wlTab === 'details' ? 'var(--card)' : 'transparent',
+      diagRows: WL.map(x => { const v = S.diag[x.name] || '', c = CLS[v]; return { name: x.name, value: v, color: c || 'var(--input)', tint: c ? `color-mix(in oklch,${c} 16%,transparent)` : 'var(--muted)', fg: c ? 'var(--fg)' : 'var(--mfg)', set: e => this.setState({ diag: { ...S.diag, [x.name]: e.target.value } }) }; }),
+      causeCount: `${S.causes.length} of 3 selected`,
+      causes: CAUSES.map(l => { const c = S.causes.includes(l); const full = S.causes.length >= 3 && !c; return { label: l, checked: c, opacity: full ? .5 : 1, bg: c ? 'oklch(0.5584 0.2066 286.65 / 14%)' : 'transparent', toggle: () => this.toggleIn('causes', l, 3) }; }),
+      tabAvail: () => this.setState({ recTab: 'avail' }), tabStrategy: () => this.setState({ recTab: 'strategy' }),
+      tabAvBg: S.recTab === 'avail' ? PUR : 'transparent', tabAvFg: S.recTab === 'avail' ? '#fff' : 'var(--fg)',
+      tabStBg: S.recTab === 'strategy' ? PUR : 'transparent', tabStFg: S.recTab === 'strategy' ? '#fff' : 'var(--fg)',
+      strategyLabel: `Your strategy (${strategy.length}/5)`,
+      recList: recSource.map(r => { const on = strategy.includes(r.id); const full = strategy.length >= 5 && !on; return { ...r, btnLabel: on ? 'Added ✓' : 'Add', btnBg: on ? PUR : 'transparent', btnFg: on ? '#fff' : 'var(--purl)', opacity: full ? .4 : 1, toggle: () => { this.toggleIn('strategy', r.id, 5); this.setState({ revised: null }); } }; }),
+      recEmpty: recSource.length === 0,
+      impact: [['Operating cost', fx[0], true, 'var(--suc)'], ['Business value', fx[1], false, 'var(--purl)'], ['Adoption', fx[2], false, 'var(--warn)'], ['Security risk', fx[3], true, 'oklch(0.65 0.15 155)']].map(([label, v, down, color]) => ({ label, color, width: Math.min(100, Math.abs(v) * 3.5) + '%', value: v === 0 ? '—' : `${(down ? v > 0 : v < 0) ? '↓' : '↑'} ${Math.abs(v)}%` })),
+      timeToImpl: !strategy.length ? '—' : maxW <= 4 ? 'Short' : maxW <= 8 ? 'Medium' : 'Long',
+      baseList: base.map((id, i) => ({ n: i + 1, title: title(id) })),
+      revisedRows: rev.map((id, i) => { const ch = id !== base[i]; return { n: i + 1, value: id, border: ch ? PUR : 'var(--input)', badge: ch ? PUR : 'var(--sec)', badgeFg: ch ? '#fff' : 'var(--fg)',
+        set: e => { const next = [...rev]; next[i] = e.target.value; if (next.filter((v, j) => v !== base[j]).length > 2) return; this.setState({ revised: next }); } }; }),
+      recOptions: RECS.map(r => ({ id: r.id, title: r.title })),
+      changesUsed: changes, changesBg: changes >= 2 ? 'oklch(0.56 0.21 20 / 16%)' : 'var(--muted)', changesFg: changes >= 2 ? 'var(--redl)' : 'var(--mfg)',
+      situation: S.situation, setSituation: e => this.setState({ situation: e.target.value }), situationCount: S.situation.length,
+      rootCause: S.rootCause, setRootCause: e => this.setState({ rootCause: e.target.value }),
+      msRec: S.msRec, setMsRec: e => this.setState({ msRec: e.target.value }),
+      statement: S.statement, setStatement: e => this.setState({ statement: e.target.value }),
+      outcomes: OUTCOMES.map(l => { const o = S.outcomes[l]; return { label: l, checked: !!o, off: !o, opacity: o ? 1 : .4, pct: o ? o.pct : '', toggle: () => this.setState({ outcomes: { ...S.outcomes, [l]: o ? undefined : { pct: '' } } }), setPct: e => this.setState({ outcomes: { ...S.outcomes, [l]: { pct: e.target.value } } }) }; }),
+      metricCount: `${S.metrics.length} of 3 selected`,
+      metrics: METRICS.map(l => { const c = S.metrics.includes(l); const full = S.metrics.length >= 3 && !c; return { label: l, checked: c, opacity: full ? .5 : 1, bg: c ? 'oklch(0.5584 0.2066 286.65 / 14%)' : 'transparent', toggle: () => this.toggleIn('metrics', l, 3) }; }),
+      back: () => idx > 0 ? this.go(PH[idx - 1].k) : this.go('home'),
+      next: () => { if (!canNext) return; this.setState(s => ({ done: { ...s.done, [screen]: true } })); this.go(idx < 6 ? PH[idx + 1].k : 'results'); },
+      cantNext: !canNext, nextOpacity: canNext ? 1 : .45, hint: canNext ? '' : (hints[screen] || ''),
+      nextLabel: screen === 'deliver' ? 'Submit final recommendation →' : 'Continue →',
+      board: BOARD.map(([rank, team, pts]) => ({ rank, team, pts }))
+    };
+  }
+}
+</script>
+</body>
+</html>

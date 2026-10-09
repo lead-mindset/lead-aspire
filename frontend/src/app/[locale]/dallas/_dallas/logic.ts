@@ -1,5 +1,6 @@
 // Pure rules for the Dallas challenge, kept apart from the UI so they can be
-// unit tested and later mirrored by the backend.
+// unit tested. The Continue rules are mirrored by the backend
+// (backend/app/dallas_challenge.py, COMPLETE_RULES).
 
 import {
   CAUSES_REQUIRED,
@@ -12,9 +13,12 @@ import {
   type Screen,
 } from "./data";
 
+/** The team's shared answers (saved per phase, see answers.ts) plus `workload`,
+ * which only this browser uses (the selected Discover row). */
 export type DallasState = {
-  screen: Screen;
-  done: PhaseKey[];
+  /** The team's display name; "" until set. */
+  teamName: string;
+  /** Role key -> the user_id of the member who has it. */
   members: Record<string, string>;
   briefAnswer: string;
   missing: string[];
@@ -33,8 +37,7 @@ export type DallasState = {
 };
 
 export const INITIAL_STATE: DallasState = {
-  screen: "team",
-  done: [],
+  teamName: "",
   members: {},
   briefAnswer: "",
   missing: [],
@@ -116,7 +119,9 @@ export function blockReason(
 ): BlockReason | null {
   switch (screen) {
     case "team":
-      return Object.values(s.members).some(Boolean) ? null : "team";
+      return s.teamName.trim() && Object.values(s.members).some(Boolean)
+        ? null
+        : "team";
     case "brief":
       return s.briefAnswer.trim() ? null : "brief";
     case "diagnose":
@@ -130,6 +135,11 @@ export function blockReason(
     default:
       return null;
   }
+}
+
+/** The first phase the team has not completed, or null when all are done. */
+export function firstOpenPhase(done: readonly PhaseKey[]): PhaseKey | null {
+  return PHASE_KEYS.find((key) => !done.includes(key)) ?? null;
 }
 
 /** The screen after `phase`: the next phase, or the results after Deliver. */

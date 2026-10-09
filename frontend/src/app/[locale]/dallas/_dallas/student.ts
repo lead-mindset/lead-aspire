@@ -22,6 +22,6 @@ export function memberName(member: {
 }
 
 /** The team number as shown on the badge: 8 -> "08". */
-export function teamBadge(team: DallasTeam): string {
+export function teamBadge(team: { number: number }): string {
   return String(team.number).padStart(2, "0");
 }

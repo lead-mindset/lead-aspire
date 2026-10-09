@@ -1,3 +1,5 @@
+from typing import Any, Literal
+
 from pydantic import BaseModel, EmailStr, Field, field_validator
 
 
@@ -55,3 +57,50 @@ class DallasMeResponse(BaseModel):
     last_name: str | None = None
     team: DallasTeam | None = None
     members: list[DallasMember] = []
+
+
+# --- Challenge: shared team answers, timers and progress ------------------------
+
+DallasPhase = Literal["team", "brief", "discover", "diagnose", "advise", "respond", "deliver"]
+
+
+class DallasTeamMember(BaseModel):
+    user_id: str
+    first_name: str
+    last_name: str
+
+
+class DallasPhaseState(BaseModel):
+    # Flat object: one key per field or option (see app/dallas_challenge.py).
+    answers: dict[str, Any] = {}
+    started_at: str | None = None
+    completed_at: str | None = None
+    updated_at: str | None = None
+    updated_by_name: str | None = None
+
+
+class DallasTeamInfo(BaseModel):
+    id: int
+    number: int
+    name: str
+    # The name the team typed in the Team phase; null until set.
+    display_name: str | None = None
+
+
+class DallasTeamStateResponse(BaseModel):
+    team: DallasTeamInfo
+    members: list[DallasTeamMember]
+    phases: dict[str, DallasPhaseState]
+    # Lets the browser correct its clock for the phase timers.
+    server_time: str
+
+
+class DallasAnswersPatch(BaseModel):
+    """Only the keys that changed. A null value removes the key."""
+
+    patch: dict[str, Any] = Field(min_length=1, max_length=60)
+
+
+class DallasPhaseResponse(BaseModel):
+    phase: DallasPhaseState
+    server_time: str

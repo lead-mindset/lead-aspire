@@ -269,13 +269,14 @@
   },
   "Dallas": {
     "brandSub": "ASPIRE · DALLAS",
-    "challenge": "Reto Microsoft AI Specialist · Dallas",
+    "challenge": "Equipo {num} · Reto Microsoft AI Specialist · Dallas",
     "teamName": "Equipo {num}",
     "city": "Dallas",
     "nav": {
       "label": "Fases del reto",
       "section": "EL RETO",
-      "completed": "Completada"
+      "completed": "Completada",
+      "home": "Inicio"
     },
     "phases": {
       "team": "Equipo",
@@ -304,12 +305,13 @@
       "continue": "Continuar →",
       "submit": "Enviar recomendación final →",
       "hints": {
-        "team": "Asigna al menos un rol",
+        "team": "Ponle nombre a tu equipo y asigna al menos un rol",
         "brief": "Responde la pregunta 1 para continuar",
         "diagnose": "Elige exactamente 3 causas raíz",
         "advise": "Agrega al menos una recomendación",
         "deliver": "Completa las secciones 1, 3 y 6"
-      }
+      },
+      "refused": "No pudimos guardar tu progreso. Revisa tus respuestas e inténtalo de nuevo."
     },
     "selected": "{count} de {max} seleccionadas",
     "answerPlaceholder": "Escribe tu respuesta aquí…",
@@ -318,32 +320,10 @@
       "subtitle": "Asigna un rol a cada integrante. Cada perspectiva cuenta.",
       "assigned": "{count} de {total} roles asignados",
       "assign": "Asignar integrante…",
-      "roles": {
-        "ae": {
-          "title": "Account Executive",
-          "desc": "Relación con el cliente, objetivos de negocio y valor."
-        },
-        "ai": {
-          "title": "AI Specialist",
-          "desc": "Entiende las capacidades y la estrategia de IA del cliente."
-        },
-        "csa": {
-          "title": "Cloud Solution Architect",
-          "desc": "Viabilidad técnica, arquitectura y optimización."
-        },
-        "csm": {
-          "title": "Customer Success Manager",
-          "desc": "Adopción, gestión del cambio y resultados medibles."
-        },
-        "ba": {
-          "title": "Analista de negocio / datos",
-          "desc": "Analiza el uso, el costo y el desempeño del negocio."
-        },
-        "sg": {
-          "title": "Seguridad y gobernanza",
-          "desc": "Riesgo, cumplimiento e IA responsable."
-        }
-      }
+      "nameLabel": "1. Ponle nombre a tu equipo",
+      "namePlaceholder": "p. ej. Lone Star Labs",
+      "nameLocked": "El nombre del equipo queda fijo al completar la fase Equipo.",
+      "rolesLabel": "2. Asigna un rol a cada integrante"
     },
     "brief": {
       "title": "Nuevo mensaje del cliente",
@@ -634,6 +614,31 @@
       "finalists": "Finalistas",
       "finalistsHelp": "Presenta tu recomendación al cliente.",
       "back": "← Volver a la propuesta"
+    },
+    "yourTeam": "Tu equipo",
+    "unavailable": "No pudimos cargar tu equipo en este momento.",
+    "retry": "Intentar de nuevo",
+    "home": {
+      "eyebrow": "ASPIRE DALLAS · RETO MICROSOFT AI SPECIALIST",
+      "titleFirst": "Ideas hoy.",
+      "titleAccent": "Impacto real",
+      "titleLast": "mañana.",
+      "intro": "Forma parte de un equipo de cuenta de Microsoft, analiza un caso real de un cliente y entrega tu recomendación, todo en vivo, en siete fases con tiempo.",
+      "start": "Comenzar: arma tu equipo →",
+      "continue": "Continuar: {phase} →",
+      "results": "Ver resultados →",
+      "teamPill": "Dallas · Equipo {num} · {count} de {total} roles asignados",
+      "teamSubSet": "Equipo de cuenta de Microsoft",
+      "teamSubEmpty": "Elige un nombre de equipo y sus roles para empezar.",
+      "progressTitle": "Tu progreso",
+      "howTitle": "Cómo funciona",
+      "howBody": "Cada fase tiene tiempo. Tu equipo responde dentro de la plataforma, sin descargar archivos. Primero elige el nombre del equipo y los roles; el reloj empieza cuando abres el brief."
+    },
+    "sync": {
+      "saving": "Guardando…",
+      "saved": "Todos los cambios guardados",
+      "error": "Aún no se guardó. Reintentando…",
+      "lastEdited": "Última edición de {name}"
     }
   },
   "DallasLogin": {

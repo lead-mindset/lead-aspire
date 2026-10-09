@@ -3,6 +3,7 @@ import { connection } from "next/server";
 import { isSupabaseConfigured } from "@/lib/supabase/env";
 import { createClient } from "@/lib/supabase/server";
 import { API_URL, type DallasStudent } from "./student";
+import type { TeamState } from "./teamSync";
 
 const ME_TIMEOUT_MS = 3000;
 
@@ -45,3 +46,27 @@ export const getDallasViewer = cache(async (): Promise<DallasViewer> => {
     return { kind: "unavailable" };
   }
 });
+
+/**
+ * Server-side: the student's team state (answers, timers, progress), for the
+ * first render of the dashboard. Null if the backend could not be reached;
+ * the dashboard then loads it in the browser.
+ */
+export async function getDallasTeamState(): Promise<TeamState | null> {
+  if (!isSupabaseConfigured()) return null;
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getSession();
+  const token = data.session?.access_token;
+  if (!token) return null;
+
+  try {
+    const response = await fetch(`${API_URL}/api/dallas/team/state`, {
+      headers: { Authorization: `Bearer ${token}` },
+      cache: "no-store",
+      signal: AbortSignal.timeout(ME_TIMEOUT_MS),
+    });
+    return response.ok ? ((await response.json()) as TeamState) : null;
+  } catch {
+    return null;
+  }
+}

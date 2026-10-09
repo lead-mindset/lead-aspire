@@ -269,13 +269,14 @@
   },
   "Dallas": {
     "brandSub": "ASPIRE · DALLAS",
-    "challenge": "Microsoft AI Specialist Challenge · Dallas",
+    "challenge": "Team {num} · Microsoft AI Specialist Challenge · Dallas",
     "teamName": "Team {num}",
     "city": "Dallas",
     "nav": {
       "label": "Challenge phases",
       "section": "THE CHALLENGE",
-      "completed": "Completed"
+      "completed": "Completed",
+      "home": "Home"
     },
     "phases": {
       "team": "Team",
@@ -304,12 +305,13 @@
       "continue": "Continue →",
       "submit": "Submit final recommendation →",
       "hints": {
-        "team": "Assign at least one role",
+        "team": "Name your team and assign at least one role",
         "brief": "Answer question 1 to continue",
         "diagnose": "Pick exactly 3 root causes",
         "advise": "Add at least one recommendation",
         "deliver": "Complete sections 1, 3 and 6"
-      }
+      },
+      "refused": "We couldn’t save your progress. Check your answers and try again."
     },
     "selected": "{count} of {max} selected",
     "answerPlaceholder": "Write your answer here…",
@@ -318,32 +320,10 @@
       "subtitle": "Assign a role to each team member. Every perspective matters.",
       "assigned": "{count} of {total} roles assigned",
       "assign": "Assign member…",
-      "roles": {
-        "ae": {
-          "title": "Account Executive",
-          "desc": "Customer relationship, business goals and value."
-        },
-        "ai": {
-          "title": "AI Specialist",
-          "desc": "Understands the customer's AI capabilities and strategy."
-        },
-        "csa": {
-          "title": "Cloud Solution Architect",
-          "desc": "Technical feasibility, architecture and optimization."
-        },
-        "csm": {
-          "title": "Customer Success Manager",
-          "desc": "Adoption, change management and measurable outcomes."
-        },
-        "ba": {
-          "title": "Business / Data Analyst",
-          "desc": "Analyzes usage, cost and business performance."
-        },
-        "sg": {
-          "title": "Security & Governance",
-          "desc": "Risk, compliance and responsible AI."
-        }
-      }
+      "nameLabel": "1. Name your team",
+      "namePlaceholder": "e.g. Lone Star Labs",
+      "nameLocked": "The team name is locked once the Team phase is complete.",
+      "rolesLabel": "2. Assign a role to each team member"
     },
     "brief": {
       "title": "New message from the customer",
@@ -634,6 +614,31 @@
       "finalists": "Finalists",
       "finalistsHelp": "Present your recommendation to the customer.",
       "back": "← Back to submission"
+    },
+    "yourTeam": "Your team",
+    "unavailable": "We couldn’t load your team right now.",
+    "retry": "Try again",
+    "home": {
+      "eyebrow": "ASPIRE DALLAS · MICROSOFT AI SPECIALIST CHALLENGE",
+      "titleFirst": "Ideas today.",
+      "titleAccent": "Real impact",
+      "titleLast": "tomorrow.",
+      "intro": "Step into a Microsoft account team, analyze a real customer scenario, and deliver your recommendation — all live, in seven timed phases.",
+      "start": "Start: set up your team →",
+      "continue": "Continue: {phase} →",
+      "results": "See results →",
+      "teamPill": "Dallas · Team {num} · {count} of {total} roles assigned",
+      "teamSubSet": "Microsoft account team",
+      "teamSubEmpty": "Choose a team name and your roles to get started.",
+      "progressTitle": "Your progress",
+      "howTitle": "How it works",
+      "howBody": "Each phase is timed. Your team answers inside the platform — no files to download. Choose your team name and roles first; the clock starts when you open the brief."
+    },
+    "sync": {
+      "saving": "Saving…",
+      "saved": "All changes saved",
+      "error": "Not saved yet. Retrying…",
+      "lastEdited": "Last edited by {name}"
     }
   },
   "DallasLogin": {
