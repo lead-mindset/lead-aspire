@@ -85,6 +85,7 @@ def test_coach_answers_and_records_the_message(client, signed_in, monkeypatch):
     [(_, _, saved)] = signed_in.writes_to("aspire_coach_messages")
     assert saved["group_id"] == 7
     assert saved["user_id"] == "user-1"
+    assert saved["agent_name"] == "test-agent"
 
 
 def test_coach_refuses_another_users_conversation(client, signed_in):

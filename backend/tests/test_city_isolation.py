@@ -25,9 +25,9 @@ DALLAS_ROUTES = [
     ("get", "/api/dallas/teams", None),
     ("post", "/api/dallas/profile", {"first_name": "A", "last_name": "B", "team_id": 1}),
     ("get", "/api/dallas/team/state", None),
-    ("post", "/api/dallas/team/phases/brief/answers", {"patch": {"q1": "x"}}),
-    ("post", "/api/dallas/team/phases/brief/open", None),
-    ("post", "/api/dallas/team/phases/brief/complete", None),
+    ("post", "/api/dallas/team/phases/team/answers", {"patch": {"display_name": "x"}}),
+    ("post", "/api/dallas/team/phases/discover/open", None),
+    ("post", "/api/dallas/team/phases/discover/complete", None),
 ]
 
 

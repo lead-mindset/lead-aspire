@@ -2,6 +2,7 @@ import logging
 import re
 import secrets
 import time
+from collections.abc import Callable
 
 from fastapi import APIRouter, Header, HTTPException, Query, Request
 from postgrest.exceptions import APIError
@@ -636,7 +637,9 @@ def _record_coach_message(
     conversation_id: str,
     question: str,
     answer: str,
+    agent_name: str,
 ) -> None:
+    """One question and answer; agent_name is the Foundry agent that answered (migration 013)."""
     try:
         client.table("aspire_coach_messages").insert(
             {
@@ -645,6 +648,7 @@ def _record_coach_message(
                 "conversation_id": conversation_id,
                 "question": question,
                 "answer": answer,
+                "agent_name": agent_name,
             }
         ).execute()
     except APIError:
@@ -659,32 +663,22 @@ def ask_agent(question: str, conversation_id: str | None = None) -> tuple[str, s
     return foundry_ask_agent(question, conversation_id)
 
 
-@coach_router.post("/chat", response_model=CoachChatResponse)
-def coach_chat(
-    payload: CoachChatRequest,
-    city_code: str = Query(default="NYC", min_length=1, max_length=10),
-    authorization: str | None = Header(default=None),
-) -> CoachChatResponse:
-    # Sync route: FastAPI runs it in a threadpool, so the blocking SDK call
-    # does not stall the event loop.
-    client = shared_admin_client()
-    user = _user_from_token(client, authorization)
-    user_id = str(user.id)
-    if payload.conversation_id and _conversation_owned_by_other(
-        client, payload.conversation_id, user_id
-    ):
-        raise HTTPException(status_code=403, detail="This conversation belongs to another user")
-    access = _viewer_group(client, user_id, city_code)
-    if not settings.coach_configured:
-        raise HTTPException(status_code=503, detail="The coach is not configured")
+def coach_answer(
+    question: str,
+    conversation_id: str | None,
+    ask: Callable[[str, str | None], tuple[str, str]],
+) -> tuple[str, str]:
+    """Ask a Foundry coach through `ask`, turning SDK errors into HTTP errors.
 
+    Shared by the New York coach and the Dallas coach (app/dallas_coach.py).
+    """
     # Imported here, not at module load: openai and the Azure SDK add ~1 s to
-    # every cold start, and only this route needs them.
+    # every cold start, and only the coach routes need them.
     import openai
     from azure.core.exceptions import ClientAuthenticationError
 
     try:
-        answer, conversation_id = ask_agent(payload.question, payload.conversation_id)
+        answer, conversation_id = ask(question, conversation_id)
     except (ClientAuthenticationError, openai.AuthenticationError) as error:
         logger.exception("Foundry coach authentication failed")
         raise HTTPException(
@@ -722,6 +716,32 @@ def coach_chat(
             detail="The Foundry coach returned an empty answer",
         )
 
+    return answer, conversation_id
+
+
+@coach_router.post("/chat", response_model=CoachChatResponse)
+def coach_chat(
+    payload: CoachChatRequest,
+    city_code: str = Query(default="NYC", min_length=1, max_length=10),
+    authorization: str | None = Header(default=None),
+) -> CoachChatResponse:
+    # Sync route: FastAPI runs it in a threadpool, so the blocking SDK call
+    # does not stall the event loop.
+    client = shared_admin_client()
+    user = _user_from_token(client, authorization)
+    user_id = str(user.id)
+    if payload.conversation_id and _conversation_owned_by_other(
+        client, payload.conversation_id, user_id
+    ):
+        raise HTTPException(status_code=403, detail="This conversation belongs to another user")
+    access = _viewer_group(client, user_id, city_code)
+    if not settings.coach_configured:
+        raise HTTPException(status_code=503, detail="The coach is not configured")
+
+    answer, conversation_id = coach_answer(
+        payload.question, payload.conversation_id, ask_agent
+    )
+
     _record_coach_message(
         client,
         user_id,
@@ -729,6 +749,7 @@ def coach_chat(
         conversation_id,
         payload.question,
         answer,
+        settings.foundry_agent_name,
     )
     return CoachChatResponse(answer=answer, conversation_id=conversation_id)
 

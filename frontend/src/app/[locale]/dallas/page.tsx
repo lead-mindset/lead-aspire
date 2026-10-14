@@ -38,5 +38,10 @@ export default async function DallasPage({ params }: Props) {
       </main>
     );
   }
-  return <DallasApp initialState={state} />;
+  return (
+    <DallasApp
+      initialState={state}
+      isAdmin={viewer.student.is_admin === true}
+    />
+  );
 }

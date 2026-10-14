@@ -8,6 +8,8 @@ export type DallasStudent = {
   /** Null until the student picks a team on the login screen (Step 2). */
   team: DallasTeam | null;
   members: { first_name: string; last_name: string }[];
+  /** aspire_profiles.is_admin: also sees the organizer "View Teams Results" screen. */
+  is_admin?: boolean;
 };
 
 export const API_URL =

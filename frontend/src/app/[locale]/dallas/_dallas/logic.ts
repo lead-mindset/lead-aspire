@@ -3,9 +3,6 @@
 // (backend/app/dallas_challenge.py, COMPLETE_RULES).
 
 import {
-  CAUSES_REQUIRED,
-  DEFAULT_STRATEGY,
-  MAX_CHANGES,
   PHASE_KEYS,
   RECS,
   type PhaseKey,
@@ -13,45 +10,26 @@ import {
   type Screen,
 } from "./data";
 
-/** The team's shared answers (saved per phase, see answers.ts) plus `workload`,
- * which only this browser uses (the selected Discover row). */
+/** The team's shared answers (saved per phase, see answers.ts). */
 export type DallasState = {
   /** The team's display name; "" until set. */
   teamName: string;
   /** Role key -> the user_id of the member who has it. */
   members: Record<string, string>;
-  briefAnswer: string;
-  missing: string[];
-  workload: number;
+  /** Strategize > Diagnose: workload key -> class key. */
   diag: Record<string, string>;
+  /** Strategize > Diagnose: the chosen root causes. */
   causes: string[];
+  /** Strategize > Advise: recommendations, in the order they were added. */
   strategy: RecKey[];
-  /** Respond's edited copy of the strategy; null until Respond is opened. */
-  revised: (RecKey | "")[] | null;
-  situation: string;
-  rootCause: string;
-  msRec: string;
-  statement: string;
-  outcomes: Record<string, string>;
-  metrics: string[];
 };
 
 export const INITIAL_STATE: DallasState = {
   teamName: "",
   members: {},
-  briefAnswer: "",
-  missing: [],
-  workload: 0,
   diag: {},
   causes: [],
   strategy: [],
-  revised: null,
-  situation: "",
-  rootCause: "",
-  msRec: "",
-  statement: "",
-  outcomes: {},
-  metrics: [],
 };
 
 /** Adds or removes `value`; adding is ignored once the list holds `max`. */
@@ -85,56 +63,19 @@ export function projectImpact(strategy: RecKey[]): {
   return { fx, time };
 }
 
-/** The strategy Respond revises: the team's own, or a default when Advise was skipped. */
-export function baseStrategy(s: Pick<DallasState, "strategy">): RecKey[] {
-  return s.strategy.length ? s.strategy : DEFAULT_STRATEGY;
-}
-
-/** Number of positions where the revised strategy differs from the base one. */
-export function countChanges(
-  base: readonly string[],
-  revised: readonly string[],
-): number {
-  return revised.filter((value, i) => value !== base[i]).length;
-}
-
-/** Applies one Respond edit, or returns null when it would exceed the change limit. */
-export function reviseAt(
-  base: readonly RecKey[],
-  revised: readonly (RecKey | "")[],
-  index: number,
-  value: RecKey | "",
-): (RecKey | "")[] | null {
-  const next = [...revised];
-  next[index] = value;
-  return countChanges(base, next) > MAX_CHANGES ? null : next;
-}
-
-export type BlockReason = "team" | "brief" | "diagnose" | "advise" | "deliver";
+export type BlockReason = "team";
 
 /** Why the team can't continue from `screen` yet, or null when it can. */
 export function blockReason(
   screen: Screen,
   s: DallasState,
 ): BlockReason | null {
-  switch (screen) {
-    case "team":
-      return s.teamName.trim() && Object.values(s.members).some(Boolean)
-        ? null
-        : "team";
-    case "brief":
-      return s.briefAnswer.trim() ? null : "brief";
-    case "diagnose":
-      return s.causes.length === CAUSES_REQUIRED ? null : "diagnose";
-    case "advise":
-      return s.strategy.length > 0 ? null : "advise";
-    case "deliver":
-      return s.situation.trim() && s.msRec.trim() && s.statement.trim()
-        ? null
-        : "deliver";
-    default:
-      return null;
+  if (screen === "team") {
+    return s.teamName.trim() && Object.values(s.members).some(Boolean)
+      ? null
+      : "team";
   }
+  return null;
 }
 
 /** The first phase the team has not completed, or null when all are done. */
@@ -142,8 +83,8 @@ export function firstOpenPhase(done: readonly PhaseKey[]): PhaseKey | null {
   return PHASE_KEYS.find((key) => !done.includes(key)) ?? null;
 }
 
-/** The screen after `phase`: the next phase, or the results after Deliver. */
+/** The screen after `phase`: the next phase, or Home after Pitch & Submit. */
 export function nextScreen(phase: PhaseKey): Screen {
   const i = PHASE_KEYS.indexOf(phase);
-  return i < PHASE_KEYS.length - 1 ? PHASE_KEYS[i + 1] : "results";
+  return i < PHASE_KEYS.length - 1 ? PHASE_KEYS[i + 1] : "home";
 }

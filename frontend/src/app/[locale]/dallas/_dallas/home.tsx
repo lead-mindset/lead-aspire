@@ -1,6 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { withBasePath } from "@/lib/basePath";
+import { DALLAS_COACH_ENABLED } from "@/lib/features";
 import { CONTENT } from "./content";
 import { PHASE_KEYS, type PhaseKey, type Screen } from "./data";
 import { firstOpenPhase } from "./logic";
@@ -15,6 +18,7 @@ type Props = {
   rolesAssigned: number;
   done: PhaseKey[];
   go: (screen: Screen) => void;
+  onAskCoach: () => void;
 };
 
 /** Home (dallas-mockup-v2 "01b Home"). Image slots stay empty until real images exist. */
@@ -25,13 +29,14 @@ export function HomeView({
   rolesAssigned,
   done,
   go,
+  onAskCoach,
 }: Props) {
   const t = useTranslations("Dallas");
   const open = firstOpenPhase(done);
   const progress = done.length / PHASE_KEYS.length;
   const startLabel =
     open === null
-      ? t("home.results")
+      ? t("home.review")
       : open === "team"
         ? t("home.start")
         : t("home.continue", { phase: t(`phases.${open}`) });
@@ -39,6 +44,14 @@ export function HomeView({
   return (
     <>
       <section className={`dark ${styles.hero}`}>
+        <Image
+          src={withBasePath("/dashboard/hero-students-centered.png")}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className={styles.heroBg}
+        />
         <div
           className={`${styles.slot} ${styles.heroSlot}`}
           aria-hidden="true"
@@ -46,6 +59,13 @@ export function HomeView({
         <div className={styles.heroOverlay} />
         <div className={styles.heroGrid}>
           <div className={styles.heroCopy}>
+            <Image
+              src={withBasePath("/dashboard/microsoft-logo.svg")}
+              alt="Microsoft"
+              width={190}
+              height={32}
+              className={styles.microsoftLogo}
+            />
             <span className={styles.eyebrow}>{t("home.eyebrow")}</span>
             <h1 className={styles.heroTitle}>
               <span>{t("home.titleFirst")}</span>
@@ -59,7 +79,7 @@ export function HomeView({
               <button
                 type="button"
                 className={styles.heroCta}
-                onClick={() => go(open ?? "results")}
+                onClick={() => go(open ?? "pitch")}
               >
                 {startLabel}
               </button>
@@ -139,12 +159,25 @@ export function HomeView({
       <section className={styles.howSection}>
         <div className={styles.howCard}>
           <div className={styles.homeCardText}>
-            <h3 className={styles.homeProgressTitle}>{t("home.howTitle")}</h3>
-            <p className={styles.muted}>{t("home.howBody")}</p>
+            <h3 className={styles.homeProgressTitle}>{t("home.helpTitle")}</h3>
+            <p className={styles.muted}>{t("home.helpBody")}</p>
+            <div>
+              <button
+                type="button"
+                className={styles.coachButton}
+                onClick={onAskCoach}
+                disabled={!DALLAS_COACH_ENABLED}
+              >
+                {t("home.helpAsk")}
+              </button>
+            </div>
           </div>
-          <span
-            className={`${styles.slot} ${styles.mascotSlot}`}
-            aria-hidden="true"
+          <Image
+            src={withBasePath("/dashboard/astronaut.png")}
+            alt=""
+            width={140}
+            height={120}
+            className={styles.mascot}
           />
         </div>
       </section>

@@ -7,14 +7,13 @@ Answers are one flat JSON object per team per phase, one key per field or
 option, so the database merge (aspire_dallas_save_answers, migration 010)
 keeps two students' simultaneous edits to different keys:
 
-  team      display_name, role_<role> = a teammate's user_id
-  brief     q1, missing_<item> = true
-  discover  (nothing saved)
-  diagnose  class_<workload> = <class>, cause_<cause> = true
-  advise    rec_<rec> = when it was added (orders the strategy)
-  respond   slot_1 .. slot_9 = <rec> or ""
-  deliver   situation, root_cause, ms_rec, statement,
-            outcome_<outcome> = target, metric_<metric> = true
+  team        display_name, role_<role> = a teammate's user_id
+  discover    (nothing saved)
+  strategize  Diagnose and Advise tabs (practice, not graded):
+              class_<workload> = <class>, cause_<cause> = true,
+              rec_<rec> = when it was added (orders the strategy)
+  design      (nothing saved yet)
+  pitch       (nothing saved yet)
 
 Option names are only checked for shape, so the case content (frontend
 _dallas/content.ts) can change without touching this file. A null value
@@ -43,24 +42,15 @@ from .supabase import shared_admin_client
 
 challenge_router = APIRouter(prefix="/team")
 
-PHASES = ("team", "brief", "discover", "diagnose", "advise", "respond", "deliver")
+# Team Setup, then the four numbered steps. Same list as the frontend (_dallas/data.ts)
+# and the check constraint in db/schemas/011_dallas_new_phases.sql.
+PHASES = ("team", "discover", "strategize", "design", "pitch")
 SLUG = r"[a-z0-9][a-z0-9_-]{0,39}"
 TEAM_NAME_MAX = 32
 TEAM_NAME_LOCKED = "The team name is locked once the Team phase is complete"
-# Continue rules, mirrored from the frontend (_dallas/logic.ts).
-CAUSES_REQUIRED = 3
 
 
 # --- Value checks: each returns the value to store, or raises ValueError --------
-
-
-def _text(max_length: int) -> Callable[[Any, set[str]], Any]:
-    def check(value, _members):
-        if value is None or (isinstance(value, str) and len(value) <= max_length):
-            return value
-        raise ValueError(f"text up to {max_length} characters")
-
-    return check
 
 
 def _team_name(value, _members):
@@ -85,12 +75,6 @@ def _slug(value, _members):
     raise ValueError("an option key or null")
 
 
-def _slot(value, _members):
-    if value == "":
-        return value
-    return _slug(value, _members)
-
-
 def _order(value, _members):
     if value is None or (type(value) is int and 0 <= value < 2**53):
         return value
@@ -103,22 +87,14 @@ def _member(value, members):
     raise ValueError("a member of your team or null")
 
 
-# Allowed keys per phase: (key pattern, value check).
+# Allowed keys per phase: (key pattern, value check). Phases without content
+# to save take no answers.
 PHASE_KEYS: dict[str, list[tuple[str, Callable[[Any, set[str]], Any]]]] = {
     "team": [("display_name", _team_name), (rf"role_{SLUG}", _member)],
-    "brief": [("q1", _text(2000)), (rf"missing_{SLUG}", _flag)],
     "discover": [],
-    "diagnose": [(rf"class_{SLUG}", _slug), (rf"cause_{SLUG}", _flag)],
-    "advise": [(rf"rec_{SLUG}", _order)],
-    "respond": [(r"slot_[1-9]", _slot)],
-    "deliver": [
-        ("situation", _text(500)),
-        ("root_cause", _text(2000)),
-        ("ms_rec", _text(2000)),
-        ("statement", _text(2000)),
-        (rf"outcome_{SLUG}", _text(10)),
-        (rf"metric_{SLUG}", _flag),
-    ],
+    "strategize": [(rf"class_{SLUG}", _slug), (rf"cause_{SLUG}", _flag), (rf"rec_{SLUG}", _order)],
+    "design": [],
+    "pitch": [],
 }
 
 
@@ -149,14 +125,6 @@ COMPLETE_RULES: dict[str, Callable[[dict], str | None]] = {
     "team": lambda a: None
     if _filled(a, "display_name") and _count(a, "role_")
     else "Name your team and assign at least one role",
-    "brief": lambda a: None if _filled(a, "q1") else "Answer question 1 to continue",
-    "diagnose": lambda a: None
-    if _count(a, "cause_") == CAUSES_REQUIRED
-    else f"Pick exactly {CAUSES_REQUIRED} root causes",
-    "advise": lambda a: None if _count(a, "rec_") else "Add at least one recommendation",
-    "deliver": lambda a: None
-    if all(_filled(a, key) for key in ("situation", "ms_rec", "statement"))
-    else "Complete sections 1, 3 and 6",
 }
 
 

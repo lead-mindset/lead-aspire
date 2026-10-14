@@ -276,16 +276,16 @@
       "label": "Challenge phases",
       "section": "THE CHALLENGE",
       "completed": "Completed",
-      "home": "Home"
+      "home": "Home",
+      "organizers": "ORGANIZERS",
+      "teamsResults": "View Teams Results"
     },
     "phases": {
-      "team": "Team",
-      "brief": "Brief",
+      "team": "Team Setup",
       "discover": "Discover",
-      "diagnose": "Diagnose",
-      "advise": "Advise",
-      "respond": "Respond",
-      "deliver": "Deliver"
+      "strategize": "Strategize",
+      "design": "Design Your Solution",
+      "pitch": "Pitch & Submit"
     },
     "user": {
       "signOut": "Sign out"
@@ -302,28 +302,37 @@
     },
     "footer": {
       "back": "← Back",
-      "continue": "Continue →",
+      "continue": "Save and Continue →",
       "submit": "Submit final recommendation →",
       "hints": {
-        "team": "Name your team and assign at least one role",
-        "brief": "Answer question 1 to continue",
-        "diagnose": "Pick exactly 3 root causes",
-        "advise": "Add at least one recommendation",
-        "deliver": "Complete sections 1, 3 and 6"
+        "team": "Name your team and assign at least one role"
       },
       "refused": "We couldn’t save your progress. Check your answers and try again."
     },
-    "selected": "{count} of {max} selected",
-    "answerPlaceholder": "Write your answer here…",
     "teamSetup": {
-      "title": "Build your Microsoft team",
-      "subtitle": "Assign a role to each team member. Every perspective matters.",
+      "step": "Team setup",
+      "title": "Build your team",
+      "subtitle": "Collaborate with your teammates and assign Microsoft-inspired roles. Every perspective matters to solve the customer challenge.",
       "assigned": "{count} of {total} roles assigned",
-      "assign": "Assign member…",
+      "assign": "Select teammate",
       "nameLabel": "1. Name your team",
-      "namePlaceholder": "e.g. Lone Star Labs",
+      "nameHelp": "Choose a creative name that represents your team.",
+      "namePlaceholder": "e.g. The Innovators, Cloud Crew…",
       "nameLocked": "The team name is locked once the Team phase is complete.",
-      "rolesLabel": "2. Assign a role to each team member"
+      "rolesLabel": "2. Assign a role to each team member",
+      "rolesHelp": "Select a role for each teammate. Each role brings a unique perspective to the challenge.",
+      "membersTitle": "Team members",
+      "registered": "{count} registered",
+      "membersHelp": "Once everyone on your team registers, they will appear here.",
+      "you": "You",
+      "waiting": "Waiting for teammate…",
+      "help": {
+        "title": "Need help?",
+        "size": "Your team should have 3–5 members.",
+        "multiple": "If your team has fewer members than roles, some people can take more than one role.",
+        "change": "You can change roles at any time.",
+        "support": "If you need support, find an event organizer."
+      }
     },
     "brief": {
       "title": "New message from the customer",
@@ -337,22 +346,11 @@
       "p1": "Over the last six months, we've significantly expanded our use of generative AI across the organization. AI consumption is now nearly three times what we originally projected and Finance has raised concerns about increasing operating costs.",
       "p2": "We're considering introducing usage limits across the company. Before we make that decision, we'd like Microsoft's recommendation. We need to understand what's driving this increase and what you recommend we do next.",
       "signoff": "Thank you,",
-      "signature": "CIO, Contoso",
-      "tasks": "Your tasks",
-      "q1": "1. What is the customer asking Microsoft to help solve?",
-      "q2": "2. What information are you missing?",
-      "missing": {
-        "usage": "AI usage by workload",
-        "cost": "Cost by workload",
-        "roi": "Business outcomes / ROI",
-        "adoption": "Employee adoption",
-        "security": "Security incidents",
-        "models": "Model selection and architecture"
-      }
+      "signature": "CIO, Contoso"
     },
     "discover": {
-      "title": "Customer data overview",
-      "subtitle": "Explore the available information. Click into each workload to learn more.",
+      "title": "Contoso AI Consumption Overview",
+      "subtitle": "Explore the current AI workloads, usage, and business impact. Use this data to identify trends, opportunities, and areas of concern.",
       "kpis": {
         "tokens": {
           "label": "Monthly tokens",
@@ -376,17 +374,72 @@
         "tokens": "Tokens / mo",
         "cost": "Cost / mo",
         "adoption": "Adoption",
-        "value": "Value"
+        "value": "Business value"
       },
-      "overview": "Overview",
-      "details": "Details",
-      "tokenUsage": "Token usage",
-      "monthlyCost": "Monthly cost",
-      "impact": "Business impact",
-      "owner": "Owner",
-      "model": "Model",
-      "users": "Users",
-      "monitoring": "Monitoring"
+      "step": "Step {num}",
+      "heroTitle": "Discover Contoso",
+      "heroText": "Explore the customer’s request, understand their business, and analyze their AI usage data to set the direction for your team’s recommendation.",
+      "tabsLabel": "Discover sections",
+      "tabs": {
+        "request": "CIO Request",
+        "profile": "Company Profile",
+        "stakeholders": "Stakeholders",
+        "dashboard": "AI Dashboard"
+      },
+      "nextTab": "Continue to {tab}",
+      "request": {
+        "time": "Today, 9:14 AM",
+        "takeawaysTitle": "Key takeaways",
+        "takeaways": {
+          "usage": {
+            "title": "Rising AI usage",
+            "body": "Consumption is ~3x higher than projected."
+          },
+          "decision": {
+            "title": "Leadership decision",
+            "body": "Contoso is considering company-wide usage limits."
+          },
+          "advice": {
+            "title": "They want Microsoft’s advice",
+            "body": "Understand the drivers, evaluate impact, and recommend next steps."
+          }
+        },
+        "missionTitle": "Your mission",
+        "missionBody": "Work as a Microsoft account team to understand Contoso’s situation, identify what’s driving the increase, and develop a recommendation that balances business value, cost, and responsible AI use."
+      },
+      "profile": {
+        "aboutTitle": "About Contoso",
+        "imageAlt": "Contoso office lobby",
+        "readMore": "Read more about Contoso",
+        "missionTitle": "Mission",
+        "prioritiesTitle": "Strategic priorities",
+        "journeyTitle": "AI journey"
+      },
+      "stakeholders": {
+        "title": "Meet the key stakeholders",
+        "subtitle": "Understand their perspectives, priorities, and concerns. Each stakeholder has unique expectations for Microsoft’s recommendation.",
+        "priorities": "Key priorities",
+        "viewProfile": "View full profile →",
+        "hideProfile": "Hide profile",
+        "chat": {
+          "ask": "Ask a question 💬",
+          "subtitle": "Contoso stakeholder",
+          "greeting": "Hello! I'm Contoso's {title}. Ask me about my priorities, my concerns, or what I expect from Microsoft's recommendation.",
+          "thinking": "The {title} is typing…",
+          "error": "This stakeholder is unavailable right now. Please try again.",
+          "placeholder": "Ask your question…",
+          "inputLabel": "Your question",
+          "send": "Send",
+          "close": "Close the chat"
+        }
+      },
+      "workloadsTitle": "AI workloads",
+      "trendTitle": "Usage trends",
+      "trendSubtitle": "Monthly tokens (in millions)",
+      "trendValue": "{value}M tokens",
+      "trendLabel": "Monthly tokens from January to June 2024, rising from {first} to {last}.",
+      "insightTitle": "Key insight",
+      "insightBody": "AI consumption has nearly tripled over the last six months, driven primarily by Customer Support AI and Marketing Content AI."
     },
     "values": {
       "high": "High",
@@ -475,6 +528,173 @@
         }
       }
     },
+    "yourTeam": "Your team",
+    "unavailable": "We couldn’t load your team right now.",
+    "retry": "Try again",
+    "home": {
+      "eyebrow": "ASPIRE DALLAS · STUDENT INNOVATION CHALLENGE",
+      "titleFirst": "Step into the",
+      "titleAccent": "Microsoft Team",
+      "titleLast": "for a day",
+      "intro": "Step into a Microsoft account team, analyze a real customer scenario, and deliver your recommendation.",
+      "start": "Start: set up your team →",
+      "continue": "Continue: {phase} →",
+      "review": "Review your submission →",
+      "teamPill": "Dallas · Team {num} · {count} of {total} roles assigned",
+      "teamSubSet": "Microsoft account team",
+      "teamSubEmpty": "Choose a team name and your roles to get started.",
+      "progressTitle": "Your progress",
+      "howTitle": "How it works",
+      "howBody": "Each phase is timed. Your team answers inside the platform — no files to download. Set up your team name and roles first; the clock starts when you open Discover.",
+      "helpTitle": "Need help along the way?",
+      "helpBody": "Ask your coach anything about the challenge. It guides your thinking — it won't do the work for you.",
+      "helpAsk": "Ask the coach"
+    },
+    "coach": {
+      "title": "Aspire Coach",
+      "subtitle": "Trained on the Dallas challenge",
+      "open": "Ask the coach",
+      "close": "Close the coach",
+      "greeting": "Welcome aboard, crew! I'm your LEAD Coach, your mission coach for LEAD Aspire Dallas 2026. Your mission: advise Contoso as a Microsoft account team.\n\nI can help you:\n✅ Understand the Contoso challenge\n✅ Plan each mission phase\n✅ Ask better discovery questions\n✅ Test your ideas from each stakeholder's view\n✅ Use the templates and checklists\n✅ Prepare your pitch and Q&A\n\nWhich phase is your team working on right now?",
+      "thinking": "The coach is thinking…",
+      "error": "The coach is unavailable right now. Please try again.",
+      "placeholder": "Ask about any phase…",
+      "inputLabel": "Your question",
+      "send": "Send"
+    },
+    "sync": {
+      "saving": "Saving…",
+      "saved": "All changes saved",
+      "error": "Not saved yet. Retrying…",
+      "lastEdited": "Last edited by {name}"
+    },
+    "resources": {
+      "label": "Guides & resources",
+      "desc": {
+        "strategize": "Define the problem, map your solution, and get your strategy reviewed before you design it.",
+        "design": "Use the technical starter kit to design a working solution with AI, securely and responsibly.",
+        "pitch": "Tell the full story: what you discovered, what you designed, and why it matters to Contoso."
+      },
+      "docs": {
+        "consulting": {
+          "title": "Consulting Problem Solving Guide",
+          "desc": "Frameworks to structure your thinking like a consultant.",
+          "action": "Read guide →"
+        },
+        "sow": {
+          "title": "Statement of Work",
+          "desc": "Fill it in and bring it to your strategy review.",
+          "action": "Download .docx ↓"
+        },
+        "review": {
+          "title": "Strategy Review Checklist",
+          "desc": "Make sure your strategy is ready for the review and for Design Your Solution.",
+          "action": "Open checklist →"
+        },
+        "foundry": {
+          "title": "Microsoft Foundry",
+          "desc": "Step-by-step guide to create an account, build agents and deploy your solution.",
+          "action": "Read guide →"
+        },
+        "copilot": {
+          "title": "GitHub Copilot",
+          "desc": "Set up and use Copilot to develop faster. Apply early — access takes up to 72 hours.",
+          "action": "Read guide →"
+        },
+        "security": {
+          "title": "Security & Governance",
+          "desc": "Best practices for data, privacy and responsible AI.",
+          "action": "Read PDF →"
+        },
+        "buildcheck": {
+          "title": "Build Checklist",
+          "desc": "Make sure your prototype is ready for submission.",
+          "action": "Open checklist →"
+        },
+        "playbook": {
+          "title": "Pitch Strategy Playbook",
+          "desc": "Learn how to structure your story and deliver a compelling pitch.",
+          "action": "Read guide →"
+        },
+        "briefing": {
+          "title": "Contoso Customer Briefing",
+          "desc": "Background on Contoso, its goals and its AI journey.",
+          "action": "Read more about Contoso"
+        }
+      },
+      "whiteboard": {
+        "cardTitle": "Whiteboard session",
+        "cardDesc": "Map your problem and solution on your team's whiteboard, then download it as an image for your Statement of Work.",
+        "open": "Open whiteboard →",
+        "example": "Whiteboard example",
+        "badge": "ACTIVITY",
+        "title": "Strategy whiteboard",
+        "hint": "Add sticky notes with the colored squares at the top right. Your board is saved automatically on this device.",
+        "download": "Download PNG ↓",
+        "exporting": "Preparing image…",
+        "close": "Done",
+        "loading": "Loading the whiteboard…",
+        "empty": "Draw something first, then download it.",
+        "exportError": "We couldn't create the image. Please try again.",
+        "addSticky": "Add sticky note",
+        "stickyText": "New note"
+      },
+      "badges": {
+        "pdf": "PDF",
+        "word": "WORD · FILLABLE",
+        "activity": "ACTIVITY",
+        "image": "IMAGE",
+        "upload": "UPLOAD",
+        "submitted": "SUBMITTED ✓",
+        "deck": "FINAL DECK"
+      },
+      "viewer": {
+        "download": "Download ↓",
+        "back": "← Back",
+        "pdfSoon": "This guide will be available here soon.",
+        "wordSoon": "This template will be available to download soon.",
+        "wordLoading": "Loading the document…",
+        "wordError": "We couldn't show this document. Use Download to open it.",
+        "demo": "Open demo ↗",
+        "deckNoPreview": "PowerPoint decks can't be previewed in the browser. Use Download to open it."
+      },
+      "submit": {
+        "title": "Submit your project",
+        "desc": "Upload your final deck (and a demo link if you have one) before pitch day — no more plugging in laptops on stage.",
+        "cta": "Upload final deck →",
+        "replace": "Replace {file}"
+      },
+      "submitDialog": {
+        "title": "Submit your project",
+        "intro": "{team} · Your deck goes to the organizers' presentation computer.",
+        "teamFallback": "Your team",
+        "drop": "Drop your final deck or click to browse",
+        "dropHint": "PowerPoint or PDF · up to 50 MB",
+        "demoLabel": "Demo link",
+        "optional": "(optional)",
+        "cancel": "Cancel",
+        "submit": "Submit project →",
+        "replaceHint": "Click to replace it with a new file",
+        "note": "Your deck is saved for your whole team. Submitting again replaces it.",
+        "uploading": "Uploading…",
+        "status": {
+          "prepare": "Checking your file…",
+          "upload": "Uploading your deck…",
+          "confirm": "Saving your submission…"
+        },
+        "successTitle": "Project submitted",
+        "success": "{team}'s submission is saved. Your whole team will see it.",
+        "close": "Close",
+        "errors": {
+          "type": "Upload a PDF or PowerPoint file (.pdf, .ppt, .pptx).",
+          "size": "The file is larger than 50 MB.",
+          "generic": "We couldn't upload your project. Please try again.",
+          "prepare": "We couldn't start the upload. Please try again.",
+          "upload": "The upload failed. Check your connection and try again.",
+          "confirm": "Your file was uploaded but we couldn't save the submission. Please try again."
+        }
+      }
+    },
     "diagnose": {
       "title": "What's actually happening?",
       "subtitle": "Classify each workload and identify the root causes.",
@@ -557,99 +777,76 @@
         "time": "4–6 weeks"
       }
     },
-    "respond": {
-      "title": "Customer update",
-      "subtitle": "New information has just arrived. Review and adjust your recommendation.",
-      "cfoTitle": "Message from the CFO",
-      "cfo": "Finance requires a <b>20% reduction</b> in projected AI operating expense next quarter.",
-      "cisoTitle": "Message from the CISO",
-      "ciso": "An internal review identified employees entering sensitive customer information into an unapproved generative AI tool.",
-      "updateTitle": "Update your recommendation",
-      "updateHelp": "You can make up to {max} changes to your previous strategy.",
-      "changes": "Changes used: {count}/{max}",
-      "current": "YOUR CURRENT RECOMMENDATION",
-      "revised": "REVISED RECOMMENDATION",
-      "remove": "— Remove —",
-      "slot": "Recommendation {n}"
-    },
-    "deliver": {
-      "title": "Final recommendation",
-      "subtitle": "Complete your executive brief for the customer.",
-      "situation": "1. Customer situation",
-      "situationHelp": "Summarize what is happening (max {max} characters).",
-      "rootCause": "2. Root cause",
-      "rootCauseHelp": "What is actually driving the issue?",
-      "msRec": "3. Microsoft recommendation",
-      "msRecHelp": "List your 3–5 key actions and why.",
-      "outcomes": "4. Expected outcomes",
-      "outcomesHelp": "Select the expected impact areas and targets.",
-      "outcomeItems": {
-        "cost": "Reduce operating cost by",
-        "value": "Increase business value by",
-        "adoption": "Increase adoption by",
-        "risk": "Reduce security risk by",
-        "governance": "Improve governance maturity"
+    "selected": "{count} of {max} selected",
+    "strategizeTabs": {
+      "tabsLabel": "Strategize sections",
+      "tabs": {
+        "guides": "Guides & resources",
+        "diagnose": "Diagnose",
+        "advise": "Advise"
       },
-      "target": "{outcome} target (%)",
-      "metrics": "5. Success metrics",
-      "metricsHelp": "Select 3 KPIs to measure success.",
-      "metricItems": {
-        "costPerToken": "Cost per 1K tokens",
-        "adoption": "Employee adoption rate",
-        "csat": "Customer satisfaction (CSAT)",
-        "resolution": "Resolution time",
-        "roi": "AI ROI / productivity gains",
-        "incidents": "Security incident rate"
+      "nextTab": "Next: {tab}",
+      "practice": {
+        "title": "Practice space · Not graded",
+        "text": "Use this activity to play and brainstorm with your team. Your choices are shared with your teammates but do not count toward your score."
+      }
+    },
+    "teamsResults": {
+      "eyebrow": "ORGANIZER VIEW",
+      "title": "Teams results",
+      "summary": "{submitted} of {total} teams have uploaded their final deck.",
+      "columns": {
+        "team": "Team",
+        "deck": "Final deck",
+        "link": "Demo link",
+        "status": "Status"
       },
-      "statement": "6. Executive statement",
-      "statementHelp": "You have one minute with the customer's CIO. What do you tell them?",
-      "statementPlaceholder": "Write your 60-second executive statement here…"
+      "teamMembers": "{team} · {count, plural, one {# member} other {# members}}",
+      "notUploaded": "Not uploaded yet",
+      "noLink": "No link",
+      "submitted": "Submitted",
+      "pending": "Pending",
+      "view": "View",
+      "loading": "Loading teams…",
+      "loadError": "We couldn't load the teams. Check that the backend is running.",
+      "opening": "Opening…",
+      "openError": "We couldn't open that deck. Please try again."
     },
-    "results": {
-      "eyebrow": "LEAD ASPIRE · DALLAS",
-      "title": "Challenge complete",
-      "subtitle": "The customer has reviewed all submissions.",
-      "points": "{points} points",
-      "yourTeam": "YOUR TEAM",
-      "finalists": "Finalists",
-      "finalistsHelp": "Present your recommendation to the customer.",
-      "back": "← Back to submission"
-    },
-    "yourTeam": "Your team",
-    "unavailable": "We couldn’t load your team right now.",
-    "retry": "Try again",
-    "home": {
-      "eyebrow": "ASPIRE DALLAS · MICROSOFT AI SPECIALIST CHALLENGE",
-      "titleFirst": "Ideas today.",
-      "titleAccent": "Real impact",
-      "titleLast": "tomorrow.",
-      "intro": "Step into a Microsoft account team, analyze a real customer scenario, and deliver your recommendation — all live, in seven timed phases.",
-      "start": "Start: set up your team →",
-      "continue": "Continue: {phase} →",
-      "results": "See results →",
-      "teamPill": "Dallas · Team {num} · {count} of {total} roles assigned",
-      "teamSubSet": "Microsoft account team",
-      "teamSubEmpty": "Choose a team name and your roles to get started.",
-      "progressTitle": "Your progress",
-      "howTitle": "How it works",
-      "howBody": "Each phase is timed. Your team answers inside the platform — no files to download. Choose your team name and roles first; the clock starts when you open the brief."
-    },
-    "sync": {
-      "saving": "Saving…",
-      "saved": "All changes saved",
-      "error": "Not saved yet. Retrying…",
-      "lastEdited": "Last edited by {name}"
+    "celebrate": {
+      "eyebrow": "MISSION ACCOMPLISHED",
+      "title": "Challenge complete!",
+      "body": "{team} submitted its final recommendation. Great work — you made it to 100%!",
+      "close": "Back to home"
     }
   },
   "DallasLogin": {
     "title": "Dallas sign in",
     "brandLabel": "Lead Aspire Dallas introduction",
-    "brandLine": "ASPIRE · DALLAS",
-    "eyebrow": "Student innovation competition · Dallas",
-    "heading": "Ideas today.",
-    "headingAccent": "Impact tomorrow.",
-    "intro": "Sign in with your email and the event code shared at the venue.",
-    "welcome": "Welcome to Dallas",
+    "brandLine": "ASPIRE · DALLAS · NEW YORK",
+    "eyebrow": "Student innovation challenge · Dallas",
+    "heading": "Step into the",
+    "headingAccent": "Microsoft team",
+    "heading-foot": "for a day.",
+    "intro": "Collaborate. Solve a real customer challenge. Build a recommendation. Make an impact.",
+    "features": {
+      "team": {
+        "title": "Work as a team",
+        "body": "Take on Microsoft-inspired roles and collaborate with your teammates."
+      },
+      "challenge": {
+        "title": "Solve a real-world challenge",
+        "body": "Respond to a customer request, analyze data, and develop a solution."
+      },
+      "recommendation": {
+        "title": "Present your recommendation",
+        "body": "Share your ideas with an executive panel at the end of the day."
+      }
+    },
+    "footer": {
+      "event": "LEAD ASPIRE · DALLAS 2026",
+      "values": "Learn · Explore · Aspire · Discover"
+    },
+    "welcome": "Welcome to LEAD Aspire Dallas",
     "formIntro": "First time here? Your account is created when you sign in.",
     "emailLabel": "Email address",
     "emailPlaceholder": "you@example.com",
@@ -660,14 +857,17 @@
     "themeToLight": "Light mode",
     "themeToDark": "Dark mode",
     "profile": {
-      "heading": "Tell us who you are",
-      "intro": "Enter your name and pick the team on your table sign.",
+      "heading": "Welcome to LEAD Aspire Dallas",
+      "intro": "Let’s get you started. Enter your information and select your assigned team.",
       "firstName": "First name",
       "lastName": "Last name",
       "team": "Team",
       "teamPlaceholder": "Choose your team",
       "teamsLoading": "Loading teams…",
-      "teamFinal": "You can’t change your team after saving. Ask an organizer if you picked the wrong one.",
+      "teamFinal": "Team assignments are pre-determined. If you don’t see your team or need a change, please find an organizer.",
+      "confirmHeading": "Confirm your team",
+      "confirmIntro": "You’re joining:",
+      "confirmEvent": "Microsoft AI Specialist Challenge · Dallas",
       "submit": "Save and continue",
       "saving": "Saving…",
       "notYou": "Not your email?",
