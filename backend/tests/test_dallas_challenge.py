@@ -70,7 +70,7 @@ def test_state_returns_the_team_members_and_every_phase(client, team):
                 updated_at="2026-10-08T15:00:00+00:00",
                 completed_at="2026-10-08T15:01:00+00:00",
             ),
-            phase_row("brief", started_at="2026-10-08T15:02:00+00:00"),
+            phase_row("discover", started_at="2026-10-08T15:02:00+00:00"),
         ],
     )
 
@@ -78,12 +78,12 @@ def test_state_returns_the_team_members_and_every_phase(client, team):
 
     assert body["team"] == {"id": 7, "number": 7, "name": "Team 7", "display_name": "Lone Star Labs"}
     assert [m["user_id"] for m in body["members"]] == ["d-1", "d-2"]
-    assert list(body["phases"]) == ["team", "brief", "discover", "diagnose", "advise", "respond", "deliver"]
+    assert list(body["phases"]) == ["team", "discover", "strategize", "design", "pitch"]
     assert body["phases"]["team"]["answers"] == {"display_name": "Lone Star Labs", "role_ae": "d-2"}
     assert body["phases"]["team"]["updated_by_name"] == "Luis Gómez"
     assert body["phases"]["team"]["completed_at"] == "2026-10-08T15:01:00+00:00"
-    assert body["phases"]["brief"]["started_at"] == "2026-10-08T15:02:00+00:00"
-    assert body["phases"]["deliver"] == {
+    assert body["phases"]["discover"]["started_at"] == "2026-10-08T15:02:00+00:00"
+    assert body["phases"]["pitch"] == {
         "answers": {},
         "started_at": None,
         "completed_at": None,
@@ -129,16 +129,14 @@ def test_save_merges_only_the_sent_keys_for_the_callers_team(client, team):
         ("team", {"roles": {"ae": "d-2"}}),  # nested objects are not accepted
         ("team", {"role_ae": "someone-else"}),  # not a member of the team
         ("team", {"display_name": "x" * 33}),
-        ("brief", {"q1": "x" * 2001}),
-        ("brief", {"missing_cost": False}),
-        ("discover", {"workload": 2}),
-        ("diagnose", {"cause_Bad Key": True}),
-        ("diagnose", {"class_support": 3}),
-        ("advise", {"rec_mon": "1"}),
-        ("advise", {"rec_mon": True}),
-        ("respond", {"slot_0": "mon"}),
-        ("deliver", {"situation": "x" * 501}),
-        ("deliver", {"outcome_cost": "x" * 11}),
+        ("team", {"role_Bad Key": "d-2"}),
+        ("discover", {"workload": 2}),  # phases without content take no answers
+        ("strategize", {"q1": "x"}),
+        ("strategize", {"cause_models": "yes"}),  # a flag is true or null
+        ("strategize", {"class_hr": "Not A Slug"}),
+        ("strategize", {"rec_mon": -1}),
+        ("design", {"rec_mon": 1}),
+        ("pitch", {"statement": "x"}),
     ],
 )
 def test_save_rejects_unknown_keys_and_bad_values(client, team, phase, patch):
@@ -150,16 +148,25 @@ def test_save_rejects_unknown_keys_and_bad_values(client, team, phase, patch):
     assert team.rpc.calls == []
 
 
+def test_strategize_saves_the_diagnose_and_advise_practice(client, team):
+    team.respond("aspire_dallas_students", MEMBERS)
+    patch = {"class_hr": "retire", "cause_models": True, "rec_mon": 1760000000000, "rec_gov": None}
+
+    assert save(client, "strategize", patch).status_code == 200
+    assert team.rpc.calls[0][1]["p_patch"] == patch
+
+
 def test_save_accepts_null_to_remove_a_key(client, team):
     team.respond("aspire_dallas_students", MEMBERS)
 
-    assert save(client, "diagnose", {"cause_governance": None, "class_support": None}).status_code == 200
-    assert team.rpc.calls[0][1]["p_patch"] == {"cause_governance": None, "class_support": None}
+    assert save(client, "team", {"role_ae": None, "display_name": None}).status_code == 200
+    assert team.rpc.calls[0][1]["p_patch"] == {"role_ae": None, "display_name": None}
 
 
 def test_an_unknown_phase_or_empty_patch_is_rejected(client, team):
     assert save(client, "results", {"x": 1}).status_code == 422
-    assert save(client, "brief", {}).status_code == 422
+    assert save(client, "brief", {"q1": "x"}).status_code == 422  # removed phase
+    assert save(client, "team", {}).status_code == 422
 
 
 def test_the_team_name_locks_once_the_team_phase_is_complete(client, team):
@@ -191,13 +198,13 @@ def test_the_database_lock_is_reported_as_conflict(client, team):
 
 
 def test_open_starts_the_timer_through_the_database(client, team):
-    team.rpc.results.append(phase_row("brief", started_at="2026-10-08T15:02:00+00:00"))
+    team.rpc.results.append(phase_row("discover", started_at="2026-10-08T15:02:00+00:00"))
     team.respond("aspire_dallas_students", MEMBERS)
 
-    response = client.post("/api/dallas/team/phases/brief/open", headers=AUTH)
+    response = client.post("/api/dallas/team/phases/discover/open", headers=AUTH)
 
     assert response.json()["phase"]["started_at"] == "2026-10-08T15:02:00+00:00"
-    assert team.rpc.calls == [("aspire_dallas_open_phase", {"p_team_id": 7, "p_phase": "brief"})]
+    assert team.rpc.calls == [("aspire_dallas_open_phase", {"p_team_id": 7, "p_phase": "discover"})]
 
 
 @pytest.mark.parametrize(
@@ -205,11 +212,7 @@ def test_open_starts_the_timer_through_the_database(client, team):
     [
         ("team", {"display_name": "Lone Star"}),  # no role
         ("team", {"role_ae": "d-1"}),  # no name
-        ("brief", {"q1": "   "}),
-        ("diagnose", {"cause_a": True, "cause_b": True}),
-        ("diagnose", {"cause_a": True, "cause_b": True, "cause_c": True, "cause_d": True}),
-        ("advise", {}),
-        ("deliver", {"situation": "s", "ms_rec": "m"}),
+        ("team", {"display_name": "   ", "role_ae": "d-1"}),
     ],
 )
 def test_complete_needs_the_minimum(client, team, phase, answers):
@@ -225,12 +228,10 @@ def test_complete_needs_the_minimum(client, team, phase, answers):
     ("phase", "answers"),
     [
         ("team", {"display_name": "Lone Star", "role_ae": "d-1"}),
-        ("brief", {"q1": "Usage limits"}),
         ("discover", {}),
-        ("diagnose", {"cause_a": True, "cause_b": True, "cause_c": True}),
-        ("advise", {"rec_mon": 1}),
-        ("respond", {}),
-        ("deliver", {"situation": "s", "ms_rec": "m", "statement": "x"}),
+        ("strategize", {}),
+        ("design", {}),
+        ("pitch", {}),
     ],
 )
 def test_complete_marks_the_phase_done(client, team, phase, answers):
@@ -249,9 +250,9 @@ def test_complete_marks_the_phase_done(client, team, phase, answers):
 
 ROUTES = [
     ("get", "/api/dallas/team/state", None),
-    ("post", "/api/dallas/team/phases/brief/answers", {"patch": {"q1": "x"}}),
-    ("post", "/api/dallas/team/phases/brief/open", None),
-    ("post", "/api/dallas/team/phases/brief/complete", None),
+    ("post", "/api/dallas/team/phases/team/answers", {"patch": {"display_name": "x"}}),
+    ("post", "/api/dallas/team/phases/discover/open", None),
+    ("post", "/api/dallas/team/phases/discover/complete", None),
 ]
 
 
@@ -270,6 +271,6 @@ def test_a_student_without_a_team_is_rejected(client, supabase, monkeypatch, met
 
 def test_validate_patch_names_the_bad_key():
     with pytest.raises(HTTPException) as raised:
-        dallas_challenge.validate_patch("brief", {"q1": "ok", "q9": "x"}, set())
+        dallas_challenge.validate_patch("team", {"display_name": "ok", "q9": "x"}, set())
     assert raised.value.status_code == 422
     assert "q9" in raised.value.detail

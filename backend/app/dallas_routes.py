@@ -16,8 +16,10 @@ from fastapi import APIRouter, Header, HTTPException
 from postgrest.exceptions import APIError
 from supabase_auth.errors import AuthApiError
 
+from .dallas_admin import dallas_admin_router
 from .dallas_auth import DALLAS_CITY, dallas_student, is_dallas_user
 from .dallas_challenge import challenge_router
+from .dallas_coach import dallas_coach_router
 from .dallas_schemas import (
     DallasLoginRequest,
     DallasLoginResponse,
@@ -27,11 +29,18 @@ from .dallas_schemas import (
     DallasTeam,
     DallasTeamsResponse,
 )
+from .dallas_stakeholders import stakeholders_router
+from .dallas_submission import submission_router
+from .routes import _is_admin
 from .supabase import create_admin_client, shared_admin_client
 
 dallas_router = APIRouter(prefix="/api/dallas")
 # The challenge (team answers, timers, progress) lives in its own module.
 dallas_router.include_router(challenge_router)
+dallas_router.include_router(dallas_coach_router)
+dallas_router.include_router(submission_router)
+dallas_router.include_router(dallas_admin_router)
+dallas_router.include_router(stakeholders_router)
 logger = logging.getLogger(__name__)
 
 # One message for a wrong code, an unknown email and a non-Dallas account, so
@@ -193,6 +202,7 @@ def _me(client, student: dict) -> DallasMeResponse:
         last_name=student.get("last_name"),
         team=team,
         members=members,
+        is_admin=_is_admin(client, student["user_id"]),
     )
 
 

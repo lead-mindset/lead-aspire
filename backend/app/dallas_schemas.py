@@ -57,11 +57,13 @@ class DallasMeResponse(BaseModel):
     last_name: str | None = None
     team: DallasTeam | None = None
     members: list[DallasMember] = []
+    # aspire_profiles.is_admin: also sees the organizer "View Teams Results" screen.
+    is_admin: bool = False
 
 
 # --- Challenge: shared team answers, timers and progress ------------------------
 
-DallasPhase = Literal["team", "brief", "discover", "diagnose", "advise", "respond", "deliver"]
+DallasPhase = Literal["team", "discover", "strategize", "design", "pitch"]
 
 
 class DallasTeamMember(BaseModel):
@@ -104,3 +106,22 @@ class DallasAnswersPatch(BaseModel):
 class DallasPhaseResponse(BaseModel):
     phase: DallasPhaseState
     server_time: str
+
+
+# --- Organizers: every team's final deck and demo link ---------------------------
+
+
+class DallasAdminTeam(BaseModel):
+    id: int
+    number: int
+    name: str
+    # The name the team typed in the Team phase; null until set.
+    display_name: str | None = None
+    members: int
+    deck_file: str | None = None
+    demo_link: str | None = None
+    submitted_at: str | None = None
+
+
+class DallasAdminTeamsResponse(BaseModel):
+    teams: list[DallasAdminTeam]

@@ -5,37 +5,23 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Footer } from "@/components/brand/Footer";
+import { DALLAS_COACH_ENABLED, DALLAS_TIMER_ENABLED } from "@/lib/features";
 import { THEME_STORAGE_KEY } from "@/components/theme/themeScript";
 import { useRouter } from "@/i18n/navigation";
 import { withBasePath } from "@/lib/basePath";
 import { createClient } from "@/lib/supabase/client";
 import { toPatches } from "./answers";
-import { phaseMinutes } from "./content";
-import {
-  MOCK_BOARD,
-  MOCK_PODIUM,
-  PHASE_KEYS,
-  type PhaseKey,
-  type Screen,
-} from "./data";
+import { assignedRoles, phaseMinutes } from "./content";
+import { PHASE_KEYS, type PhaseKey, type Screen } from "./data";
+import { Celebration } from "./celebrate";
+import { CoachWidget } from "./CoachWidget";
 import { HomeView } from "./home";
-import {
-  baseStrategy,
-  blockReason,
-  nextScreen,
-  type DallasState,
-} from "./logic";
-import { teamBadge } from "./student";
+import { blockReason, nextScreen, type DallasState } from "./logic";
 import { useTeamSync, type TeamState } from "./teamSync";
-import {
-  AdviseView,
-  BriefView,
-  DeliverView,
-  DiagnoseView,
-  DiscoverView,
-  RespondView,
-  TeamView,
-} from "./views";
+import { PhaseResourcesView } from "./resources";
+import { StrategizeView } from "./strategize";
+import { TeamsResultsView } from "./teamsResults";
+import { DiscoverView, TeamView } from "./views";
 import styles from "./dallas.module.css";
 
 export type Update = (
@@ -43,7 +29,7 @@ export type Update = (
     Partial<DallasState> | ((s: DallasState) => Partial<DallasState> | null),
 ) => void;
 
-const SCREENS: readonly Screen[] = ["home", ...PHASE_KEYS, "results"];
+const SCREENS: readonly Screen[] = ["home", ...PHASE_KEYS];
 
 function toggleTheme() {
   const root = document.documentElement;
@@ -71,41 +57,42 @@ function initials(name: string): string {
  * (?phase=diagnose; none = Home) so a refresh stays put. Answers, timers and
  * progress are shared by the team through the backend (see teamSync.ts).
  */
-export function DallasApp({ initialState }: { initialState: TeamState }) {
+export function DallasApp({
+  initialState,
+  isAdmin = false,
+}: {
+  initialState: TeamState;
+  /** Organizer (aspire_profiles.is_admin): also sees "View Teams Results". */
+  isAdmin?: boolean;
+}) {
   const router = useRouter();
   const t = useTranslations("Dallas");
   const sync = useTeamSync(initialState);
-  const [workload, setWorkload] = useState(0);
+  const [coachOpen, setCoachOpen] = useState(false);
+  // Set when the team submits its final recommendation; shown over Home.
+  const [celebrating, setCelebrating] = useState(false);
   const [, setTick] = useState(0);
 
   const raw = useSearchParams().get("phase");
-  const screen: Screen = SCREENS.includes(raw as Screen)
-    ? (raw as Screen)
-    : "home";
+  const screen: Screen =
+    SCREENS.includes(raw as Screen) || (isAdmin && raw === "teams")
+      ? (raw as Screen)
+      : "home";
   const phase = PHASE_KEYS.includes(screen as PhaseKey)
     ? (screen as PhaseKey)
     : null;
 
-  const state: DallasState = { ...sync.shared, workload };
+  const state: DallasState = sync.shared;
   const teamName = sync.shared.teamName.trim() || t("yourTeam");
 
   const update: Update = (patch) => {
     const changes = typeof patch === "function" ? patch(state) : patch;
     if (!changes) return;
-    const { workload: nextWorkload, ...sharedChanges } = changes;
-    if (nextWorkload !== undefined) setWorkload(nextWorkload);
-    const patches = toPatches(sync.shared, {
-      ...sync.shared,
-      ...sharedChanges,
-    });
+    const patches = toPatches(sync.shared, { ...sync.shared, ...changes });
     if (Object.keys(patches).length) sync.edit(patches);
   };
 
   function go(next: Screen) {
-    // Respond starts from the current strategy; Advise resets it when the strategy changes.
-    if (next === "respond" && !sync.shared.revised) {
-      update({ revised: [...baseStrategy(sync.shared)] });
-    }
     const path = window.location.pathname;
     window.history.pushState(
       null,
@@ -122,7 +109,9 @@ export function DallasApp({ initialState }: { initialState: TeamState }) {
     if (phase && phaseMinutes(phase) > 0 && !started) void open(phase);
   }, [phase, started, open]);
 
+  // Re-render every second for the countdown; no need when it is hidden.
   useEffect(() => {
+    if (!DALLAS_TIMER_ENABLED) return;
     const id = setInterval(() => setTick((n) => n + 1), 1000);
     return () => clearInterval(id);
   }, []);
@@ -131,17 +120,6 @@ export function DallasApp({ initialState }: { initialState: TeamState }) {
     await createClient().auth.signOut();
     router.replace("/dallas/login");
     router.refresh();
-  }
-
-  if (screen === "results") {
-    return (
-      <ResultsView
-        teamNumber={sync.server.team.number}
-        teamName={teamName}
-        onBack={() => go("deliver")}
-        onSignOut={signOut}
-      />
-    );
   }
 
   const total = phase ? phaseMinutes(phase) * 60 : 0;
@@ -188,9 +166,26 @@ export function DallasApp({ initialState }: { initialState: TeamState }) {
                 aria-current={active ? "step" : undefined}
               >
                 <span
-                  className={`${styles.navNum} ${i % 2 ? styles.tonePurple : styles.toneRed}`}
+                  className={`${styles.navNum} ${i % 2 ? styles.toneRed : styles.tonePurple}`}
+                  aria-hidden="true"
                 >
-                  {String(i + 1).padStart(2, "0")}
+                  {/* Team Setup is not a numbered step: Discover is 01. */}
+                  {i === 0 ? (
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="16"
+                      height="16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    >
+                      <circle cx="9" cy="8" r="3" />
+                      <path d="M3.5 19c.4-3.2 2.45-5 5.5-5s5.1 1.8 5.5 5M16 11a2.5 2.5 0 1 0 0-5M17.5 14.5c1.8.4 2.8 1.9 3 4.5" />
+                    </svg>
+                  ) : (
+                    String(i).padStart(2, "0")
+                  )}
                 </span>
                 <span className={styles.navLabel}>{t(`phases.${key}`)}</span>
                 {sync.done.includes(key) && (
@@ -205,6 +200,20 @@ export function DallasApp({ initialState }: { initialState: TeamState }) {
             );
           })}
         </nav>
+
+        {isAdmin && (
+          <>
+            <span className={styles.navSection}>{t("nav.organizers")}</span>
+            <button
+              type="button"
+              onClick={() => go("teams")}
+              className={`${styles.navItem} ${screen === "teams" ? styles.navItemActive : ""}`}
+              aria-current={screen === "teams" ? "page" : undefined}
+            >
+              <span className={styles.navLabel}>{t("nav.teamsResults")}</span>
+            </button>
+          </>
+        )}
 
         <div className={styles.sidebarSpacer} />
 
@@ -231,7 +240,9 @@ export function DallasApp({ initialState }: { initialState: TeamState }) {
       </aside>
 
       <div className={styles.main}>
-        {phase ? (
+        {screen === "teams" ? (
+          <TeamsResultsView />
+        ) : phase ? (
           <PhaseScreen
             phase={phase}
             state={state}
@@ -240,23 +251,35 @@ export function DallasApp({ initialState }: { initialState: TeamState }) {
             teamName={teamName}
             secondsLeft={secondsLeft}
             go={go}
+            onFinish={() => {
+              setCelebrating(true);
+              go("home");
+            }}
           />
         ) : (
           <HomeView
             teamName={teamName}
             hasName={!!sync.shared.teamName.trim()}
             teamNumber={sync.server.team.number}
-            rolesAssigned={
-              Object.values(sync.shared.members).filter(Boolean).length
-            }
+            rolesAssigned={assignedRoles(sync.shared.members)}
             done={sync.done}
             go={go}
+            onAskCoach={() => setCoachOpen(true)}
           />
         )}
         <div className={styles.footer}>
           <Footer />
         </div>
       </div>
+      {celebrating && (
+        <Celebration
+          teamName={teamName}
+          onClose={() => setCelebrating(false)}
+        />
+      )}
+      {DALLAS_COACH_ENABLED && (
+        <CoachWidget open={coachOpen} setOpen={setCoachOpen} />
+      )}
     </div>
   );
 }
@@ -269,6 +292,8 @@ type PhaseScreenProps = {
   teamName: string;
   secondsLeft: number;
   go: (screen: Screen) => void;
+  /** After Pitch & Submit is completed: Home with the celebration. */
+  onFinish: () => void;
 };
 
 function PhaseScreen({
@@ -279,6 +304,7 @@ function PhaseScreen({
   teamName,
   secondsLeft,
   go,
+  onFinish,
 }: PhaseScreenProps) {
   const t = useTranslations("Dallas");
   const [submitting, setSubmitting] = useState(false);
@@ -297,6 +323,7 @@ function PhaseScreen({
     const reason = await sync.complete(phase);
     setSubmitting(false);
     if (reason) setRefused(reason);
+    else if (phase === PHASE_KEYS[PHASE_KEYS.length - 1]) onFinish();
     else go(nextScreen(phase));
   }
 
@@ -352,7 +379,7 @@ function PhaseScreen({
           </div>
         </div>
 
-        {phaseMinutes(phase) > 0 && (
+        {DALLAS_TIMER_ENABLED && phaseMinutes(phase) > 0 && (
           <span
             role="timer"
             title={t("progress.timer")}
@@ -379,12 +406,13 @@ function PhaseScreen({
           nameLocked={teamLocked}
         />
       )}
-      {phase === "brief" && <BriefView state={state} update={update} />}
-      {phase === "discover" && <DiscoverView state={state} update={update} />}
-      {phase === "diagnose" && <DiagnoseView state={state} update={update} />}
-      {phase === "advise" && <AdviseView state={state} update={update} />}
-      {phase === "respond" && <RespondView state={state} update={update} />}
-      {phase === "deliver" && <DeliverView state={state} update={update} />}
+      {phase === "discover" && <DiscoverView />}
+      {phase === "strategize" && (
+        <StrategizeView state={state} update={update} teamName={teamName} />
+      )}
+      {(phase === "design" || phase === "pitch") && (
+        <PhaseResourcesView phase={phase} teamName={teamName} />
+      )}
 
       <div className={styles.stepNav}>
         <button
@@ -409,7 +437,7 @@ function PhaseScreen({
             disabled={!!blocked || submitting}
             onClick={next}
           >
-            {phase === "deliver" ? t("footer.submit") : t("footer.continue")}
+            {phase === "pitch" ? t("footer.submit") : t("footer.continue")}
           </button>
         </div>
       </div>
@@ -450,95 +478,6 @@ function SyncLine({
           {saveLabel}
         </span>
       )}
-    </div>
-  );
-}
-
-function ResultsView({
-  teamNumber,
-  teamName,
-  onBack,
-  onSignOut,
-}: {
-  teamNumber: number;
-  teamName: string;
-  onBack: () => void;
-  onSignOut: () => void;
-}) {
-  const t = useTranslations("Dallas");
-  const ours = teamBadge({ number: teamNumber });
-
-  return (
-    <div className={`dark ${styles.shell} ${styles.results}`}>
-      <div className={styles.resultsInner}>
-        <div className={styles.resultsHead}>
-          <span className={styles.eyebrow}>{t("results.eyebrow")}</span>
-          <h1 className={styles.resultsTitle}>{t("results.title")}</h1>
-          <p className={`${styles.muted} m-0 text-[18px]`}>
-            {t("results.subtitle")}
-          </p>
-        </div>
-
-        <ol className={styles.podium}>
-          {MOCK_PODIUM.map((entry) => {
-            const first = entry.rank === 1;
-            const isOurs = entry.team === ours;
-            return (
-              <li
-                key={entry.rank}
-                className={`${styles.podiumItem} ${styles[`place${entry.rank}`]} ${first ? styles.podiumFirst : ""}`}
-              >
-                <span className={styles.placeBadge}>{entry.rank}</span>
-                <b className={styles.podiumTeam}>
-                  {isOurs ? teamName : t("teamName", { num: entry.team })}
-                </b>
-                <span className={styles.podiumPoints}>
-                  {t("results.points", { points: entry.points })}
-                </span>
-                {isOurs && (
-                  <span className={styles.yourTeam}>
-                    {t("results.yourTeam")}
-                  </span>
-                )}
-              </li>
-            );
-          })}
-        </ol>
-
-        <div className={styles.resultsHead}>
-          <h2 className="m-0 font-display text-[22px] font-bold">
-            {t("results.finalists")}
-          </h2>
-          <span className={`${styles.muted} text-[16px]`}>
-            {t("results.finalistsHelp")}
-          </span>
-        </div>
-
-        <ol className={styles.board} start={MOCK_BOARD[0]?.rank}>
-          {MOCK_BOARD.map((entry) => (
-            <li key={entry.rank} className={styles.boardItem}>
-              <span className={styles.boardRank}>{entry.rank}</span>
-              <div className={styles.boardText}>
-                <span className={`${styles.muted} text-[13px]`}>
-                  {entry.team === ours
-                    ? teamName
-                    : t("teamName", { num: entry.team })}
-                </span>
-                <b>{entry.points}</b>
-              </div>
-            </li>
-          ))}
-        </ol>
-
-        <div className={styles.resultsActions}>
-          <button type="button" className={styles.ghostBtn} onClick={onBack}>
-            {t("results.back")}
-          </button>
-          <button type="button" className={styles.ghostBtn} onClick={onSignOut}>
-            {t("user.signOut")}
-          </button>
-        </div>
-      </div>
     </div>
   );
 }

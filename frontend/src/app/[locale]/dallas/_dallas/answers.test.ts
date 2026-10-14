@@ -9,7 +9,7 @@ import {
 const EMPTY = fromAnswers(emptyAnswers());
 
 function edit(changes: Partial<SharedState>, before: SharedState = EMPTY) {
-  return toPatches(before, { ...before, ...changes }, 1000);
+  return toPatches(before, { ...before, ...changes });
 }
 
 describe("toPatches", () => {
@@ -33,94 +33,75 @@ describe("toPatches", () => {
       team: { role_ae: null, display_name: null },
     });
   });
+});
 
-  it("sends only the toggled options of a multi-select", () => {
-    const before = { ...EMPTY, causes: ["governance", "models"] };
-    expect(edit({ causes: ["models", "training"] }, before)).toEqual({
-      diagnose: { cause_training: true, cause_governance: null },
-    });
-  });
-
-  it("orders the strategy by when each recommendation was added", () => {
-    const patch = edit({ strategy: ["mon", "gov"] });
-    expect(patch).toEqual({ advise: { rec_mon: 1000, rec_gov: 1001 } });
-    const saved = {
-      ...emptyAnswers(),
-      advise: { rec_gov: 5, rec_mon: 2, rec_opt: 9 },
-    };
-    expect(fromAnswers(saved).strategy).toEqual(["mon", "gov", "opt"]);
-    expect(edit({ strategy: ["gov"] }, fromAnswers(saved))).toEqual({
-      advise: { rec_mon: null, rec_opt: null },
-    });
-  });
-
-  it("keeps Respond's slots, including an emptied one, and clears them on reset", () => {
-    expect(edit({ revised: ["mon", "", "gov"] })).toEqual({
-      respond: { slot_1: "mon", slot_2: "", slot_3: "gov" },
-    });
-    const before = {
-      ...EMPTY,
-      revised: ["mon", "opt"] as SharedState["revised"],
-    };
-    expect(edit({ revised: ["mon", "trn"] }, before)).toEqual({
-      respond: { slot_2: "trn" },
-    });
-    expect(edit({ revised: null }, before)).toEqual({
-      respond: { slot_1: null, slot_2: null },
-    });
-  });
-
-  it("keeps a ticked outcome without a target", () => {
-    expect(edit({ outcomes: { cost: "" } })).toEqual({
-      deliver: { outcome_cost: "" },
-    });
-    const before = { ...EMPTY, outcomes: { cost: "20" } };
-    expect(edit({ outcomes: {} }, before)).toEqual({
-      deliver: { outcome_cost: null },
-    });
-  });
-
-  it("groups text fields under their phase", () => {
+describe("toPatches for Strategize", () => {
+  it("stores classes, causes and recommendations as their own keys", () => {
     expect(
-      edit({ briefAnswer: "Usage limits", rootCause: "No monitoring" }),
+      toPatches(
+        EMPTY,
+        {
+          ...EMPTY,
+          diag: { hr: "retire" },
+          causes: ["models"],
+          strategy: ["mon", "gov"],
+        },
+        100,
+      ),
     ).toEqual({
-      brief: { q1: "Usage limits" },
-      deliver: { root_cause: "No monitoring" },
+      strategize: {
+        class_hr: "retire",
+        cause_models: true,
+        rec_mon: 100,
+        rec_gov: 101,
+      },
+    });
+  });
+
+  it("removes deselected options", () => {
+    const before = { ...EMPTY, causes: ["models"], strategy: ["mon" as const] };
+    expect(edit({ causes: [], strategy: [] }, before)).toEqual({
+      strategize: { cause_models: null, rec_mon: null },
     });
   });
 });
 
 describe("fromAnswers", () => {
-  it("reads every phase back into the views' shapes", () => {
+  it("reads the team name and roles", () => {
     const state = fromAnswers({
       ...emptyAnswers(),
-      team: { display_name: "Lone Star", role_ae: "u1", role_sg: "u2" },
-      brief: { q1: "Why?", missing_cost: true, missing_roi: true },
-      diagnose: { class_support: "protect", cause_models: true },
-      respond: { slot_1: "mon", slot_2: "", slot_4: "gov" },
-      deliver: { situation: "s", outcome_cost: "20", metric_csat: true },
+      team: { display_name: "Lone Star", role_ae: "u1", role_se: "u2" },
     });
 
-    expect(state.teamName).toBe("Lone Star");
-    expect(state.members).toEqual({ ae: "u1", sg: "u2" });
-    expect(state.missing).toEqual(["cost", "roi"]);
+    expect(state).toEqual({
+      teamName: "Lone Star",
+      members: { ae: "u1", se: "u2" },
+      diag: {},
+      causes: [],
+      strategy: [],
+    });
+  });
+
+  it("reads Diagnose and Advise from the Strategize answers", () => {
+    const state = fromAnswers({
+      ...emptyAnswers(),
+      strategize: {
+        class_support: "protect",
+        cause_models: true,
+        cause_adoption: true,
+        rec_gov: 20,
+        rec_mon: 10,
+      },
+    });
+
     expect(state.diag).toEqual({ support: "protect" });
-    expect(state.causes).toEqual(["models"]);
-    // Slots stop at the first gap.
-    expect(state.revised).toEqual(["mon", ""]);
-    expect(state.outcomes).toEqual({ cost: "20" });
-    expect(state.metrics).toEqual(["csat"]);
+    expect(state.causes).toEqual(["adoption", "models"]);
+    // In the order they were added.
+    expect(state.strategy).toEqual(["mon", "gov"]);
   });
 
   it("round-trips an edit", () => {
-    const after = {
-      ...EMPTY,
-      teamName: "Lone Star",
-      members: { ae: "u1" },
-      missing: ["cost"],
-      causes: ["a", "b", "c"],
-      outcomes: { cost: "" },
-    };
+    const after = { ...EMPTY, teamName: "Lone Star", members: { ae: "u1" } };
     const patches = toPatches(EMPTY, after);
     const saved = emptyAnswers();
     for (const [phase, patch] of Object.entries(patches)) {

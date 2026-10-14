@@ -6,7 +6,7 @@ import { Excalidraw, convertToExcalidrawElements, exportToBlob } from "@excalidr
 import type { ExcalidrawImperativeAPI } from "@excalidraw/excalidraw/types";
 import "@excalidraw/excalidraw/index.css";
 
-const STORAGE_KEY = "aspire.new-york.whiteboard";
+const DEFAULT_STORAGE_KEY = "aspire.new-york.whiteboard";
 const STICKY_COLORS = ["#ffec99", "#b2f2bb", "#a5d8ff", "#ffc9c9", "#eebefa"];
 const STICKY_SIZE = 200;
 
@@ -16,9 +16,9 @@ type SavedBoard = {
   viewBackgroundColor?: string;
 };
 
-function readBoard(): SavedBoard | null {
+function readBoard(storageKey: string): SavedBoard | null {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(storageKey);
     return raw ? (JSON.parse(raw) as SavedBoard) : null;
   } catch {
     return null;
@@ -28,10 +28,13 @@ function readBoard(): SavedBoard | null {
 export type WhiteboardHandle = { exportPng: () => Promise<Blob | null> };
 
 export default function WhiteboardCanvas({
+  storageKey = DEFAULT_STORAGE_KEY,
   langCode,
   stickyLabels,
   onReady,
 }: {
+  /** localStorage key of the saved board (Dallas keeps its own). */
+  storageKey?: string;
   langCode: string;
   /** `add` is the button tooltip, `text` the placeholder inside a new note. */
   stickyLabels: { add: string; text: string };
@@ -40,7 +43,7 @@ export default function WhiteboardCanvas({
   const apiRef = useRef<ExcalidrawImperativeAPI | null>(null);
   const saveTimer = useRef<number | undefined>(undefined);
   const initialData = useMemo(() => {
-    const saved = readBoard();
+    const saved = readBoard(storageKey);
     return saved
       ? {
           elements: saved.elements,
@@ -49,7 +52,7 @@ export default function WhiteboardCanvas({
           scrollToContent: true,
         }
       : null;
-  }, []);
+  }, [storageKey]);
   const theme = useMemo(
     () => (document.documentElement.dataset.theme === "dark" ? "dark" : "light"),
     [],
@@ -148,7 +151,7 @@ export default function WhiteboardCanvas({
               files,
               viewBackgroundColor: appState.viewBackgroundColor,
             };
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(board));
+            localStorage.setItem(storageKey, JSON.stringify(board));
           } catch {
             // Storage full or blocked: the board still works for this visit.
           }

@@ -49,6 +49,8 @@ export function DallasLogin({ initialStep, unavailable }: Props) {
     unavailable ? t("errors.unavailable") : "",
   );
   const [teams, setTeams] = useState<DallasTeam[] | null>(null);
+  const [teamId, setTeamId] = useState("");
+  const selectedTeam = teams?.find((team) => String(team.id) === teamId);
 
   const goToDashboard = () =>
     window.location.assign(withBasePath(`/${locale}/dallas`));
@@ -177,6 +179,7 @@ export function DallasLogin({ initialStep, unavailable }: Props) {
     setStep("credentials");
     setError("");
     setTeams(null);
+    setTeamId("");
   }
 
   return (
@@ -191,12 +194,20 @@ export function DallasLogin({ initialStep, unavailable }: Props) {
       </button>
       <div className={styles.shell}>
         <section
-          className={`dark ${styles.brandPanel}`}
+          className={`dark ${styles.brandPanel} ${styles.dallasBrandPanel}`}
           aria-label={t("brandLabel")}
         >
+          <Image
+            src={withBasePath("/dallas/login-background.png")}
+            alt=""
+            fill
+            sizes="(max-width: 760px) 100vw, 50vw"
+            className={styles.dallasBackground}
+            priority
+          />
           <div className={styles.logo}>
             <Image
-              src={withBasePath("/lead-mark.png")}
+              src={withBasePath("/dallas/lead-mark.png")}
               alt=""
               width={72}
               height={48}
@@ -212,8 +223,49 @@ export function DallasLogin({ initialStep, unavailable }: Props) {
             <h1 className={styles.heading}>
               {t("heading")}
               <span className={styles.headingAccent}>{t("headingAccent")}</span>
+              {t("heading-foot")}
             </h1>
+
             <p className={styles.introText}>{t("intro")}</p>
+          </div>
+          <div className={styles.featureList}>
+            <div className={styles.feature}>
+              <span className={styles.featureIcon} aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="12" cy="8" r="3" />
+                  <circle cx="5.5" cy="10" r="2.25" />
+                  <circle cx="18.5" cy="10" r="2.25" />
+                  <path d="M6.5 19c.35-3 2.25-4.75 5.5-4.75s5.15 1.75 5.5 4.75M2.5 18c.2-2.05 1.25-3.25 3-3.25 1.05 0 1.85.4 2.4 1.15M21.5 18c-.2-2.05-1.25-3.25-3-3.25" />
+                </svg>
+              </span>
+              <span>
+                <strong>{t("features.team.title")}</strong>
+                <small>{t("features.team.body")}</small>
+              </span>
+            </div>
+            <div className={styles.feature}>
+              <span className={styles.featureIcon} aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M8.75 15.5C7.2 14.4 6.25 12.6 6.25 10.6A5.75 5.75 0 0 1 12 4.85a5.75 5.75 0 0 1 5.75 5.75c0 2- .95 3.8-2.5 4.9-.7.5-1.1 1.25-1.1 2.1h-4.3c0-.85-.4-1.6-1.1-2.1Z" />
+                  <path d="M10 20h4M10.5 17.7h3" />
+                </svg>
+              </span>
+              <span>
+                <strong>{t("features.challenge.title")}</strong>
+                <small>{t("features.challenge.body")}</small>
+              </span>
+            </div>
+            <div className={styles.feature}>
+              <span className={styles.featureIcon} aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M5 19V13M12 19V8M19 19V4" />
+                </svg>
+              </span>
+              <span>
+                <strong>{t("features.recommendation.title")}</strong>
+                <small>{t("features.recommendation.body")}</small>
+              </span>
+            </div>
           </div>
         </section>
 
@@ -277,29 +329,34 @@ export function DallasLogin({ initialStep, unavailable }: Props) {
                 <p className={styles.cardIntro}>{t("profile.intro")}</p>
               </header>
 
-              <label className={styles.label} htmlFor="firstName">
-                {t("profile.firstName")}
-              </label>
-              <input
-                className={styles.input}
-                id="firstName"
-                name="firstName"
-                required
-                maxLength={80}
-                autoComplete="given-name"
-              />
-
-              <label className={styles.label} htmlFor="lastName">
-                {t("profile.lastName")}
-              </label>
-              <input
-                className={styles.input}
-                id="lastName"
-                name="lastName"
-                required
-                maxLength={80}
-                autoComplete="family-name"
-              />
+              <div className={styles.nameRow}>
+                <div>
+                  <label className={styles.label} htmlFor="firstName">
+                    {t("profile.firstName")}
+                  </label>
+                  <input
+                    className={styles.input}
+                    id="firstName"
+                    name="firstName"
+                    required
+                    maxLength={80}
+                    autoComplete="given-name"
+                  />
+                </div>
+                <div>
+                  <label className={styles.label} htmlFor="lastName">
+                    {t("profile.lastName")}
+                  </label>
+                  <input
+                    className={styles.input}
+                    id="lastName"
+                    name="lastName"
+                    required
+                    maxLength={80}
+                    autoComplete="family-name"
+                  />
+                </div>
+              </div>
 
               <label className={styles.label} htmlFor="team">
                 {t("profile.team")}
@@ -309,7 +366,8 @@ export function DallasLogin({ initialStep, unavailable }: Props) {
                 id="team"
                 name="team"
                 required
-                defaultValue=""
+                value={teamId}
+                onChange={(event) => setTeamId(event.target.value)}
                 disabled={!teams}
               >
                 <option value="" disabled>
@@ -323,7 +381,47 @@ export function DallasLogin({ initialStep, unavailable }: Props) {
                   </option>
                 ))}
               </select>
-              <p className={styles.cardIntro}>{t("profile.teamFinal")}</p>
+              <p className={styles.teamNote}>
+                <span className={styles.teamNoteIcon} aria-hidden="true">
+                  i
+                </span>
+                {t("profile.teamFinal")}
+              </p>
+
+              {selectedTeam && (
+                <section
+                  className={styles.teamConfirm}
+                  aria-labelledby="team-confirm-heading"
+                >
+                  <span className={styles.teamConfirmIcon} aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <circle cx="9" cy="8" r="3" />
+                      <circle cx="17" cy="9" r="2.25" />
+                      <path d="M3.5 19c.4-3.2 2.45-5 5.5-5s5.1 1.8 5.5 5M15.5 14.3c.45-.1.95-.15 1.5-.15 2.45 0 3.95 1.5 4.25 4.35" />
+                    </svg>
+                  </span>
+                  <div className={styles.teamConfirmBody}>
+                    <h3
+                      id="team-confirm-heading"
+                      className={styles.teamConfirmHeading}
+                    >
+                      {t("profile.confirmHeading")}
+                    </h3>
+                    <p className={styles.teamConfirmIntro}>
+                      {t("profile.confirmIntro")}
+                    </p>
+                    <div className={styles.teamConfirmCard}>
+                      <span className={styles.teamBadge}>
+                        {String(selectedTeam.number).padStart(2, "0")}
+                      </span>
+                      <span>
+                        <strong>{selectedTeam.name}</strong>
+                        <small>{t("profile.confirmEvent")}</small>
+                      </span>
+                    </div>
+                  </div>
+                </section>
+              )}
 
               {error && (
                 <p className={styles.formError} role="alert">

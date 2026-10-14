@@ -273,7 +273,15 @@ def test_me_returns_the_student_team_and_members(client, dallas_student):
         "last_name": "Pérez",
         "team": {"id": 8, "number": 8, "name": "Team 8"},
         "members": [{"first_name": "Ana", "last_name": "Pérez"}, {"first_name": "Luis", "last_name": "Gómez"}],
+        "is_admin": False,
     }
+
+
+def test_me_marks_an_active_admin(client, dallas_student):
+    dallas_student.respond("aspire_dallas_students", [STUDENT])
+    dallas_student.respond("aspire_profiles", {"is_admin": True, "status": "active"})
+
+    assert client.get("/api/dallas/me", headers=AUTH).json()["is_admin"] is True
 
 
 def test_me_before_step_two_has_no_team(client, dallas_student):
