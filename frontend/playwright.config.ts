@@ -29,7 +29,7 @@ export default defineConfig({
     // Pages that need no session.
     {
       name: "public",
-      testMatch: /(smoke|login)\.spec\.ts/,
+      testMatch: /(smoke|login|nycschools)\.spec\.ts/,
       use: { ...devices["Desktop Chrome"] },
     },
     // Signs the real user in once and saves the session for the next projects.
