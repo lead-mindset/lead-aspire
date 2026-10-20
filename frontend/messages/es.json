@@ -1199,5 +1199,170 @@
       "addSticky": "Agregar nota adhesiva",
       "stickyText": "Nueva nota"
     }
+  },
+  "NycSchools": {
+    "title": "Laboratorio Ejecutivo de Copilot",
+    "brandSub": "NYC SCHOOLS",
+    "eyebrow": "MICROSOFT COPILOT CHAT · LABORATORIO EJECUTIVO GUIADO",
+    "nav": {
+      "label": "Laboratorio Ejecutivo de Copilot",
+      "home": "Bienvenida",
+      "journey": "TU RECORRIDO",
+      "completed": "Completado"
+    },
+    "setup": {
+      "title": "PREPARACIÓN",
+      "body": "Mantén este portal en una pestaña del navegador y abre Copilot Chat en otra. Usa solo contenido ficticio o aprobado por tu organización.",
+      "open": "Abrir Copilot Chat ↗"
+    },
+    "theme": {
+      "toLight": "Modo claro",
+      "toDark": "Modo oscuro"
+    },
+    "minutes": "{count} minutos",
+    "home": {
+      "pill": "Inicio · 5 minutos",
+      "title": "Del trabajo diario a un impacto significativo",
+      "intro": "Un laboratorio práctico de 60 minutos para líderes administrativos de educación pública.",
+      "welcome": "Bienvenido al Laboratorio Ejecutivo",
+      "desc": "Trabajarás con un escenario ficticio pero realista. El objetivo no es dominar todas las funciones de IA, sino experimentar cómo Copilot Chat puede ayudarte a entender información, redactar una respuesta útil y mejorar la calidad de tu trabajo.",
+      "situation": "<b>La situación de hoy:</b> Una oficina administrativa central de un gran sistema de educación pública de Nueva York recibe demasiadas solicitudes sobre alta de proveedores, interpretación de políticas y estado de trámites. Los tiempos de respuesta están empeorando y la dirección quiere una mejora práctica y de bajo costo.",
+      "missionTitle": "Tu misión",
+      "mission": "Usa Copilot para crear un <b>plan sencillo de mejora del servicio administrativo</b> que un equipo directivo pueda revisar. No se requiere experiencia técnica ni una licencia completa de Microsoft 365 Copilot.",
+      "metricsLabel": "El caso en cifras",
+      "metrics": {
+        "requests": {
+          "value": "120",
+          "label": "Solicitudes por semana"
+        },
+        "response": {
+          "value": "8 días",
+          "label": "Tiempo medio de respuesta (meta: 5)"
+        },
+        "repeat": {
+          "value": "35%",
+          "label": "Solicitudes repetidas o de aclaración"
+        }
+      },
+      "practiceTitle": "Lo que vas a practicar",
+      "practice": "1. Hacer mejores preguntas · 2. Usar la información proporcionada · 3. Refinar y cuestionar el resultado · 4. Convertir un borrador en una acción.",
+      "disclaimer": "Todos los datos del caso son ilustrativos, no datos reales de NYC Public Schools. Nada de lo que escribas aquí se envía a un servidor; tu progreso se guarda solo en este navegador.",
+      "start": "Comenzar el laboratorio",
+      "continue": "Continuar: {step}",
+      "review": "Repasar el laboratorio"
+    },
+    "steps": {
+      "discover": {
+        "title": "Descubrir",
+        "heading": "Entiende el desafío",
+        "desc": "Empieza con un breve resumen. Copia los datos en Copilot Chat y pídele que identifique los principales problemas operativos."
+      },
+      "explore": {
+        "title": "Explorar",
+        "heading": "Hazlo relevante para tu rol",
+        "desc": "Elige una perspectiva funcional. El portal personaliza el siguiente prompt; puedes editarlo antes de usarlo en Copilot."
+      },
+      "refine": {
+        "title": "Refinar",
+        "heading": "Cuestiona la primera respuesta",
+        "desc": "Copilot no toma decisiones. Pídele que ponga a prueba su propuesta frente a la realidad del liderazgo administrativo."
+      },
+      "apply": {
+        "title": "Aplicar",
+        "heading": "Llévate algo útil",
+        "desc": "Convierte la conversación en un entregable breve listo para la dirección y luego identifica un flujo de trabajo real que podrías repetir con Copilot."
+      }
+    },
+    "progress": {
+      "label": "Progreso del laboratorio · {pct}%",
+      "remaining": "Faltan {count} de 4 pasos",
+      "allDone": "Todos los pasos completados"
+    },
+    "activitiesLabel": "Actividades del laboratorio",
+    "badges": {
+      "case": "CASO",
+      "prompt": "PROMPT",
+      "optional": "OPCIONAL",
+      "data": "DATOS",
+      "activity": "ACTIVIDAD"
+    },
+    "copy": "Copiar",
+    "copied": "¡Copiado! Pégalo en Copilot Chat.",
+    "copyFailed": "No se puede copiar en este navegador.",
+    "caseBrief": {
+      "title": "Resumen del caso",
+      "copy": "Copiar resumen del caso",
+      "download": "Descargar caso (.txt)"
+    },
+    "prompts": {
+      "analyze": "Prompt 1 — Analizar",
+      "recommend": "Prompt 2 — Recomendar",
+      "critique": "Prompt 3 — Criticar y mejorar",
+      "followUp": "Segunda pregunta opcional",
+      "brief": "Prompt 4 — Crear un resumen de decisión"
+    },
+    "roles": {
+      "label": "Selecciona tu perspectiva de liderazgo",
+      "options": {
+        "operations": "Operaciones y prestación de servicios",
+        "supplier": "Diversidad de proveedores y desarrollo de negocios",
+        "compliance": "Cumplimiento, políticas e igualdad de oportunidades",
+        "executive": "Liderazgo ejecutivo y transformación"
+      }
+    },
+    "data": {
+      "title": "Datos semanales de solicitudes",
+      "body": "Usa el CSV de ejemplo para un análisis más detallado. Es ficticio, no contiene información personal y es opcional.",
+      "download": "Descargar solicitudes de ejemplo (.csv)",
+      "copy": "Copiar contenido del CSV"
+    },
+    "template": {
+      "download": "Descargar plantilla del resumen (.txt)"
+    },
+    "takeaway": {
+      "title": "Llévalo a tu trabajo real",
+      "label": "Una tarea recurrente que podría mejorar con Copilot Chat:",
+      "placeholder": "Ejemplo: Convertir una actualización de política pública en un resumen breve con preguntas para mi equipo…",
+      "copy": "Copiar mi conclusión",
+      "empty": "Escribe una conclusión antes de copiar.",
+      "prefix": "Mi próximo caso de uso de Copilot Chat: ",
+      "note": "Tu nota se queda en esta pestaña del navegador; no se sube ni se guarda."
+    },
+    "learn": {
+      "discover": {
+        "title": "Momento de aprendizaje",
+        "body": "Un contexto específico produce resultados más útiles. Pregunta: <i>¿Qué observaciones son hechos y cuáles son suposiciones?</i> Verifica que Copilot no haya inventado métricas adicionales."
+      },
+      "explore": {
+        "title": "Momento de aprendizaje",
+        "body": "Pide a Copilot que compare opciones, no solo que genere ideas. Una recomendación es más sólida cuando especificas <b>restricciones, impacto y viabilidad</b>."
+      },
+      "refine": {
+        "title": "Momento de aprendizaje",
+        "body": "La mayor mejora suele llegar en el <b>segundo o tercer prompt</b>. Trata el resultado de la IA como un borrador para revisión profesional, sobre todo en temas legales, de personal, de políticas y de compras."
+      },
+      "apply": {
+        "title": "Conclusión ejecutiva",
+        "body": "Copilot Chat puede ayudarte a <b>analizar → comparar → cuestionar → redactar</b> a partir de la información que proporcionas. Verifica siempre los datos importantes y aplica las políticas de manejo de datos de tu organización."
+      }
+    },
+    "done": {
+      "title": "¿Terminaste este paso?",
+      "titleDone": "Paso completado",
+      "sub": "Márcalo como hecho para seguir tu progreso en el laboratorio.",
+      "subDone": "¡Buen trabajo! Tu progreso se ha actualizado.",
+      "mark": "Marcar este paso como hecho",
+      "undo": "✓ Completado — deshacer",
+      "next": "Siguiente: {step}",
+      "finish": "Volver a la bienvenida"
+    },
+    "celebrate": {
+      "eyebrow": "PASO COMPLETADO",
+      "eyebrowDone": "MISIÓN CUMPLIDA",
+      "title": "¡{step} completado!",
+      "titleDone": "¡Laboratorio completado!",
+      "body": "¡Excelente trabajo! Llevas el {pct}% del laboratorio.",
+      "bodyDone": "Completaste todos los pasos del Laboratorio Ejecutivo de Copilot. ¡Excelente trabajo, llegaste al 100%!"
+    }
   }
 }

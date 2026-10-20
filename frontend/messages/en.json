@@ -1200,5 +1200,170 @@
       "addSticky": "Add sticky note",
       "stickyText": "New note"
     }
+  },
+  "NycSchools": {
+    "title": "Copilot Executive Lab",
+    "brandSub": "NYC SCHOOLS",
+    "eyebrow": "MICROSOFT COPILOT CHAT · GUIDED EXECUTIVE LAB",
+    "nav": {
+      "label": "Copilot Executive Lab",
+      "home": "Welcome",
+      "journey": "YOUR LAB JOURNEY",
+      "completed": "Completed"
+    },
+    "setup": {
+      "title": "WORKING SETUP",
+      "body": "Keep this portal in one browser tab and open Copilot Chat in another. Use only fictional or organization-approved content.",
+      "open": "Open Copilot Chat ↗"
+    },
+    "theme": {
+      "toLight": "Light mode",
+      "toDark": "Dark mode"
+    },
+    "minutes": "{count} minutes",
+    "home": {
+      "pill": "Start · 5 minutes",
+      "title": "From Everyday Work to Meaningful Impact",
+      "intro": "A practical 60-minute lab for public education administrative leaders.",
+      "welcome": "Welcome to the Executive Lab",
+      "desc": "You will work through one realistic fictional scenario. The goal is not to master every AI feature; it is to experience how Copilot Chat can help you understand information, draft a useful response, and improve the quality of your work.",
+      "situation": "<b>Today's situation:</b> A central administrative office in a large NYC public education system is receiving too many requests about vendor onboarding, policy interpretation, and request status. Response times are slipping, and leadership wants a practical, low-cost improvement.",
+      "missionTitle": "Your mission",
+      "mission": "Use Copilot to create a <b>simple administrative service improvement plan</b> that a leadership team could review. No technical expertise or full Microsoft 365 Copilot license required.",
+      "metricsLabel": "Case at a glance",
+      "metrics": {
+        "requests": {
+          "value": "120",
+          "label": "Requests per week"
+        },
+        "response": {
+          "value": "8 days",
+          "label": "Average response time (goal: 5)"
+        },
+        "repeat": {
+          "value": "35%",
+          "label": "Repeat or clarification requests"
+        }
+      },
+      "practiceTitle": "What you will practice",
+      "practice": "1. Ask better questions · 2. Use provided information · 3. Refine and challenge output · 4. Turn a draft into an action.",
+      "disclaimer": "All case data is illustrative, not actual NYC Public Schools performance data. Nothing you type here is sent to a server; your progress is saved only in this browser.",
+      "start": "Start the lab",
+      "continue": "Continue: {step}",
+      "review": "Review the lab"
+    },
+    "steps": {
+      "discover": {
+        "title": "Discover",
+        "heading": "Understand the challenge",
+        "desc": "Start with a short briefing. Copy the facts into Copilot Chat, then ask it to identify the main operational issues."
+      },
+      "explore": {
+        "title": "Explore",
+        "heading": "Make it relevant to your role",
+        "desc": "Choose a functional perspective. The portal customizes the next prompt; you can edit it before using it in Copilot."
+      },
+      "refine": {
+        "title": "Refine",
+        "heading": "Challenge the first answer",
+        "desc": "Copilot is not a decision-maker. Ask it to test its proposal against the realities of administrative leadership."
+      },
+      "apply": {
+        "title": "Apply",
+        "heading": "Leave with something useful",
+        "desc": "Turn the discussion into a short leadership-ready deliverable, then identify one actual workflow you could repeat with Copilot."
+      }
+    },
+    "progress": {
+      "label": "Lab progress · {pct}%",
+      "remaining": "{count} of 4 steps left",
+      "allDone": "All steps complete"
+    },
+    "activitiesLabel": "Lab activities",
+    "badges": {
+      "case": "CASE",
+      "prompt": "PROMPT",
+      "optional": "OPTIONAL",
+      "data": "DATA",
+      "activity": "ACTIVITY"
+    },
+    "copy": "Copy",
+    "copied": "Copied! Paste it into Copilot Chat.",
+    "copyFailed": "Copy is unavailable in this browser.",
+    "caseBrief": {
+      "title": "Case briefing",
+      "copy": "Copy case briefing",
+      "download": "Download case (.txt)"
+    },
+    "prompts": {
+      "analyze": "Prompt 1 — Analyze",
+      "recommend": "Prompt 2 — Recommend",
+      "critique": "Prompt 3 — Critique and improve",
+      "followUp": "Optional second follow-up",
+      "brief": "Prompt 4 — Create a decision brief"
+    },
+    "roles": {
+      "label": "Select your leadership perspective",
+      "options": {
+        "operations": "Operations & Service Delivery",
+        "supplier": "Supplier Diversity & Business Development",
+        "compliance": "Compliance, Policy & Equal Opportunity",
+        "executive": "Executive Leadership & Transformation"
+      }
+    },
+    "data": {
+      "title": "Weekly request data",
+      "body": "Use the sample CSV for more detailed analysis. It is fictional, contains no personal information, and is optional.",
+      "download": "Download sample requests (.csv)",
+      "copy": "Copy CSV contents"
+    },
+    "template": {
+      "download": "Download brief template (.txt)"
+    },
+    "takeaway": {
+      "title": "Bring it back to your real work",
+      "label": "One recurring task I could use Copilot Chat to improve:",
+      "placeholder": "Example: Turn a public policy update into a concise briefing with questions for our team…",
+      "copy": "Copy my takeaway",
+      "empty": "Add a takeaway before copying.",
+      "prefix": "My next Copilot Chat use case: ",
+      "note": "Your note stays in this browser tab; it is not uploaded or stored."
+    },
+    "learn": {
+      "discover": {
+        "title": "Learning moment",
+        "body": "Specific context produces more useful results. Ask: <i>Which observations are facts, and which are assumptions?</i> Check that Copilot has not made up extra metrics."
+      },
+      "explore": {
+        "title": "Learning moment",
+        "body": "Ask Copilot to compare options, not just generate ideas. A recommendation is stronger when you specify <b>constraints, impact, and feasibility</b>."
+      },
+      "refine": {
+        "title": "Learning moment",
+        "body": "The biggest improvement often comes in the <b>second or third prompt</b>. Treat the AI output as a draft for professional review, especially for legal, personnel, policy, and procurement matters."
+      },
+      "apply": {
+        "title": "Executive takeaway",
+        "body": "Copilot Chat can help you <b>analyze → compare → challenge → draft</b> from information you supply. Always verify important facts and apply your organization's data-handling policies."
+      }
+    },
+    "done": {
+      "title": "Finished this step?",
+      "titleDone": "Step completed",
+      "sub": "Mark it as done to track your progress through the lab.",
+      "subDone": "Nice work — your progress has been updated.",
+      "mark": "Mark this step as done",
+      "undo": "✓ Completed — undo",
+      "next": "Next: {step}",
+      "finish": "Back to welcome"
+    },
+    "celebrate": {
+      "eyebrow": "STEP COMPLETE",
+      "eyebrowDone": "MISSION ACCOMPLISHED",
+      "title": "{step} complete!",
+      "titleDone": "Lab complete!",
+      "body": "Great work — you are {pct}% of the way through the lab.",
+      "bodyDone": "You finished every step of the Copilot Executive Lab. Great work — you made it to 100%!"
+    }
   }
 }
