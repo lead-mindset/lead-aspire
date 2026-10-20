@@ -1,9 +1,14 @@
 import createIntlMiddleware from "next-intl/middleware";
-import type { NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { routing } from "@/i18n/routing";
 import { updateSession } from "@/lib/supabase/proxy";
 
 const handleI18nRouting = createIntlMiddleware(routing);
+
+/** Static pages in public/ served at a clean path, outside locale routing. */
+const STATIC_PAGES: Record<string, string> = {
+  "/nycschools": "/nycschools/index.html",
+};
 
 /**
  * 1. next-intl resolves the locale and redirects/rewrites as needed.
@@ -13,6 +18,13 @@ const handleI18nRouting = createIntlMiddleware(routing);
  * matching, and next-intl reads it from request.nextUrl.basePath.
  */
 export async function proxy(request: NextRequest) {
+  const staticPage = STATIC_PAGES[request.nextUrl.pathname.replace(/\/$/, "")];
+  if (staticPage) {
+    const url = request.nextUrl.clone();
+    url.pathname = staticPage;
+    return NextResponse.rewrite(url);
+  }
+
   const response = handleI18nRouting(request);
   return updateSession(request, response);
 }
