@@ -21,7 +21,7 @@ export const STEPS: Record<StepKey, { num: string; tone: "red" | "purple"; minut
     num: "01",
     tone: "red",
     minutes: 10,
-    banner: { src: "/dashboard/dallas-contoso.png", position: "right 30%" },
+    banner: { src: "/dashboard/discoverbanner.png", position: "right 30%" },
   },
   explore: {
     num: "02",
