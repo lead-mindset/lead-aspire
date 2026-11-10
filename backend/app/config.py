@@ -20,6 +20,12 @@ class Settings(BaseSettings):
     foundry_dallas_cfo_agent_name: str = ""
     foundry_dallas_cso_agent_name: str = ""
     foundry_dallas_support_agent_name: str = ""
+    # Colombia coach and stakeholder chats use their own agents in the same project.
+    foundry_colombia_agent_name: str = ""
+    foundry_colombia_cio_agent_name: str = ""
+    foundry_colombia_cfo_agent_name: str = ""
+    foundry_colombia_cso_agent_name: str = ""
+    foundry_colombia_support_agent_name: str = ""
     # Optional service principal for Foundry. Read here (not only from os.environ)
     # so a local .env works too; see app/azure_auth.py.
     azure_tenant_id: str = ""
@@ -39,6 +45,16 @@ class Settings(BaseSettings):
         if not self.foundry_project_endpoint:
             return ""
         return getattr(self, f"foundry_dallas_{key}_agent_name", "")
+
+    @property
+    def colombia_coach_configured(self) -> bool:
+        return bool(self.foundry_project_endpoint and self.foundry_colombia_agent_name)
+
+    def colombia_stakeholder_agent(self, key: str) -> str:
+        """The Foundry agent for a Colombia stakeholder, or "" if not configured."""
+        if not self.foundry_project_endpoint:
+            return ""
+        return getattr(self, f"foundry_colombia_{key}_agent_name", "")
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

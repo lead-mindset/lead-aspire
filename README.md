@@ -45,6 +45,23 @@ The frontend expects the FastAPI service at
 The service-role key is server-only and must never be placed in
 `frontend/.env.local` or exposed to the browser.
 
+## Run locally by edition
+
+Start the backend and frontend using the commands above. With both services
+running at `http://localhost:8000` and `http://localhost:3000`, use these
+frontend routes:
+
+| Edition | Login URL | Notes |
+| --- | --- | --- |
+| New York | `http://localhost:3000/es/login` | Uses the standard email/password login and seeded New York access. Use `/en/login` for English. |
+| Dallas | `http://localhost:3000/es/dallas/login` | Uses a student email and the active Dallas event code. Use `/en/dallas/login` for English. |
+| Colombia | `http://localhost:3000/es/colombia/login` | Uses a student email and the active Colombia event code. Use `/en/colombia/login` for English. |
+
+The locale prefix is removed after navigation because
+`localePrefix: "never"` is configured; the locale still controls the
+displayed language. Dallas and Colombia also require their corresponding
+Supabase migrations and active event-code rows before login can succeed.
+
 Database schemas and Supabase seed scripts are maintained under
 `backend/db/schemas/`. Apply `001_tables_creation.sql` first, then apply
 subsequent numbered migrations in order.
@@ -149,3 +166,33 @@ alter table public.aspire_dallas_students enable trigger aspire_dallas_students_
 Rollback: `backend/db/schemas/009_dallas_login_rollback.sql` drops only the
 `aspire_dallas_*` tables, functions, policies and trigger. Dallas Auth users
 stay in Authentication > Users.
+
+## Colombia login
+
+Colombia students sign in at **`/es/colombia/login`** (or `/en/colombia/login`
+for English). The Colombia edition is isolated from New York and Dallas:
+its routes are `/api/colombia/*`, its tables are `aspire_colombia_*`, and its
+accounts carry `app_metadata.aspire_city = "COL"`. It keeps the same 30-team
+challenge, phases, persistence rules, coach, stakeholder, submission and
+organizer behavior as Dallas, with Spanish content available by default.
+
+Before the event, apply the Colombia migrations in order:
+`009_colombia_login.sql`, `010_colombia_team_phases.sql`,
+`011_colombia_new_phases.sql`, and `012_colombia_submissions.sql`. Add the
+event code without committing it:
+
+```sql
+insert into public.aspire_colombia_event_codes (code)
+values (lower(btrim('<COLOMBIA_EVENT_CODE>')));
+```
+
+After the event, deactivate the code:
+
+```sql
+update public.aspire_colombia_event_codes
+set is_active = false
+where code = lower(btrim('<COLOMBIA_EVENT_CODE>'));
+```
+
+Rollback scripts with the same migration numbers and the
+`_colombia_*_rollback.sql` suffix remove only Colombia objects.
