@@ -6,6 +6,7 @@
 const CITY_HOMES: Record<string, string> = {
   NYC: "/new-york",
   DFW: "/dallas",
+  COL: "/colombia",
 };
 
 /** The landing path for a backend city_code, or null for an unknown city. */

@@ -826,6 +826,7 @@
     "eyebrow": "Competencia de innovación estudiantil · Dallas",
     "heading": "Ideas hoy.",
     "headingAccent": "Impacto mañana.",
+    "heading-foot": "por un día.",
     "intro": "Colabora. Resuelve un desafío real. Construye una recomendación. Genera impacto.",
     "features": {
       "team": {
@@ -1364,5 +1365,631 @@
       "body": "¡Excelente trabajo! Llevas el {pct}% del laboratorio.",
       "bodyDone": "Completaste todos los pasos del Laboratorio Ejecutivo de Copilot. ¡Excelente trabajo, llegaste al 100%!"
     }
+  },
+
+  "ColombiaPage": {
+    "title": "Colombia"
   }
+,
+
+  "Colombia": {
+    "brandSub": "ASPIRE · COLOMBIA",
+    "challenge": "Equipo {num} · Reto Microsoft AI Specialist · Colombia",
+    "teamName": "Equipo {num}",
+    "city": "Colombia",
+    "nav": {
+      "label": "Fases del reto",
+      "section": "EL RETO",
+      "completed": "Completada",
+      "home": "Inicio",
+      "organizers": "ORGANIZADORES",
+      "teamsResults": "Ver resultados de los equipos"
+    },
+    "phases": {
+      "team": "Configura tu equipo",
+      "discover": "Descubre",
+      "strategize": "Define la estrategia",
+      "design": "Diseña tu solución",
+      "pitch": "Presenta y entrega"
+    },
+    "user": {
+      "signOut": "Cerrar sesión"
+    },
+    "theme": {
+      "toLight": "Modo claro",
+      "toDark": "Modo oscuro"
+    },
+    "progress": {
+      "label": "Progreso del equipo · {pct}%",
+      "left": "{count, plural, one {# fase restante} other {# fases restantes}}",
+      "complete": "Todas las fases completadas",
+      "timer": "Tiempo restante en esta fase"
+    },
+    "footer": {
+      "back": "← Atrás",
+      "continue": "Continuar →",
+      "submit": "Enviar recomendación final →",
+      "hints": {
+        "team": "Ponle nombre a tu equipo y asigna al menos un rol"
+      },
+      "refused": "No pudimos guardar tu progreso. Revisa tus respuestas e inténtalo de nuevo."
+    },
+    "teamSetup": {
+      "step": "Configuración del equipo",
+      "title": "Arma tu equipo",
+      "subtitle": "Colabora con tus compañeros y asigna roles inspirados en Microsoft. Cada perspectiva cuenta para resolver el desafío del cliente.",
+      "assigned": "{count} de {total} roles asignados",
+      "assign": "Elige un integrante",
+      "nameLabel": "1. Ponle nombre a tu equipo",
+      "nameHelp": "Elige un nombre creativo que represente a tu equipo.",
+      "namePlaceholder": "p. ej. Los Innovadores, Cloud Crew…",
+      "nameLocked": "El nombre del equipo queda fijo al completar la fase Equipo.",
+      "rolesLabel": "2. Asigna un rol a cada integrante",
+      "rolesHelp": "Elige un rol para cada integrante. Cada rol aporta una perspectiva única al desafío.",
+      "membersTitle": "Integrantes",
+      "registered": "{count} registrados",
+      "membersHelp": "Cuando todo tu equipo se registre, aparecerán aquí.",
+      "you": "Tú",
+      "waiting": "Esperando integrante…",
+      "help": {
+        "title": "¿Necesitas ayuda?",
+        "size": "Tu equipo debe tener de 3 a 5 integrantes.",
+        "multiple": "Si tu equipo tiene menos integrantes que roles, algunas personas pueden tomar más de un rol.",
+        "change": "Puedes cambiar los roles en cualquier momento.",
+        "support": "Si necesitas apoyo, busca a un organizador del evento."
+      }
+    },
+    "brief": {
+      "title": "Nuevo mensaje del cliente",
+      "from": "De:",
+      "fromValue": "CIO, Contoso",
+      "to": "Para:",
+      "toValue": "Equipo de cuenta de Microsoft",
+      "subject": "Asunto:",
+      "subjectValue": "Ayúdennos a entender nuestro uso y costos de IA",
+      "greeting": "Hola, equipo de Microsoft:",
+      "p1": "En los últimos seis meses ampliamos de forma significativa el uso de IA generativa en toda la organización. El consumo de IA ya es casi tres veces lo que proyectamos y Finanzas está preocupado por el aumento de los costos operativos.",
+      "p2": "Estamos considerando poner límites de uso en toda la empresa. Antes de decidir, queremos la recomendación de Microsoft. Necesitamos entender qué está causando este aumento y qué nos recomiendan hacer.",
+      "signoff": "Gracias,",
+      "signature": "CIO, Contoso"
+    },
+    "discover": {
+      "title": "Resumen del consumo de IA de Contoso",
+      "subtitle": "Explora las cargas de trabajo de IA actuales, su uso y su impacto en el negocio. Usa estos datos para identificar tendencias, oportunidades y áreas de preocupación.",
+      "kpis": {
+        "tokens": {
+          "label": "Tokens mensuales",
+          "delta": "+170% vs. plan"
+        },
+        "cost": {
+          "label": "Costo mensual de IA",
+          "delta": "+160% vs. plan"
+        },
+        "adoption": {
+          "label": "Adopción de empleados",
+          "delta": "+32% vs. hace 6 meses"
+        },
+        "workloads": {
+          "label": "Cargas de IA activas",
+          "delta": "+3 nuevas"
+        }
+      },
+      "columns": {
+        "workload": "Carga de trabajo",
+        "tokens": "Tokens / mes",
+        "cost": "Costo / mes",
+        "adoption": "Adopción",
+        "value": "Valor de negocio"
+      },
+      "step": "Paso {num}",
+      "heroTitle": "Descubre Contoso",
+      "heroText": "Explora la solicitud del cliente, entiende su negocio y analiza sus datos de uso de IA para definir el rumbo de la recomendación de tu equipo.",
+      "tabsLabel": "Secciones de Descubrir",
+      "tabs": {
+        "request": "Solicitud del CIO",
+        "profile": "Perfil de la empresa",
+        "stakeholders": "Partes interesadas",
+        "dashboard": "Panel de IA"
+      },
+      "nextTab": "Continuar a {tab}",
+      "request": {
+        "time": "Hoy, 9:14 AM",
+        "takeawaysTitle": "Puntos clave",
+        "takeaways": {
+          "usage": {
+            "title": "Uso de IA en aumento",
+            "body": "El consumo es ~3 veces mayor de lo proyectado."
+          },
+          "decision": {
+            "title": "Decisión de la dirección",
+            "body": "Contoso evalúa límites de uso en toda la empresa."
+          },
+          "advice": {
+            "title": "Quieren el consejo de Microsoft",
+            "body": "Entender las causas, evaluar el impacto y recomendar próximos pasos."
+          }
+        },
+        "missionTitle": "Tu misión",
+        "missionBody": "Trabaja como un equipo de cuenta de Microsoft para entender la situación de Contoso, identificar qué está causando el aumento y desarrollar una recomendación que equilibre el valor de negocio, el costo y el uso responsable de la IA."
+      },
+      "profile": {
+        "aboutTitle": "Acerca de Contoso",
+        "imageAlt": "Recepción de las oficinas de Contoso",
+        "readMore": "Más información sobre Contoso",
+        "missionTitle": "Misión",
+        "prioritiesTitle": "Prioridades estratégicas",
+        "journeyTitle": "Trayectoria con IA"
+      },
+      "stakeholders": {
+        "title": "Conoce a las partes interesadas",
+        "subtitle": "Entiende sus perspectivas, prioridades y preocupaciones. Cada una tiene expectativas distintas sobre la recomendación de Microsoft.",
+        "priorities": "Prioridades clave",
+        "viewProfile": "Ver perfil completo →",
+        "hideProfile": "Ocultar perfil",
+        "chat": {
+          "ask": "Hacer una pregunta 💬",
+          "subtitle": "Stakeholder de Contoso",
+          "greeting": "¡Hola! Soy {title} de Contoso. Pregúntame sobre mis prioridades, mis preocupaciones o lo que espero de la recomendación de Microsoft.",
+          "thinking": "{title} está escribiendo…",
+          "error": "Esta persona no está disponible en este momento. Inténtalo de nuevo.",
+          "placeholder": "Escribe tu pregunta…",
+          "inputLabel": "Tu pregunta",
+          "send": "Enviar",
+          "close": "Cerrar el chat"
+        }
+      },
+      "workloadsTitle": "Cargas de trabajo de IA",
+      "trendTitle": "Tendencias de uso",
+      "trendSubtitle": "Tokens mensuales (en millones)",
+      "trendValue": "{value} M de tokens",
+      "trendLabel": "Tokens mensuales de enero a junio de 2024, de {first} a {last}.",
+      "insightTitle": "Dato clave",
+      "insightBody": "El consumo de IA casi se triplicó en los últimos seis meses, impulsado sobre todo por Customer Support AI y Marketing Content AI."
+    },
+    "values": {
+      "high": "Alto",
+      "medium": "Medio",
+      "low": "Bajo",
+      "unknown": "Desconocido"
+    },
+    "workloads": {
+      "support": {
+        "name": "IA de atención al cliente",
+        "desc": "Agente virtual para consultas de clientes.",
+        "trend": "+48% vs. plan",
+        "owner": "Servicio al cliente",
+        "users": "1,200 agentes",
+        "monitoring": "Parcial",
+        "notes": {
+          "0": "El tiempo promedio de resolución bajó 31%",
+          "1": "La satisfacción del cliente subió 8%",
+          "2": "Los casos pendientes bajaron 24%",
+          "3": "Usa GPT-4o para casos complejos"
+        }
+      },
+      "sales": {
+        "name": "Asistente de ventas",
+        "desc": "Redacta propuestas y resume la actividad del CRM.",
+        "trend": "+22% vs. plan",
+        "owner": "Operaciones de ventas",
+        "users": "640 vendedores",
+        "monitoring": "Sí",
+        "notes": {
+          "0": "El tiempo para preparar propuestas bajó 40%",
+          "1": "Notas del pipeline resumidas automáticamente",
+          "2": "Alta satisfacción de los vendedores"
+        }
+      },
+      "marketing": {
+        "name": "IA de contenido de marketing",
+        "desc": "Genera textos e imágenes para campañas.",
+        "trend": "+65% vs. plan",
+        "owner": "Marketing",
+        "users": "180 especialistas",
+        "monitoring": "No",
+        "notes": {
+          "0": "Prompts largos con contexto repetido",
+          "1": "Muchas regeneraciones por pieza",
+          "2": "Impacto poco claro en los resultados de campaña"
+        }
+      },
+      "hr": {
+        "name": "Asistente de RR. HH.",
+        "desc": "Responde preguntas sobre políticas de RR. HH.",
+        "trend": "+30% vs. plan",
+        "owner": "RR. HH.",
+        "users": "9,000 empleados",
+        "monitoring": "No",
+        "notes": {
+          "0": "Baja adopción desde el lanzamiento",
+          "1": "Se superpone con el bot de conocimiento interno",
+          "2": "Usa un modelo premium para preguntas simples"
+        }
+      },
+      "knowledge": {
+        "name": "Bot de conocimiento interno",
+        "desc": "Busca en documentos y wikis internos.",
+        "trend": "+90% vs. plan",
+        "owner": "TI",
+        "users": "9,000 empleados",
+        "monitoring": "No",
+        "notes": {
+          "0": "Nadie mide su valor de negocio",
+          "1": "Respuestas duplicadas con el asistente de RR. HH.",
+          "2": "El uso crece rápidamente"
+        }
+      },
+      "experiments": {
+        "name": "Experimentos de IA",
+        "desc": "Proyectos de prueba en distintos equipos.",
+        "trend": "Nuevo",
+        "owner": "Varios",
+        "users": "~60 creadores",
+        "monitoring": "No",
+        "notes": {
+          "0": "Sin proceso de aprobación",
+          "1": "Varias herramientas externas no aprobadas",
+          "2": "Sin clasificación de datos"
+        }
+      }
+    },
+    "yourTeam": "Tu equipo",
+    "unavailable": "No pudimos cargar tu equipo en este momento.",
+    "retry": "Intentar de nuevo",
+    "home": {
+      "eyebrow": "ASPIRE COLOMBIA · RETO MICROSOFT AI SPECIALIST",
+      "titleFirst": "Ideas hoy.",
+      "titleAccent": "Impacto real",
+      "titleLast": "mañana.",
+      "intro": "Forma parte de un equipo de cuenta de Microsoft, analiza un caso real de un cliente y entrega tu recomendación, todo en vivo, en siete fases con tiempo.",
+      "start": "Comenzar: arma tu equipo →",
+      "continue": "Continuar: {phase} →",
+      "review": "Revisa tu entrega →",
+      "teamPill": "Colombia · Equipo {num} · {count} de {total} roles asignados",
+      "teamSubSet": "Equipo de cuenta de Microsoft",
+      "teamSubEmpty": "Elige un nombre de equipo y sus roles para empezar.",
+      "progressTitle": "Tu progreso",
+      "howTitle": "Cómo funciona",
+      "howBody": "Cada fase tiene tiempo. Tu equipo responde dentro de la plataforma, sin descargar archivos. Primero define el nombre del equipo y los roles; el reloj empieza cuando abres Descubre.",
+      "helpTitle": "¿Necesitas ayuda en el camino?",
+      "helpBody": "Pregúntale a tu coach lo que quieras sobre el desafío. Te ayuda a pensar, no hace el trabajo por ti.",
+      "helpAsk": "Preguntar al coach"
+    },
+    "coach": {
+      "title": "Coach Aspire",
+      "subtitle": "Entrenado con el desafío de Colombia",
+      "open": "Preguntar al coach",
+      "close": "Cerrar el coach",
+      "greeting": "¡Bienvenidos a bordo, tripulación! Soy su LEAD Coach, su coach de misión para LEAD Aspire Colombia 2026. Su misión: asesorar a Contoso como un equipo de cuenta de Microsoft.\n\nPuedo ayudarles a:\n✅ Entender el reto de Contoso\n✅ Planear cada fase de la misión\n✅ Hacer mejores preguntas de descubrimiento\n✅ Poner a prueba sus ideas desde la perspectiva de cada stakeholder\n✅ Usar las plantillas y checklists\n✅ Preparar su pitch y la ronda de preguntas\n\n¿En qué fase está trabajando su equipo ahora?",
+      "thinking": "El coach está pensando…",
+      "error": "El coach no está disponible ahora. Inténtalo de nuevo.",
+      "placeholder": "Pregunta sobre cualquier fase…",
+      "inputLabel": "Tu pregunta",
+      "send": "Enviar"
+    },
+    "sync": {
+      "saving": "Guardando…",
+      "saved": "Todos los cambios guardados",
+      "error": "Aún no se guardó. Reintentando…",
+      "lastEdited": "Última edición de {name}"
+    },
+    "resources": {
+      "label": "Guías y recursos",
+      "desc": {
+        "strategize": "Define el problema, diseña tu solución y haz revisar tu estrategia antes de diseñarla.",
+        "design": "Usa el kit técnico de inicio para diseñar una solución funcional con IA, de forma segura y responsable.",
+        "pitch": "Cuenta la historia completa: qué descubriste, qué diseñaste y por qué le importa a Contoso."
+      },
+      "docs": {
+        "consulting": {
+          "title": "Guía de resolución de problemas",
+          "desc": "Marcos para estructurar tu pensamiento como en una consultora.",
+          "action": "Leer guía →"
+        },
+        "sow": {
+          "title": "Statement of Work",
+          "desc": "Complétalo y llévalo a la revisión de tu estrategia.",
+          "action": "Descargar .docx ↓"
+        },
+        "review": {
+          "title": "Checklist de revisión de la estrategia",
+          "desc": "Asegúrate de que tu estrategia esté lista para la revisión y para Diseña tu solución.",
+          "action": "Abrir checklist →"
+        },
+        "foundry": {
+          "title": "Microsoft Foundry",
+          "desc": "Guía paso a paso para crear una cuenta, construir agentes y desplegar tu solución.",
+          "action": "Leer guía →"
+        },
+        "copilot": {
+          "title": "GitHub Copilot",
+          "desc": "Configura y usa Copilot para desarrollar más rápido. Solicítalo pronto: el acceso tarda hasta 72 horas.",
+          "action": "Leer guía →"
+        },
+        "security": {
+          "title": "Seguridad y gobernanza",
+          "desc": "Buenas prácticas de datos, privacidad e IA responsable.",
+          "action": "Leer PDF →"
+        },
+        "buildcheck": {
+          "title": "Checklist de creación",
+          "desc": "Asegúrate de que tu prototipo esté listo para entregarse.",
+          "action": "Abrir checklist →"
+        },
+        "playbook": {
+          "title": "Guía de estrategia para el pitch",
+          "desc": "Aprende a estructurar tu historia y a presentar un pitch convincente.",
+          "action": "Leer guía →"
+        },
+        "briefing": {
+          "title": "Informe del cliente Contoso",
+          "desc": "Contexto sobre Contoso, sus objetivos y su trayectoria con IA.",
+          "action": "Más información sobre Contoso"
+        }
+      },
+      "whiteboard": {
+        "cardTitle": "Sesión de pizarra",
+        "cardDesc": "Mapea tu problema y tu solución en la pizarra de tu equipo y descárgala como imagen para tu Statement of Work.",
+        "open": "Abrir pizarra →",
+        "example": "Ejemplo de pizarra",
+        "badge": "ACTIVIDAD",
+        "title": "Pizarra de estrategia",
+        "hint": "Agrega notas adhesivas con los cuadros de colores arriba a la derecha. Tu pizarra se guarda automáticamente en este dispositivo.",
+        "download": "Descargar PNG ↓",
+        "exporting": "Preparando imagen…",
+        "close": "Listo",
+        "loading": "Cargando la pizarra…",
+        "empty": "Dibuja algo primero y luego descárgalo.",
+        "exportError": "No pudimos crear la imagen. Inténtalo de nuevo.",
+        "addSticky": "Agregar nota adhesiva",
+        "stickyText": "Nueva nota"
+      },
+      "badges": {
+        "pdf": "PDF",
+        "word": "WORD · EDITABLE",
+        "activity": "ACTIVIDAD",
+        "image": "IMAGEN",
+        "upload": "ENTREGA",
+        "submitted": "ENTREGADO ✓",
+        "deck": "PRESENTACIÓN FINAL"
+      },
+      "viewer": {
+        "download": "Descargar ↓",
+        "back": "← Volver",
+        "pdfSoon": "Esta guía estará disponible aquí muy pronto.",
+        "wordSoon": "Esta plantilla estará disponible para descargar muy pronto.",
+        "wordLoading": "Cargando el documento…",
+        "wordError": "No pudimos mostrar este documento. Usa Descargar para abrirlo.",
+        "demo": "Abrir demo ↗",
+        "deckNoPreview": "Las presentaciones de PowerPoint no se pueden ver en el navegador. Usa Descargar para abrirla."
+      },
+      "submit": {
+        "title": "Entrega tu proyecto",
+        "desc": "Sube tu presentación final (y un enlace a tu demo si lo tienes) antes del día del pitch; ya no hace falta conectar laptops en el escenario.",
+        "cta": "Subir presentación final →",
+        "replace": "Reemplazar {file}"
+      },
+      "submitDialog": {
+        "title": "Entrega tu proyecto",
+        "intro": "{team} · Tu presentación llega a la computadora de presentaciones del equipo organizador.",
+        "teamFallback": "Tu equipo",
+        "drop": "Arrastra tu presentación final o haz clic para buscarla",
+        "dropHint": "PowerPoint o PDF · hasta 50 MB",
+        "demoLabel": "Enlace a la demo",
+        "optional": "(opcional)",
+        "cancel": "Cancelar",
+        "submit": "Entregar proyecto →",
+        "replaceHint": "Haz clic para reemplazarlo por otro archivo",
+        "note": "Tu presentación se guarda para todo el equipo. Si vuelves a enviar, se reemplaza.",
+        "uploading": "Subiendo…",
+        "status": {
+          "prepare": "Revisando tu archivo…",
+          "upload": "Subiendo tu presentación…",
+          "confirm": "Guardando tu entrega…"
+        },
+        "successTitle": "Proyecto entregado",
+        "success": "La entrega de {team} quedó guardada. Todo tu equipo la verá.",
+        "close": "Cerrar",
+        "errors": {
+          "type": "Sube un archivo PDF o PowerPoint (.pdf, .ppt, .pptx).",
+          "size": "El archivo pesa más de 50 MB.",
+          "generic": "No pudimos subir tu proyecto. Inténtalo de nuevo.",
+          "prepare": "No pudimos iniciar la subida. Inténtalo de nuevo.",
+          "upload": "La subida falló. Revisa tu conexión e inténtalo de nuevo.",
+          "confirm": "Tu archivo se subió, pero no pudimos guardar la entrega. Inténtalo de nuevo."
+        }
+      }
+    },
+    "diagnose": {
+      "title": "¿Qué está pasando realmente?",
+      "subtitle": "Clasifica cada carga de trabajo e identifica las causas raíz.",
+      "workload": "Carga de trabajo",
+      "classification": "Tu clasificación",
+      "select": "Seleccionar…",
+      "classes": {
+        "protect": "Proteger",
+        "optimize": "Optimizar",
+        "investigate": "Investigar",
+        "retire": "Reducir / Retirar"
+      },
+      "causesTitle": "Las 3 causas raíz principales",
+      "causesHelp": "Selecciona las tres causas principales según la evidencia.",
+      "causes": {
+        "adoption": "Adopción excesiva de IA en general",
+        "models": "Selección ineficiente de modelos",
+        "prompts": "Mal diseño de prompts / flujos",
+        "duplicates": "Soluciones de IA duplicadas",
+        "governance": "Falta de gobernanza",
+        "experiments": "Experimentación de bajo valor",
+        "monitoring": "Falta de monitoreo",
+        "training": "Capacitación insuficiente de los empleados",
+        "value": "Mala medición del valor de negocio",
+        "capacity": "Capacidad de IA insuficiente"
+      }
+    },
+    "advise": {
+      "title": "Arma tu recomendación",
+      "subtitle": "Selecciona hasta 5 recomendaciones para el cliente.",
+      "available": "Recomendaciones disponibles",
+      "strategy": "Tu estrategia ({count}/{max})",
+      "add": "Agregar",
+      "added": "Agregada ✓",
+      "empty": "Todavía no agregaste recomendaciones.",
+      "impact": "Impacto proyectado",
+      "live": "· estimación en vivo",
+      "effects": {
+        "cost": "Costo operativo",
+        "value": "Valor de negocio",
+        "adoption": "Adopción",
+        "risk": "Riesgo de seguridad"
+      },
+      "timeToImplement": "Tiempo de implementación",
+      "time": {
+        "short": "Corto",
+        "medium": "Medio",
+        "long": "Largo"
+      }
+    },
+    "recs": {
+      "mon": {
+        "title": "Implementar monitoreo del uso de IA",
+        "sub": "Más visibilidad del uso de tokens y del costo.",
+        "time": "4–6 semanas"
+      },
+      "opt": {
+        "title": "Optimizar los flujos de mayor consumo",
+        "sub": "Mejorar prompts, flujos y selección de modelos.",
+        "time": "6–10 semanas"
+      },
+      "exp": {
+        "title": "Ampliar la IA de atención al cliente",
+        "sub": "Escalar la solución por su alto valor de negocio.",
+        "time": "8–12 semanas"
+      },
+      "hr": {
+        "title": "Consolidar los agentes de RR. HH. duplicados",
+        "sub": "Eliminar soluciones superpuestas.",
+        "time": "2–4 semanas"
+      },
+      "gov": {
+        "title": "Introducir un marco de gobernanza de IA",
+        "sub": "Políticas, controles e IA responsable.",
+        "time": "6–10 semanas"
+      },
+      "trn": {
+        "title": "Programa de capacitación en IA",
+        "sub": "Impulsar una mejor adopción y uso.",
+        "time": "4–6 semanas"
+      }
+    },
+    "selected": "{count} de {max} seleccionadas",
+    "strategizeTabs": {
+      "tabsLabel": "Secciones de la estrategia",
+      "tabs": {
+        "guides": "Guías y recursos",
+        "diagnose": "Diagnostica",
+        "advise": "Asesora"
+      },
+      "nextTab": "Siguiente: {tab}",
+      "practice": {
+        "title": "Espacio de práctica · No se califica",
+        "text": "Usa esta actividad para practicar y hacer una lluvia de ideas con tu equipo. Tus respuestas se comparten con tu equipo, pero no cuentan para la calificación."
+      }
+    },
+    "teamsResults": {
+      "eyebrow": "VISTA DE ORGANIZADORES",
+      "title": "Resultados de los equipos",
+      "summary": "{submitted} de {total} equipos han subido su presentación final.",
+      "columns": {
+        "team": "Equipo",
+        "deck": "Presentación final",
+        "link": "Enlace de la demo",
+        "status": "Estado"
+      },
+      "teamMembers": "{team} · {count, plural, one {# integrante} other {# integrantes}}",
+      "notUploaded": "Aún no se ha subido",
+      "noLink": "Sin enlace",
+      "submitted": "Enviado",
+      "pending": "Pendiente",
+      "view": "Ver",
+      "loading": "Cargando equipos…",
+      "loadError": "No pudimos cargar los equipos. Verifica que el backend esté funcionando.",
+      "opening": "Abriendo…",
+      "openError": "No pudimos abrir esa presentación. Inténtalo de nuevo."
+    },
+    "celebrate": {
+      "eyebrow": "MISIÓN CUMPLIDA",
+      "title": "¡Reto completado!",
+      "body": "{team} envió su recomendación final. ¡Excelente trabajo, llegaron al 100%!",
+      "close": "Volver al inicio"
+    }
+  }
+,
+
+  "ColombiaLogin": {
+    "title": "Iniciar sesión en Colombia",
+    "brandLabel": "Presentación de Lead Aspire Colombia",
+    "brandLine": "ASPIRE · COLOMBIA",
+    "eyebrow": "Competencia de innovación estudiantil · Colombia",
+    "heading": "Ideas hoy.",
+    "headingAccent": "Impacto mañana.",
+    "heading-foot": "por un día.",
+    "intro": "Colabora. Resuelve un desafío real. Construye una recomendación. Genera impacto.",
+    "features": {
+      "team": {
+        "title": "Trabaja en equipo",
+        "body": "Asume roles inspirados en Microsoft y colabora con tus compañeros."
+      },
+      "challenge": {
+        "title": "Resuelve un desafío real",
+        "body": "Responde a una solicitud del cliente, analiza datos y desarrolla una solución."
+      },
+      "recommendation": {
+        "title": "Presenta tu recomendación",
+        "body": "Comparte tus ideas con un panel ejecutivo al final del día."
+      }
+    },
+    "footer": {
+      "event": "LEAD ASPIRE · COLOMBIA 2026",
+      "values": "Aprende · Explora · Aspira · Descubre"
+    },
+    "welcome": "Bienvenido a Colombia",
+    "formIntro": "¿Primera vez? Tu cuenta se crea al iniciar sesión.",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "tu@ejemplo.com",
+    "codeLabel": "Código del evento",
+    "codePlaceholder": "Ingresa el código del evento",
+    "submit": "Iniciar sesión",
+    "submitting": "Iniciando sesión…",
+    "themeToLight": "Modo claro",
+    "themeToDark": "Modo oscuro",
+    "profile": {
+      "heading": "Bienvenido a LEAD Aspire Colombia",
+      "intro": "Comencemos. Ingresa tu información y elige el equipo que te asignaron.",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "team": "Equipo",
+      "teamPlaceholder": "Elige tu equipo",
+      "teamsLoading": "Cargando equipos…",
+      "teamFinal": "Los equipos ya están asignados. Si no ves tu equipo o necesitas un cambio, busca a un organizador.",
+      "confirmHeading": "Confirma tu equipo",
+      "confirmIntro": "Te unirás a:",
+      "confirmEvent": "Microsoft AI Specialist Challenge · Colombia",
+      "submit": "Guardar y continuar",
+      "saving": "Guardando…",
+      "notYou": "¿No es tu correo?",
+      "signOut": "Cerrar sesión"
+    },
+    "errors": {
+      "invalid": "No pudimos iniciar tu sesión. Revisa tu correo y el código del evento.",
+      "invalidEmail": "Ingresa un correo electrónico válido.",
+      "busy": "Muchas personas están iniciando sesión. Espera un minuto e inténtalo de nuevo.",
+      "connection": "El servicio de inicio de sesión no está disponible. Inténtalo de nuevo en un momento.",
+      "unavailable": "No pudimos verificar tu sesión. Inténtalo de nuevo en un momento.",
+      "teams": "No pudimos cargar los equipos. Actualiza la página para intentarlo de nuevo.",
+      "profile": "No pudimos guardar tus datos. Inténtalo de nuevo.",
+      "sessionExpired": "Tu sesión terminó. Inicia sesión de nuevo."
+    }
+  }
+
 }

@@ -3,6 +3,7 @@
 from types import SimpleNamespace
 
 import pytest
+from test_colombia import COLOMBIA_USER
 from test_dallas import DALLAS_USER, LOGIN, NY_USER, STUDENT, FakeAdmin, FakeSessionClient
 
 from app import routes
@@ -54,10 +55,33 @@ def test_a_dallas_token_is_rejected_by_every_new_york_route(client, signed_in, m
     assert signed_in.writes == []
 
 
+@pytest.mark.parametrize(("method", "path", "body"), NY_ROUTES)
+def test_a_colombia_token_is_rejected_by_every_new_york_route(client, signed_in, monkeypatch, method, path, body):
+    signed_in.token_user = COLOMBIA_USER
+    signed_in.respond("aspire_profiles", {"status": "active", "is_admin": True})
+    monkeypatch.setattr(routes, "ask_agent", lambda *args: pytest.fail("the coach must not answer"))
+
+    response = call(client, method, path, body)
+
+    assert response.status_code == 403
+    assert signed_in.writes == []
+
+
 def test_a_dallas_user_cannot_log_in_through_the_new_york_login(client, supabase):
     supabase.password_user = DALLAS_USER
 
     response = client.post("/api/auth/login", json={"email": DALLAS_USER.email, "password": "anything"})
+
+    assert response.status_code == 403
+    assert supabase.signed_out
+    [(_, _, event)] = supabase.writes_to("aspire_login_events")
+    assert (event["succeeded"], event["failure_reason"]) == (False, "access_denied")
+
+
+def test_a_colombia_account_cannot_log_in_through_the_new_york_login(client, supabase):
+    supabase.password_user = COLOMBIA_USER
+
+    response = client.post("/api/auth/login", json={"email": COLOMBIA_USER.email, "password": "anything"})
 
     assert response.status_code == 403
     assert supabase.signed_out

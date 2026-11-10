@@ -14,3 +14,11 @@ export const DALLAS_COACH_ENABLED =
 /** The Dallas phase countdown in the team bar. Off unless exactly "true". */
 export const DALLAS_TIMER_ENABLED =
   process.env.NEXT_PUBLIC_DALLAS_TIMER_ENABLED === "true";
+
+/** The Colombia coach. Off unless exactly "true". */
+export const COLOMBIA_COACH_ENABLED =
+  process.env.NEXT_PUBLIC_COLOMBIA_COACH_ENABLED === "true";
+
+/** The Colombia phase countdown in the team bar. Off unless exactly "true". */
+export const COLOMBIA_TIMER_ENABLED =
+  process.env.NEXT_PUBLIC_COLOMBIA_TIMER_ENABLED === "true";
