@@ -1366,12 +1366,9 @@
       "bodyDone": "Completaste todos los pasos del Laboratorio Ejecutivo de Copilot. ¡Excelente trabajo, llegaste al 100%!"
     }
   },
-
   "ColombiaPage": {
     "title": "Colombia"
-  }
-,
-
+  },
   "Colombia": {
     "brandSub": "ASPIRE · COLOMBIA",
     "challenge": "Equipo {num} · Reto Microsoft AI Specialist · Colombia",
@@ -1439,98 +1436,68 @@
         "support": "Si necesitas apoyo, busca a un organizador del evento."
       }
     },
-    "brief": {
-      "title": "Nuevo mensaje del cliente",
-      "from": "De:",
-      "fromValue": "CIO, Contoso",
-      "to": "Para:",
-      "toValue": "Equipo de cuenta de Microsoft",
-      "subject": "Asunto:",
-      "subjectValue": "Ayúdennos a entender nuestro uso y costos de IA",
-      "greeting": "Hola, equipo de Microsoft:",
-      "p1": "En los últimos seis meses ampliamos de forma significativa el uso de IA generativa en toda la organización. El consumo de IA ya es casi tres veces lo que proyectamos y Finanzas está preocupado por el aumento de los costos operativos.",
-      "p2": "Estamos considerando poner límites de uso en toda la empresa. Antes de decidir, queremos la recomendación de Microsoft. Necesitamos entender qué está causando este aumento y qué nos recomiendan hacer.",
-      "signoff": "Gracias,",
-      "signature": "CIO, Contoso"
-    },
     "discover": {
-      "title": "Resumen del consumo de IA de Contoso",
-      "subtitle": "Explora las cargas de trabajo de IA actuales, su uso y su impacto en el negocio. Usa estos datos para identificar tendencias, oportunidades y áreas de preocupación.",
+      "title": "Panel del sector cafetero",
+      "subtitle": "Explora las cifras de exportación y los eslabones de la cadena del café. Usa estos datos para ubicar dónde se rompe la trazabilidad.",
       "kpis": {
-        "tokens": {
-          "label": "Tokens mensuales",
-          "delta": "+170% vs. plan"
+        "exports": {
+          "value": "9,57 M",
+          "label": "Sacos exportados, ene a oct 2026",
+          "delta": "11,9 % menos que en 2025"
         },
-        "cost": {
-          "label": "Costo mensual de IA",
-          "delta": "+160% vs. plan"
+        "green": {
+          "value": "92 %",
+          "label": "Se exporta como café verde",
+          "delta": "Solo 8 % industrializado"
         },
-        "adoption": {
-          "label": "Adopción de empleados",
-          "delta": "+32% vs. hace 6 meses"
+        "families": {
+          "value": "550.000",
+          "label": "Familias caficultoras",
+          "delta": "En más de 600 municipios"
         },
-        "workloads": {
-          "label": "Cargas de IA activas",
-          "delta": "+3 nuevas"
+        "internet": {
+          "value": "28 %",
+          "label": "Internet móvil rural",
+          "delta": "Frente a 76 % urbano"
         }
       },
       "columns": {
-        "workload": "Carga de trabajo",
-        "tokens": "Tokens / mes",
-        "cost": "Costo / mes",
-        "adoption": "Adopción",
-        "value": "Valor de negocio"
+        "link": "Eslabón",
+        "where": "Dónde ocurre",
+        "pain": "Dolor principal",
+        "data": "Datos disponibles",
+        "impact": "Peso en la trazabilidad"
       },
       "step": "Paso {num}",
-      "heroTitle": "Descubre Contoso",
-      "heroText": "Explora la solicitud del cliente, entiende su negocio y analiza sus datos de uso de IA para definir el rumbo de la recomendación de tu equipo.",
+      "heroTitle": "Descubre el reto del café",
+      "heroText": "Conoce el reto que presenta Asoexport, entiende la cadena del café de la finca al puerto y analiza los datos del sector para definir el rumbo de tu equipo.",
       "tabsLabel": "Secciones de Descubrir",
       "tabs": {
-        "request": "Solicitud del CIO",
-        "profile": "Perfil de la empresa",
-        "stakeholders": "Partes interesadas",
-        "dashboard": "Panel de IA"
+        "profile": "Perfil de Asoexport",
+        "stakeholders": "La cadena del café",
+        "dashboard": "Panel del sector",
+        "challenge": "El reto"
       },
       "nextTab": "Continuar a {tab}",
-      "request": {
-        "time": "Hoy, 9:14 AM",
-        "takeawaysTitle": "Puntos clave",
-        "takeaways": {
-          "usage": {
-            "title": "Uso de IA en aumento",
-            "body": "El consumo es ~3 veces mayor de lo proyectado."
-          },
-          "decision": {
-            "title": "Decisión de la dirección",
-            "body": "Contoso evalúa límites de uso en toda la empresa."
-          },
-          "advice": {
-            "title": "Quieren el consejo de Microsoft",
-            "body": "Entender las causas, evaluar el impacto y recomendar próximos pasos."
-          }
-        },
-        "missionTitle": "Tu misión",
-        "missionBody": "Trabaja como un equipo de cuenta de Microsoft para entender la situación de Contoso, identificar qué está causando el aumento y desarrollar una recomendación que equilibre el valor de negocio, el costo y el uso responsable de la IA."
-      },
       "profile": {
-        "aboutTitle": "Acerca de Contoso",
-        "imageAlt": "Recepción de las oficinas de Contoso",
-        "readMore": "Más información sobre Contoso",
-        "missionTitle": "Misión",
-        "prioritiesTitle": "Prioridades estratégicas",
-        "journeyTitle": "Trayectoria con IA"
+        "aboutTitle": "Acerca de Asoexport",
+        "imageAlt": "Asoexport",
+        "readMore": "Leer el informe del caso",
+        "missionTitle": "Propósito",
+        "prioritiesTitle": "Qué hace",
+        "journeyTitle": "Trayectoria"
       },
       "stakeholders": {
-        "title": "Conoce a las partes interesadas",
-        "subtitle": "Entiende sus perspectivas, prioridades y preocupaciones. Cada una tiene expectativas distintas sobre la recomendación de Microsoft.",
+        "title": "Conoce la cadena del café",
+        "subtitle": "Cuatro personas de la cadena, de la finca a la tostadora. Son personajes ficticios construidos con datos reales del sector. Cada una necesita algo distinto de tu solución.",
         "priorities": "Prioridades clave",
         "viewProfile": "Ver perfil completo →",
         "hideProfile": "Ocultar perfil",
         "chat": {
           "ask": "Hacer una pregunta 💬",
-          "subtitle": "Stakeholder de Contoso",
-          "greeting": "¡Hola! Soy {title} de Contoso. Pregúntame sobre mis prioridades, mis preocupaciones o lo que espero de la recomendación de Microsoft.",
-          "thinking": "{title} está escribiendo…",
+          "subtitle": "Cadena del café · Personaje ficticio",
+          "greeting": "¡Hola! Soy {name}, {title}. Pregúntame cómo funciona mi parte de la cadena, qué me preocupa o qué necesito de una solución.",
+          "thinking": "{name} está escribiendo…",
           "error": "Esta persona no está disponible en este momento. Inténtalo de nuevo.",
           "placeholder": "Escribe tu pregunta…",
           "inputLabel": "Tu pregunta",
@@ -1538,100 +1505,28 @@
           "close": "Cerrar el chat"
         }
       },
-      "workloadsTitle": "Cargas de trabajo de IA",
-      "trendTitle": "Tendencias de uso",
-      "trendSubtitle": "Tokens mensuales (en millones)",
-      "trendValue": "{value} M de tokens",
-      "trendLabel": "Tokens mensuales de enero a junio de 2024, de {first} a {last}.",
+      "trendTitle": "Exportaciones mensuales",
+      "trendSubtitle": "Miles de sacos de 60 kg, enero a octubre",
+      "trendValue": "{value} mil sacos",
+      "trendLabel": "Exportaciones mensuales de café de enero a octubre. En 2026 pasan de {first} a {last}.",
       "insightTitle": "Dato clave",
-      "insightBody": "El consumo de IA casi se triplicó en los últimos seis meses, impulsado sobre todo por Customer Support AI y Marketing Content AI."
+      "insightBody": "2026 empezó muy por debajo de 2025, el año récord. Desde septiembre los envíos mensuales ya superan a los del año anterior.",
+      "challenge": {
+        "live": "Expone en vivo",
+        "contextTitle": "El reto",
+        "questionTitle": "La pregunta para tu equipo",
+        "liveTitle": "Lo que escucharás en vivo",
+        "takeawaysTitle": "Puntos clave",
+        "missionTitle": "Tu misión"
+      },
+      "chainTitle": "Los 6 eslabones de la cadena",
+      "source": "Fuentes: Asoexport, Reporte de cifras cafeteras de octubre de 2026, y documento de Asoexport para LEAD Aspire Day Microsoft."
     },
     "values": {
       "high": "Alto",
       "medium": "Medio",
       "low": "Bajo",
-      "unknown": "Desconocido"
-    },
-    "workloads": {
-      "support": {
-        "name": "IA de atención al cliente",
-        "desc": "Agente virtual para consultas de clientes.",
-        "trend": "+48% vs. plan",
-        "owner": "Servicio al cliente",
-        "users": "1,200 agentes",
-        "monitoring": "Parcial",
-        "notes": {
-          "0": "El tiempo promedio de resolución bajó 31%",
-          "1": "La satisfacción del cliente subió 8%",
-          "2": "Los casos pendientes bajaron 24%",
-          "3": "Usa GPT-4o para casos complejos"
-        }
-      },
-      "sales": {
-        "name": "Asistente de ventas",
-        "desc": "Redacta propuestas y resume la actividad del CRM.",
-        "trend": "+22% vs. plan",
-        "owner": "Operaciones de ventas",
-        "users": "640 vendedores",
-        "monitoring": "Sí",
-        "notes": {
-          "0": "El tiempo para preparar propuestas bajó 40%",
-          "1": "Notas del pipeline resumidas automáticamente",
-          "2": "Alta satisfacción de los vendedores"
-        }
-      },
-      "marketing": {
-        "name": "IA de contenido de marketing",
-        "desc": "Genera textos e imágenes para campañas.",
-        "trend": "+65% vs. plan",
-        "owner": "Marketing",
-        "users": "180 especialistas",
-        "monitoring": "No",
-        "notes": {
-          "0": "Prompts largos con contexto repetido",
-          "1": "Muchas regeneraciones por pieza",
-          "2": "Impacto poco claro en los resultados de campaña"
-        }
-      },
-      "hr": {
-        "name": "Asistente de RR. HH.",
-        "desc": "Responde preguntas sobre políticas de RR. HH.",
-        "trend": "+30% vs. plan",
-        "owner": "RR. HH.",
-        "users": "9,000 empleados",
-        "monitoring": "No",
-        "notes": {
-          "0": "Baja adopción desde el lanzamiento",
-          "1": "Se superpone con el bot de conocimiento interno",
-          "2": "Usa un modelo premium para preguntas simples"
-        }
-      },
-      "knowledge": {
-        "name": "Bot de conocimiento interno",
-        "desc": "Busca en documentos y wikis internos.",
-        "trend": "+90% vs. plan",
-        "owner": "TI",
-        "users": "9,000 empleados",
-        "monitoring": "No",
-        "notes": {
-          "0": "Nadie mide su valor de negocio",
-          "1": "Respuestas duplicadas con el asistente de RR. HH.",
-          "2": "El uso crece rápidamente"
-        }
-      },
-      "experiments": {
-        "name": "Experimentos de IA",
-        "desc": "Proyectos de prueba en distintos equipos.",
-        "trend": "Nuevo",
-        "owner": "Varios",
-        "users": "~60 creadores",
-        "monitoring": "No",
-        "notes": {
-          "0": "Sin proceso de aprobación",
-          "1": "Varias herramientas externas no aprobadas",
-          "2": "Sin clasificación de datos"
-        }
-      }
+      "verylow": "Muy bajo"
     },
     "yourTeam": "Tu equipo",
     "unavailable": "No pudimos cargar tu equipo en este momento.",
@@ -1660,7 +1555,7 @@
       "subtitle": "Entrenado con el desafío de Colombia",
       "open": "Preguntar al coach",
       "close": "Cerrar el coach",
-      "greeting": "¡Bienvenidos a bordo, tripulación! Soy su LEAD Coach, su coach de misión para LEAD Aspire Colombia 2026. Su misión: asesorar a Contoso como un equipo de cuenta de Microsoft.\n\nPuedo ayudarles a:\n✅ Entender el reto de Contoso\n✅ Planear cada fase de la misión\n✅ Hacer mejores preguntas de descubrimiento\n✅ Poner a prueba sus ideas desde la perspectiva de cada stakeholder\n✅ Usar las plantillas y checklists\n✅ Preparar su pitch y la ronda de preguntas\n\n¿En qué fase está trabajando su equipo ahora?",
+      "greeting": "¡Bienvenidos a bordo, tripulación! Soy su LEAD Coach, su coach de misión para LEAD Aspire Colombia 2026. Su misión: ayudar al sector cafetero, como un equipo de cuenta de Microsoft, a construir trazabilidad de la finca al puerto.\n\nPuedo ayudarles a:\n✅ Entender el reto que presenta Asoexport\n✅ Planear cada fase de la misión\n✅ Hacer mejores preguntas a las personas de la cadena\n✅ Poner a prueba sus ideas desde la finca hasta la tostadora\n✅ Usar las plantillas y checklists\n✅ Preparar su pitch y la ronda de preguntas\n\n¿En qué fase está trabajando su equipo ahora?",
       "thinking": "El coach está pensando…",
       "error": "El coach no está disponible ahora. Inténtalo de nuevo.",
       "placeholder": "Pregunta sobre cualquier fase…",
@@ -1678,7 +1573,7 @@
       "desc": {
         "strategize": "Define el problema, diseña tu solución y haz revisar tu estrategia antes de diseñarla.",
         "design": "Usa el kit técnico de inicio para diseñar una solución funcional con IA, de forma segura y responsable.",
-        "pitch": "Cuenta la historia completa: qué descubriste, qué diseñaste y por qué le importa a Contoso."
+        "pitch": "Cuenta la historia completa: qué descubriste, qué diseñaste y por qué le importa al sector cafetero."
       },
       "docs": {
         "consulting": {
@@ -1722,9 +1617,9 @@
           "action": "Leer guía →"
         },
         "briefing": {
-          "title": "Informe del cliente Contoso",
-          "desc": "Contexto sobre Contoso, sus objetivos y su trayectoria con IA.",
-          "action": "Más información sobre Contoso"
+          "title": "Informe del caso: café y trazabilidad",
+          "desc": "La cadena del café, sus cifras y el reto de trazabilidad que presenta Asoexport.",
+          "action": "Leer el informe del caso"
         }
       },
       "whiteboard": {
@@ -1801,35 +1696,35 @@
       }
     },
     "diagnose": {
-      "title": "¿Qué está pasando realmente?",
-      "subtitle": "Clasifica cada carga de trabajo e identifica las causas raíz.",
-      "workload": "Carga de trabajo",
+      "title": "¿Dónde se rompe la trazabilidad?",
+      "subtitle": "Clasifica cada eslabón de la cadena e identifica las causas raíz.",
+      "workload": "Eslabón",
       "classification": "Tu clasificación",
       "select": "Seleccionar…",
       "classes": {
-        "protect": "Proteger",
-        "optimize": "Optimizar",
-        "investigate": "Investigar",
-        "retire": "Reducir / Retirar"
+        "urgent": "Atacar ya",
+        "digitize": "Digitalizar",
+        "investigate": "Investigar más",
+        "later": "Después"
       },
       "causesTitle": "Las 3 causas raíz principales",
       "causesHelp": "Selecciona las tres causas principales según la evidencia.",
       "causes": {
-        "adoption": "Adopción excesiva de IA en general",
-        "models": "Selección ineficiente de modelos",
-        "prompts": "Mal diseño de prompts / flujos",
-        "duplicates": "Soluciones de IA duplicadas",
-        "governance": "Falta de gobernanza",
-        "experiments": "Experimentación de bajo valor",
-        "monitoring": "Falta de monitoreo",
-        "training": "Capacitación insuficiente de los empleados",
-        "value": "Mala medición del valor de negocio",
-        "capacity": "Capacidad de IA insuficiente"
+        "fragmentation": "Fincas pequeñas y dispersas",
+        "connectivity": "Poca conectividad rural",
+        "literacy": "Baja alfabetización digital",
+        "cash": "Pagos en efectivo e informalidad",
+        "interoperability": "Sistemas que no se hablan entre sí",
+        "geolocation": "Fincas sin polígono GPS",
+        "postharvest": "Poscosecha sin control de calidad",
+        "logistics": "Vías y transporte deficientes",
+        "volatility": "Precio y tasa de cambio volátiles",
+        "succession": "Falta de relevo generacional"
       }
     },
     "advise": {
       "title": "Arma tu recomendación",
-      "subtitle": "Selecciona hasta 5 recomendaciones para el cliente.",
+      "subtitle": "Selecciona hasta 5 recomendaciones para el sector.",
       "available": "Recomendaciones disponibles",
       "strategy": "Tu estrategia ({count}/{max})",
       "add": "Agregar",
@@ -1838,10 +1733,10 @@
       "impact": "Impacto proyectado",
       "live": "· estimación en vivo",
       "effects": {
-        "cost": "Costo operativo",
-        "value": "Valor de negocio",
-        "adoption": "Adopción",
-        "risk": "Riesgo de seguridad"
+        "adoption": "Adopción en campo",
+        "risk": "Riesgo regulatorio",
+        "margin": "Margen del productor",
+        "markets": "Acceso a mercados"
       },
       "timeToImplement": "Tiempo de implementación",
       "time": {
@@ -1851,35 +1746,35 @@
       }
     },
     "recs": {
-      "mon": {
-        "title": "Implementar monitoreo del uso de IA",
-        "sub": "Más visibilidad del uso de tokens y del costo.",
-        "time": "4–6 semanas"
+      "polygons": {
+        "title": "Mapeo de fincas con IA",
+        "sub": "Polígonos GPS offline y verificación con imágenes satelitales.",
+        "time": "6 a 10 semanas"
       },
-      "opt": {
-        "title": "Optimizar los flujos de mayor consumo",
-        "sub": "Mejorar prompts, flujos y selección de modelos.",
-        "time": "6–10 semanas"
+      "whatsapp": {
+        "title": "Asistente por WhatsApp y voz",
+        "sub": "Registro de lotes y consultas para el caficultor.",
+        "time": "4 a 6 semanas"
       },
-      "exp": {
-        "title": "Ampliar la IA de atención al cliente",
-        "sub": "Escalar la solución por su alto valor de negocio.",
-        "time": "8–12 semanas"
+      "lots": {
+        "title": "Registro digital de lotes en el acopio",
+        "sub": "Pesaje, calidad y pago ligados a la finca.",
+        "time": "4 a 8 semanas"
       },
-      "hr": {
-        "title": "Consolidar los agentes de RR. HH. duplicados",
-        "sub": "Eliminar soluciones superpuestas.",
-        "time": "2–4 semanas"
+      "compliance": {
+        "title": "Copiloto de cumplimiento EUDR",
+        "sub": "Arma la debida diligencia para el exportador.",
+        "time": "8 a 12 semanas"
       },
-      "gov": {
-        "title": "Introducir un marco de gobernanza de IA",
-        "sub": "Políticas, controles e IA responsable.",
-        "time": "6–10 semanas"
+      "quality": {
+        "title": "Monitoreo de secado y calidad",
+        "sub": "Sensores y alertas en el beneficio y la bodega.",
+        "time": "6 a 10 semanas"
       },
-      "trn": {
-        "title": "Programa de capacitación en IA",
-        "sub": "Impulsar una mejor adopción y uso.",
-        "time": "4–6 semanas"
+      "training": {
+        "title": "Red de productores líderes",
+        "sub": "Alfabetización digital de campesino a campesino.",
+        "time": "4 a 8 semanas"
       }
     },
     "selected": "{count} de {max} seleccionadas",
@@ -1922,10 +1817,40 @@
       "title": "¡Reto completado!",
       "body": "{team} envió su recomendación final. ¡Excelente trabajo, llegaron al 100%!",
       "close": "Volver al inicio"
+    },
+    "chain": {
+      "supply": {
+        "name": "Aprovisionamiento",
+        "where": "Cabeceras municipales y cooperativas",
+        "pain": "Insumos caros que llegan a zonas dispersas"
+      },
+      "farm": {
+        "name": "Producción",
+        "where": "Fincas de ladera de menos de 5 ha",
+        "pain": "Fragmentación, clima y falta de recolectores en cosecha"
+      },
+      "wetmill": {
+        "name": "Beneficio",
+        "where": "En la finca",
+        "pain": "Secado artesanal sin control de humedad"
+      },
+      "collection": {
+        "name": "Acopio",
+        "where": "Cooperativas, comités y bodegas",
+        "pain": "Pocas bodegas adecuadas y pagos en efectivo"
+      },
+      "mill": {
+        "name": "Trilla e industria",
+        "where": "Más de 80 trilladoras en 13 departamentos",
+        "pain": "Sin enlace de datos con la finca de origen"
+      },
+      "export": {
+        "name": "Distribución y exportación",
+        "where": "Más de 90 % por carretera, 62 % sale por Buenaventura",
+        "pain": "Vías terciarias, pocos contenedores de 20 pies y hurto"
+      }
     }
-  }
-,
-
+  },
   "ColombiaLogin": {
     "title": "Iniciar sesión en Colombia",
     "brandLabel": "Presentación de Lead Aspire Colombia",
@@ -1991,5 +1916,4 @@
       "sessionExpired": "Tu sesión terminó. Inicia sesión de nuevo."
     }
   }
-
 }

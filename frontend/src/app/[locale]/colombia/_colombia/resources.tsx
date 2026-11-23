@@ -41,7 +41,7 @@ const DOCS = {
   /** Opened from the photo in Discover > Company Profile, not a phase card. */
   briefing: {
     type: "pdf",
-    file: "/colombia/pdfs/Contoso_Customer_Briefing.pdf",
+    file: "/colombia/pdfs/Asoexport_Caso_Cafe.pdf",
   },
 } satisfies Record<string, { type: DocType; file: string | null }>;
 

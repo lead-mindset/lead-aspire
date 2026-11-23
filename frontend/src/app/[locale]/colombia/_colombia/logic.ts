@@ -16,7 +16,7 @@ export type ColombiaState = {
   teamName: string;
   /** Role key -> the user_id of the member who has it. */
   members: Record<string, string>;
-  /** Strategize > Diagnose: workload key -> class key. */
+  /** Strategize > Diagnose: chain link key -> class key. */
   diag: Record<string, string>;
   /** Strategize > Diagnose: the chosen root causes. */
   causes: string[];

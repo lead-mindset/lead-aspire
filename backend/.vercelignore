@@ -2,6 +2,7 @@
 tests/
 db/
 scripts/
+agents/
 requirements-dev.txt
 ruff.toml
 pytest.ini

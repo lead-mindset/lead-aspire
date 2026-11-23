@@ -42,26 +42,30 @@ describe("toPatches for Strategize", () => {
         EMPTY,
         {
           ...EMPTY,
-          diag: { hr: "retire" },
-          causes: ["models"],
-          strategy: ["mon", "gov"],
+          diag: { farm: "urgent" },
+          causes: ["geolocation"],
+          strategy: ["polygons", "compliance"],
         },
         100,
       ),
     ).toEqual({
       strategize: {
-        class_hr: "retire",
-        cause_models: true,
-        rec_mon: 100,
-        rec_gov: 101,
+        class_farm: "urgent",
+        cause_geolocation: true,
+        rec_polygons: 100,
+        rec_compliance: 101,
       },
     });
   });
 
   it("removes deselected options", () => {
-    const before = { ...EMPTY, causes: ["models"], strategy: ["mon" as const] };
+    const before = {
+      ...EMPTY,
+      causes: ["geolocation"],
+      strategy: ["polygons" as const],
+    };
     expect(edit({ causes: [], strategy: [] }, before)).toEqual({
-      strategize: { cause_models: null, rec_mon: null },
+      strategize: { cause_geolocation: null, rec_polygons: null },
     });
   });
 });
@@ -86,18 +90,18 @@ describe("fromAnswers", () => {
     const state = fromAnswers({
       ...emptyAnswers(),
       strategize: {
-        class_support: "protect",
-        cause_models: true,
-        cause_adoption: true,
-        rec_gov: 20,
-        rec_mon: 10,
+        class_mill: "digitize",
+        cause_geolocation: true,
+        cause_cash: true,
+        rec_compliance: 20,
+        rec_polygons: 10,
       },
     });
 
-    expect(state.diag).toEqual({ support: "protect" });
-    expect(state.causes).toEqual(["adoption", "models"]);
+    expect(state.diag).toEqual({ mill: "digitize" });
+    expect(state.causes).toEqual(["cash", "geolocation"]);
     // In the order they were added.
-    expect(state.strategy).toEqual(["mon", "gov"]);
+    expect(state.strategy).toEqual(["polygons", "compliance"]);
   });
 
   it("round-trips an edit", () => {

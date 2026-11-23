@@ -1366,12 +1366,9 @@
       "bodyDone": "You finished every step of the Copilot Executive Lab. Great work — you made it to 100%!"
     }
   },
-
   "ColombiaPage": {
     "title": "Colombia"
-  }
-,
-
+  },
   "Colombia": {
     "brandSub": "ASPIRE · COLOMBIA",
     "challenge": "Team {num} · Microsoft AI Specialist Challenge · Colombia",
@@ -1439,98 +1436,68 @@
         "support": "If you need support, find an event organizer."
       }
     },
-    "brief": {
-      "title": "New message from the customer",
-      "from": "From:",
-      "fromValue": "CIO, Contoso",
-      "to": "To:",
-      "toValue": "Microsoft Account Team",
-      "subject": "Subject:",
-      "subjectValue": "Help us understand our AI usage and costs",
-      "greeting": "Hi Microsoft team,",
-      "p1": "Over the last six months, we've significantly expanded our use of generative AI across the organization. AI consumption is now nearly three times what we originally projected and Finance has raised concerns about increasing operating costs.",
-      "p2": "We're considering introducing usage limits across the company. Before we make that decision, we'd like Microsoft's recommendation. We need to understand what's driving this increase and what you recommend we do next.",
-      "signoff": "Thank you,",
-      "signature": "CIO, Contoso"
-    },
     "discover": {
-      "title": "Contoso AI Consumption Overview",
-      "subtitle": "Explore the current AI workloads, usage, and business impact. Use this data to identify trends, opportunities, and areas of concern.",
+      "title": "Coffee sector dashboard",
+      "subtitle": "Explore the export figures and the links of the coffee value chain. Use this data to find where traceability breaks.",
       "kpis": {
-        "tokens": {
-          "label": "Monthly tokens",
-          "delta": "+170% vs. plan"
+        "exports": {
+          "value": "9.57M",
+          "label": "Bags exported, Jan to Oct 2026",
+          "delta": "11.9% fewer than in 2025"
         },
-        "cost": {
-          "label": "Monthly AI cost",
-          "delta": "+160% vs. plan"
+        "green": {
+          "value": "92%",
+          "label": "Exported as green coffee",
+          "delta": "Only 8% processed"
         },
-        "adoption": {
-          "label": "Employee adoption",
-          "delta": "+32% vs. 6 months"
+        "families": {
+          "value": "550,000",
+          "label": "Coffee farming families",
+          "delta": "In over 600 municipalities"
         },
-        "workloads": {
-          "label": "Active AI workloads",
-          "delta": "+3 new"
+        "internet": {
+          "value": "28%",
+          "label": "Rural mobile internet",
+          "delta": "Against 76% in cities"
         }
       },
       "columns": {
-        "workload": "Workload",
-        "tokens": "Tokens / mo",
-        "cost": "Cost / mo",
-        "adoption": "Adoption",
-        "value": "Business value"
+        "link": "Link",
+        "where": "Where it happens",
+        "pain": "Main pain point",
+        "data": "Data available",
+        "impact": "Weight on traceability"
       },
       "step": "Step {num}",
-      "heroTitle": "Discover Contoso",
-      "heroText": "Explore the customer’s request, understand their business, and analyze their AI usage data to set the direction for your team’s recommendation.",
+      "heroTitle": "Discover the coffee challenge",
+      "heroText": "Meet the challenge Asoexport presents, understand the coffee chain from farm to port, and analyze the sector's data to set your team's direction.",
       "tabsLabel": "Discover sections",
       "tabs": {
-        "request": "CIO Request",
-        "profile": "Company Profile",
-        "stakeholders": "Stakeholders",
-        "dashboard": "AI Dashboard"
+        "profile": "Asoexport profile",
+        "stakeholders": "The coffee chain",
+        "dashboard": "Sector dashboard",
+        "challenge": "The challenge"
       },
       "nextTab": "Continue to {tab}",
-      "request": {
-        "time": "Today, 9:14 AM",
-        "takeawaysTitle": "Key takeaways",
-        "takeaways": {
-          "usage": {
-            "title": "Rising AI usage",
-            "body": "Consumption is ~3x higher than projected."
-          },
-          "decision": {
-            "title": "Leadership decision",
-            "body": "Contoso is considering company-wide usage limits."
-          },
-          "advice": {
-            "title": "They want Microsoft’s advice",
-            "body": "Understand the drivers, evaluate impact, and recommend next steps."
-          }
-        },
-        "missionTitle": "Your mission",
-        "missionBody": "Work as a Microsoft account team to understand Contoso’s situation, identify what’s driving the increase, and develop a recommendation that balances business value, cost, and responsible AI use."
-      },
       "profile": {
-        "aboutTitle": "About Contoso",
-        "imageAlt": "Contoso office lobby",
-        "readMore": "Read more about Contoso",
-        "missionTitle": "Mission",
-        "prioritiesTitle": "Strategic priorities",
-        "journeyTitle": "AI journey"
+        "aboutTitle": "About Asoexport",
+        "imageAlt": "Asoexport",
+        "readMore": "Read the case brief",
+        "missionTitle": "Purpose",
+        "prioritiesTitle": "What it does",
+        "journeyTitle": "Milestones"
       },
       "stakeholders": {
-        "title": "Meet the key stakeholders",
-        "subtitle": "Understand their perspectives, priorities, and concerns. Each stakeholder has unique expectations for Microsoft’s recommendation.",
+        "title": "Meet the coffee chain",
+        "subtitle": "Four people along the chain, from the farm to the roaster. They are fictional characters built on real sector data. Each one needs something different from your solution.",
         "priorities": "Key priorities",
         "viewProfile": "View full profile →",
         "hideProfile": "Hide profile",
         "chat": {
           "ask": "Ask a question 💬",
-          "subtitle": "Contoso stakeholder",
-          "greeting": "Hello! I'm Contoso's {title}. Ask me about my priorities, my concerns, or what I expect from Microsoft's recommendation.",
-          "thinking": "The {title} is typing…",
+          "subtitle": "Coffee chain · Fictional character",
+          "greeting": "Hello! I'm {name}, {title}. Ask me how my part of the chain works, what worries me, or what I need from a solution.",
+          "thinking": "{name} is typing…",
           "error": "This stakeholder is unavailable right now. Please try again.",
           "placeholder": "Ask your question…",
           "inputLabel": "Your question",
@@ -1538,100 +1505,28 @@
           "close": "Close the chat"
         }
       },
-      "workloadsTitle": "AI workloads",
-      "trendTitle": "Usage trends",
-      "trendSubtitle": "Monthly tokens (in millions)",
-      "trendValue": "{value}M tokens",
-      "trendLabel": "Monthly tokens from January to June 2024, rising from {first} to {last}.",
+      "trendTitle": "Monthly exports",
+      "trendSubtitle": "Thousands of 60 kg bags, January to October",
+      "trendValue": "{value}K bags",
+      "trendLabel": "Monthly coffee exports from January to October. In 2026 they go from {first} to {last}.",
       "insightTitle": "Key insight",
-      "insightBody": "AI consumption has nearly tripled over the last six months, driven primarily by Customer Support AI and Marketing Content AI."
+      "insightBody": "2026 started well below 2025, the record year. Since September, monthly shipments are above the previous year again.",
+      "challenge": {
+        "live": "Presenting live",
+        "contextTitle": "The challenge",
+        "questionTitle": "The question for your team",
+        "liveTitle": "What you will hear live",
+        "takeawaysTitle": "Key takeaways",
+        "missionTitle": "Your mission"
+      },
+      "chainTitle": "The 6 links of the chain",
+      "source": "Sources: Asoexport, coffee figures report for October 2026, and Asoexport's document for LEAD Aspire Day Microsoft."
     },
     "values": {
       "high": "High",
       "medium": "Medium",
       "low": "Low",
-      "unknown": "Unknown"
-    },
-    "workloads": {
-      "support": {
-        "name": "Customer Support AI",
-        "desc": "Virtual agent for customer inquiries.",
-        "trend": "+48% vs. plan",
-        "owner": "Customer Service",
-        "users": "1,200 agents",
-        "monitoring": "Partial",
-        "notes": {
-          "0": "Average resolution time decreased 31%",
-          "1": "Customer satisfaction increased 8%",
-          "2": "Support backlog decreased 24%",
-          "3": "Using GPT-4o for complex cases"
-        }
-      },
-      "sales": {
-        "name": "Sales Assistant",
-        "desc": "Drafts proposals and summarizes CRM activity.",
-        "trend": "+22% vs. plan",
-        "owner": "Sales Ops",
-        "users": "640 sellers",
-        "monitoring": "Yes",
-        "notes": {
-          "0": "Proposal prep time down 40%",
-          "1": "Pipeline notes auto-summarized",
-          "2": "Strong seller satisfaction"
-        }
-      },
-      "marketing": {
-        "name": "Marketing Content AI",
-        "desc": "Generates campaign copy and imagery.",
-        "trend": "+65% vs. plan",
-        "owner": "Marketing",
-        "users": "180 marketers",
-        "monitoring": "No",
-        "notes": {
-          "0": "Long prompts with repeated context",
-          "1": "Many regenerations per asset",
-          "2": "Unclear impact on campaign results"
-        }
-      },
-      "hr": {
-        "name": "HR Assistant",
-        "desc": "Answers HR policy questions.",
-        "trend": "+30% vs. plan",
-        "owner": "HR",
-        "users": "9,000 employees",
-        "monitoring": "No",
-        "notes": {
-          "0": "Low adoption since launch",
-          "1": "Overlaps with Internal Knowledge Bot",
-          "2": "Uses a premium model for simple Q&A"
-        }
-      },
-      "knowledge": {
-        "name": "Internal Knowledge Bot",
-        "desc": "Searches internal documents and wikis.",
-        "trend": "+90% vs. plan",
-        "owner": "IT",
-        "users": "9,000 employees",
-        "monitoring": "No",
-        "notes": {
-          "0": "No owner tracking business value",
-          "1": "Duplicate answers with HR Assistant",
-          "2": "Usage growing quickly"
-        }
-      },
-      "experiments": {
-        "name": "AI Experiments",
-        "desc": "Sandbox projects across teams.",
-        "trend": "New",
-        "owner": "Various",
-        "users": "~60 builders",
-        "monitoring": "No",
-        "notes": {
-          "0": "No approval process",
-          "1": "Several unapproved external tools",
-          "2": "No data classification"
-        }
-      }
+      "verylow": "Very low"
     },
     "yourTeam": "Your team",
     "unavailable": "We couldn’t load your team right now.",
@@ -1660,7 +1555,7 @@
       "subtitle": "Trained on the Colombia challenge",
       "open": "Ask the coach",
       "close": "Close the coach",
-      "greeting": "Welcome aboard, crew! I'm your LEAD Coach, your mission coach for LEAD Aspire Colombia 2026. Your mission: advise Contoso as a Microsoft account team.\n\nI can help you:\n✅ Understand the Contoso challenge\n✅ Plan each mission phase\n✅ Ask better discovery questions\n✅ Test your ideas from each stakeholder's view\n✅ Use the templates and checklists\n✅ Prepare your pitch and Q&A\n\nWhich phase is your team working on right now?",
+      "greeting": "Welcome aboard, crew! I'm your LEAD Coach, your mission coach for LEAD Aspire Colombia 2026. Your mission: help the coffee sector, as a Microsoft account team, build traceability from farm to port.\n\nI can help you:\n✅ Understand the challenge Asoexport presents\n✅ Plan each phase of the mission\n✅ Ask better questions to the people in the chain\n✅ Test your ideas from the farm to the roaster\n✅ Use the templates and checklists\n✅ Prepare your pitch and the Q&A\n\nWhich phase is your team working on now?",
       "thinking": "The coach is thinking…",
       "error": "The coach is unavailable right now. Please try again.",
       "placeholder": "Ask about any phase…",
@@ -1678,7 +1573,7 @@
       "desc": {
         "strategize": "Define the problem, map your solution, and get your strategy reviewed before you design it.",
         "design": "Use the technical starter kit to design a working solution with AI, securely and responsibly.",
-        "pitch": "Tell the full story: what you discovered, what you designed, and why it matters to Contoso."
+        "pitch": "Tell the full story: what you discovered, what you designed, and why it matters to the coffee sector."
       },
       "docs": {
         "consulting": {
@@ -1722,9 +1617,9 @@
           "action": "Read guide →"
         },
         "briefing": {
-          "title": "Contoso Customer Briefing",
-          "desc": "Background on Contoso, its goals and its AI journey.",
-          "action": "Read more about Contoso"
+          "title": "Case brief: coffee and traceability",
+          "desc": "The coffee chain, its figures and the traceability challenge Asoexport presents.",
+          "action": "Read the case brief"
         }
       },
       "whiteboard": {
@@ -1801,35 +1696,35 @@
       }
     },
     "diagnose": {
-      "title": "What's actually happening?",
-      "subtitle": "Classify each workload and identify the root causes.",
-      "workload": "Workload",
+      "title": "Where does traceability break?",
+      "subtitle": "Classify each link of the chain and identify the root causes.",
+      "workload": "Link",
       "classification": "Your classification",
       "select": "Select…",
       "classes": {
-        "protect": "Protect",
-        "optimize": "Optimize",
+        "urgent": "Act now",
+        "digitize": "Digitize",
         "investigate": "Investigate",
-        "retire": "Reduce / Retire"
+        "later": "Later"
       },
       "causesTitle": "Top 3 root causes",
       "causesHelp": "Select the three main causes based on the evidence.",
       "causes": {
-        "adoption": "Excessive overall AI adoption",
-        "models": "Inefficient model selection",
-        "prompts": "Poor prompt / workflow design",
-        "duplicates": "Duplicate AI solutions",
-        "governance": "Lack of governance",
-        "experiments": "Low-value experimentation",
-        "monitoring": "Lack of monitoring",
-        "training": "Insufficient employee training",
-        "value": "Poor measurement of business value",
-        "capacity": "Inadequate AI capacity"
+        "fragmentation": "Small, scattered farms",
+        "connectivity": "Weak rural connectivity",
+        "literacy": "Low digital literacy",
+        "cash": "Cash payments and informality",
+        "interoperability": "Systems that don't talk to each other",
+        "geolocation": "Farms without a GPS polygon",
+        "postharvest": "Post-harvest without quality control",
+        "logistics": "Poor roads and transport",
+        "volatility": "Volatile price and exchange rate",
+        "succession": "No generational succession"
       }
     },
     "advise": {
       "title": "Build your recommendation",
-      "subtitle": "Select up to 5 recommendations for the customer.",
+      "subtitle": "Select up to 5 recommendations for the sector.",
       "available": "Available recommendations",
       "strategy": "Your strategy ({count}/{max})",
       "add": "Add",
@@ -1838,10 +1733,10 @@
       "impact": "Projected impact",
       "live": "· live estimate",
       "effects": {
-        "cost": "Operating cost",
-        "value": "Business value",
-        "adoption": "Adoption",
-        "risk": "Security risk"
+        "adoption": "Field adoption",
+        "risk": "Regulatory risk",
+        "margin": "Producer margin",
+        "markets": "Market access"
       },
       "timeToImplement": "Time to implement",
       "time": {
@@ -1851,35 +1746,35 @@
       }
     },
     "recs": {
-      "mon": {
-        "title": "Implement AI usage monitoring",
-        "sub": "Better visibility into token usage and cost.",
-        "time": "4–6 weeks"
+      "polygons": {
+        "title": "AI farm mapping",
+        "sub": "Offline GPS polygons checked against satellite imagery.",
+        "time": "6 to 10 weeks"
       },
-      "opt": {
-        "title": "Optimize high-consumption workflows",
-        "sub": "Improve prompts, workflows and model selection.",
-        "time": "6–10 weeks"
+      "whatsapp": {
+        "title": "WhatsApp and voice assistant",
+        "sub": "Lot records and questions for the coffee farmer.",
+        "time": "4 to 6 weeks"
       },
-      "exp": {
-        "title": "Expand Customer Support AI",
-        "sub": "Scale the solution based on strong business value.",
-        "time": "8–12 weeks"
+      "lots": {
+        "title": "Digital lot records at collection",
+        "sub": "Weight, quality and payment linked to the farm.",
+        "time": "4 to 8 weeks"
       },
-      "hr": {
-        "title": "Consolidate duplicate HR agents",
-        "sub": "Eliminate overlapping solutions.",
-        "time": "2–4 weeks"
+      "compliance": {
+        "title": "EUDR compliance copilot",
+        "sub": "Builds the due diligence file for the exporter.",
+        "time": "8 to 12 weeks"
       },
-      "gov": {
-        "title": "Introduce AI governance framework",
-        "sub": "Policies, controls and responsible AI.",
-        "time": "6–10 weeks"
+      "quality": {
+        "title": "Drying and quality monitoring",
+        "sub": "Sensors and alerts at wet processing and storage.",
+        "time": "6 to 10 weeks"
       },
-      "trn": {
-        "title": "Employee AI training program",
-        "sub": "Drive better adoption and usage.",
-        "time": "4–6 weeks"
+      "training": {
+        "title": "Lead farmer network",
+        "sub": "Farmer to farmer digital literacy.",
+        "time": "4 to 8 weeks"
       }
     },
     "selected": "{count} of {max} selected",
@@ -1922,10 +1817,40 @@
       "title": "Challenge complete!",
       "body": "{team} submitted its final recommendation. Great work — you made it to 100%!",
       "close": "Back to home"
+    },
+    "chain": {
+      "supply": {
+        "name": "Supply",
+        "where": "Town centers and cooperatives",
+        "pain": "Costly inputs that must reach scattered areas"
+      },
+      "farm": {
+        "name": "Production",
+        "where": "Hillside farms under 5 ha",
+        "pain": "Fragmentation, climate and too few pickers at harvest"
+      },
+      "wetmill": {
+        "name": "Wet processing",
+        "where": "On the farm",
+        "pain": "Hand drying with no moisture control"
+      },
+      "collection": {
+        "name": "Collection",
+        "where": "Cooperatives, committees and warehouses",
+        "pain": "Few suitable warehouses and cash payments"
+      },
+      "mill": {
+        "name": "Dry milling and industry",
+        "where": "Over 80 dry mills in 13 departments",
+        "pain": "No data link to the farm of origin"
+      },
+      "export": {
+        "name": "Distribution and export",
+        "where": "Over 90% by road, 62% leaves through Buenaventura",
+        "pain": "Rural roads, few 20 ft containers and cargo theft"
+      }
     }
-  }
-,
-
+  },
   "ColombiaLogin": {
     "title": "Colombia sign in",
     "brandLabel": "Lead Aspire Colombia introduction",
@@ -1991,5 +1916,4 @@
       "sessionExpired": "Your session ended. Sign in again."
     }
   }
-
 }
