@@ -8,7 +8,7 @@ Instrucciones de los agentes que usa la app de Colombia. El backend solo llama a
 | `coop.md` | Hernán Muñoz, jefe de acopio (Cauca) | `coop` | `FOUNDRY_COLOMBIA_COOP_AGENT_NAME` |
 | `exporter.md` | Laura Restrepo, gerente de cumplimiento (Bogotá) | `exporter` | `FOUNDRY_COLOMBIA_EXPORTER_AGENT_NAME` |
 | `buyer.md` | Anke Vogel, compradora en Hamburgo | `buyer` | `FOUNDRY_COLOMBIA_BUYER_AGENT_NAME` |
-| `coach.md` | Cambios para el LEAD Coach existente | (coach) | `FOUNDRY_COLOMBIA_AGENT_NAME` |
+| `coach.md` | LEAD Coach: cómo funciona Aspire, fases, recursos y el caso | (coach) | `FOUNDRY_COLOMBIA_AGENT_NAME` |
 
 Los cuatro personajes son ficticios. Están construidos con datos reales del documento de Asoexport y no representan a personas ni empresas reales.
 

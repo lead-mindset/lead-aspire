@@ -1816,7 +1816,13 @@
       "eyebrow": "MISSION ACCOMPLISHED",
       "title": "Challenge complete!",
       "body": "{team} submitted its final recommendation. Great work — you made it to 100%!",
-      "close": "Back to home"
+      "close": "Back to home",
+      "deck": {
+        "eyebrow": "PRESENTATION SUBMITTED",
+        "title": "Presentation submitted!",
+        "body": "{team} uploaded its final presentation. The whole team can see it, and it is ready for the pitch.",
+        "close": "Continue"
+      }
     },
     "chain": {
       "supply": {

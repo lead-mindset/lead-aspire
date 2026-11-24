@@ -309,7 +309,7 @@ export const CONTENT = {
       name: "Rosa Elvira Cuéllar",
       initials: "RC",
       color: GREEN,
-      image: "",
+      image: "/colombia/stakeholder-farmer.jpg",
       title: { en: "Coffee farmer", es: "Caficultora" },
       region: { en: "Huila, 1.4 ha farm", es: "Huila, finca de 1,4 ha" },
       quote: {
@@ -340,7 +340,7 @@ export const CONTENT = {
       name: "Hernán Muñoz",
       initials: "HM",
       color: BLUE,
-      image: "",
+      image: "/colombia/stakeholder-coop.jpg",
       title: {
         en: "Head of a cooperative collection center",
         es: "Jefe de acopio de una cooperativa",
@@ -368,7 +368,7 @@ export const CONTENT = {
       name: "Laura Restrepo",
       initials: "LR",
       color: PURPLE,
-      image: "",
+      image: "/colombia/stakeholder-exporter.jpg",
       title: {
         en: "Compliance manager at a coffee exporter",
         es: "Gerente de cumplimiento de una exportadora",
@@ -402,7 +402,7 @@ export const CONTENT = {
       name: "Anke Vogel",
       initials: "AV",
       color: RED,
-      image: "",
+      image: "/colombia/stakeholder-buyer.jpg",
       title: {
         en: "Green coffee buyer at a European roaster",
         es: "Compradora de café verde de una tostadora europea",
