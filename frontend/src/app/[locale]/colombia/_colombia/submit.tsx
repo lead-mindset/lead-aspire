@@ -146,11 +146,14 @@ export function SubmitDialog({
   submission,
   onSaved,
   onClose,
+  onSubmitted,
 }: {
   teamName: string | null;
   submission: Submission | null;
   onSaved: (submission: Submission | null) => void;
   onClose: () => void;
+  /** After a successful upload: replaces the success message (e.g. the astronaut celebration). */
+  onSubmitted?: () => void;
 }) {
   const t = useTranslations("Colombia.resources.submitDialog");
   const [file, setFile] = useState<File | null>(null);
@@ -188,6 +191,11 @@ export function SubmitDialog({
     const result = await submitDeck(file, link.trim(), setStatus);
     if (result.ok) {
       onSaved(result.submission);
+      if (onSubmitted) {
+        onClose();
+        onSubmitted();
+        return;
+      }
       setStatus("done");
       return;
     }

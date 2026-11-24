@@ -3,11 +3,16 @@
 // given in English and Spanish ({ en, es }); interface labels (buttons,
 // hints) stay in messages/*.json under "Colombia".
 //
-// Keys (role keys, option keys) are stored in the team's saved answers, so
-// renaming a key orphans answers already saved under the old one.
+// Case: Asoexport (Asociación Nacional de Exportadores de Café de Colombia)
+// and traceability in the coffee value chain. Facts come from the document
+// Asoexport wrote for LEAD Aspire Day Microsoft and from asoexport.org (see
+// data.ts for the figures). The four stakeholders are fictional people built
+// on that document: no real person or company is named for them.
 //
-// Stage A holds the phases and roles; the Brief to Deliver content moves
-// here in the next stages.
+// Keys (role keys, stakeholder keys) are stored or used as identifiers:
+// role keys are in the team's saved answers, stakeholder keys name the
+// Foundry agents (backend/app/colombia_stakeholders.py). Renaming a key
+// orphans what was saved or configured under the old one.
 
 import { useLocale } from "next-intl";
 
@@ -96,186 +101,329 @@ export const CONTENT = {
       },
     },
   ],
-  /** Discover > Company Profile. */
-  company: {
-    /** Photo beside "About Contoso", from /public (e.g. "/colombia/contoso-lobby.jpg"); "" shows an empty slot. */
-    image: "/dashboard/contoso-front-desk.png",
-    about: {
-      en: "Contoso is a global professional services company helping organizations transform through technology, consulting, and operations.",
-      es: "Contoso es una empresa global de servicios profesionales que ayuda a las organizaciones a transformarse con tecnología, consultoría y operaciones.",
+
+  /**
+   * Discover > The challenge. The president presents it live at the event;
+   * this tab introduces him and the problem.
+   * `image`: his photo from /public ("" shows his initials). `quote`: a line
+   * he approved for the app; null hides it. Do not fill it with press quotes.
+   */
+  challenge: {
+    presenter: {
+      name: "Gustavo Andrés Gómez Montero",
+      initials: "GG",
+      image: "",
+      title: {
+        en: "Executive President, Asoexport",
+        es: "Presidente ejecutivo, Asoexport",
+      },
     },
-    facts: [
+    quote: null as Text | null,
+    paragraphs: [
       {
-        key: "industry",
-        label: { en: "Industry", es: "Industria" },
-        value: { en: "Professional services", es: "Servicios profesionales" },
+        en: "Colombia exports about 92% of the coffee it produces, mostly as green coffee. Yet no interoperable system connects the information from the farm to the dry mill: for conventional coffee it is almost impossible to know which farm a lot comes from.",
+        es: "Colombia exporta cerca del 92 % del café que produce, casi todo como café verde. Sin embargo, no existen sistemas interoperables que conecten la información de la finca con la trilladora: en el café convencional es casi imposible saber de qué predio viene un lote.",
       },
       {
-        key: "headquarters",
-        label: { en: "Headquarters", es: "Sede" },
-        value: { en: "Seattle, WA", es: "Seattle, WA" },
+        en: "Without that traceability the sector puts at risk its access to the European Union, which buys 25% to 27% of Colombian coffee, under the EU Deforestation Regulation (EUDR, EU 2023/1115) and the Corporate Sustainability Due Diligence Directive (CS3D, EU 2024/1760).",
+        es: "Sin esa trazabilidad el sector arriesga su acceso a la Unión Europea, que compra entre el 25 % y el 27 % del café colombiano, por el Reglamento sobre Deforestación (EUDR, UE 2023/1115) y la Directiva de debida diligencia en sostenibilidad (CS3D, UE 2024/1760).",
+      },
+    ],
+    question: {
+      en: "How can AI help build traceability from small farms with weak signal and low digital adoption?",
+      es: "¿Cómo puede la IA ayudar a construir trazabilidad desde fincas pequeñas, con poca señal y baja adopción digital?",
+    },
+    /** "What you will hear live": the points of his talk. */
+    live: [
+      {
+        en: "Where the sector stands: a record 2025 and a 2026 with lower exports",
+        es: "El momento del sector: un 2025 récord y un 2026 con menos exportaciones",
       },
       {
-        key: "employees",
-        label: { en: "Employees", es: "Empleados" },
-        value: { en: "12,000", es: "12,000" },
+        en: "The regulatory pressure from Europe and the United States",
+        es: "La presión regulatoria de Europa y Estados Unidos",
       },
       {
-        key: "revenue",
-        label: { en: "Annual revenue", es: "Ingresos anuales" },
-        value: { en: "$4.8B", es: "US$4.8 mil millones" },
+        en: "Why traceability is a problem of data and of people, not only of technology",
+        es: "Por qué la trazabilidad es un problema de datos y de personas, no solo de tecnología",
       },
+    ],
+    /** Key takeaways beside the challenge; the keys pick the icons. */
+    takeaways: [
       {
-        key: "markets",
-        label: { en: "Primary markets", es: "Mercados principales" },
-        value: {
-          en: "North America, Europe, APAC",
-          es: "Norteamérica, Europa, APAC",
+        key: "trace",
+        title: { en: "Weak traceability", es: "Trazabilidad débil" },
+        body: {
+          en: "The farm of origin of conventional coffee cannot be traced.",
+          es: "No se puede rastrear el predio de origen del café convencional.",
         },
       },
       {
-        key: "model",
-        label: { en: "Business model", es: "Modelo de negocio" },
-        value: {
-          en: "Consulting and managed services",
-          es: "Consultoría y servicios administrados",
+        key: "market",
+        title: { en: "Market at risk", es: "Mercado en riesgo" },
+        body: {
+          en: "The EU requires geolocation and due diligence for each lot.",
+          es: "La UE exige geolocalización y debida diligencia por lote.",
+        },
+      },
+      {
+        key: "rural",
+        title: { en: "Disconnected countryside", es: "Campo desconectado" },
+        body: {
+          en: "Rural mobile internet reaches 28%, against 76% in cities.",
+          es: "El internet móvil rural llega al 28 %, frente al 76 % urbano.",
         },
       },
     ],
     mission: {
-      en: "To empower people and organizations to achieve more through technology.",
-      es: "Empoderar a las personas y organizaciones para lograr más con la tecnología.",
+      en: "Work as a Microsoft account team. Understand the coffee value chain, find where traceability breaks, and design an AI solution that works for the coffee farmer and serves the exporter.",
+      es: "Trabaja como un equipo de cuenta de Microsoft. Entiende la cadena del café, identifica dónde se rompe la trazabilidad y diseña una solución con IA que funcione para el caficultor y le sirva al exportador.",
+    },
+  },
+
+  /** Discover > Organization profile. */
+  company: {
+    name: "Asoexport",
+    /** Photo beside "About", from /public; "" shows a branded card with `badge`. */
+    image: "",
+    badge: { en: "Since 1933", es: "Desde 1933" },
+    about: {
+      en: "Asoexport is the National Association of Coffee Exporters of Colombia: a private, nonprofit trade association that represents coffee exporters before the government and the logistics chain, and works to strengthen the competitiveness and sustainability of the coffee value chain.",
+      es: "Asoexport es la Asociación Nacional de Exportadores de Café de Colombia: un gremio privado sin ánimo de lucro que representa a los exportadores ante el Gobierno y la cadena logística, y trabaja por la competitividad y la sostenibilidad de la cadena de valor del café.",
+    },
+    facts: [
+      {
+        key: "type",
+        label: { en: "Organization", es: "Tipo de entidad" },
+        value: {
+          en: "Private nonprofit trade association",
+          es: "Gremio privado sin ánimo de lucro",
+        },
+      },
+      {
+        key: "founded",
+        label: { en: "Founded", es: "Fundación" },
+        value: {
+          en: "1933, as Sociedad de Exportadores de Café",
+          es: "1933, como Sociedad de Exportadores de Café",
+        },
+      },
+      {
+        key: "headquarters",
+        label: { en: "Headquarters", es: "Sede" },
+        value: { en: "Bogotá, Colombia", es: "Bogotá, Colombia" },
+      },
+      {
+        key: "share",
+        label: { en: "Represents", es: "Representa" },
+        value: {
+          en: "Over 75% of Colombia's coffee exports",
+          es: "Más del 75 % de las exportaciones de café",
+        },
+      },
+      {
+        key: "alliance",
+        label: { en: "Alliance", es: "Alianza" },
+        value: { en: "Analdex, since 2017", es: "Analdex, desde 2017" },
+      },
+      {
+        key: "markets",
+        label: { en: "Where the coffee goes", es: "Destino del café" },
+        value: {
+          en: "US 39%, EU 27%+, Asia 11%, Canada 7%",
+          es: "EE. UU. 39 %, UE más de 27 %, Asia 11 %, Canadá 7 %",
+        },
+      },
+    ],
+    /** Shown under "Purpose": Asoexport's published tagline. */
+    mission: {
+      en: "We work to strengthen the competitiveness and sustainability of the coffee value chain in Colombia.",
+      es: "Trabajamos en potencializar la competitividad y la sostenibilidad de la cadena del valor del café en Colombia.",
     },
     priorities: [
       {
-        en: "Drive productivity through AI",
-        es: "Impulsar la productividad con IA",
+        en: "Advocacy before the ministries, ICA, Invima and DIAN",
+        es: "Gestión gremial ante los ministerios, ICA, Invima y DIAN",
       },
       {
-        en: "Deliver exceptional client experiences",
-        es: "Ofrecer experiencias excepcionales a sus clientes",
+        en: "Faster export logistics with ports and shipping lines",
+        es: "Logística de exportación más ágil con puertos y navieras",
       },
       {
-        en: "Maintain responsible and secure innovation",
-        es: "Mantener una innovación responsable y segura",
+        en: "Training: Asoexport Academy, logistics and hedging",
+        es: "Formación: Asoexport Academy, logística y coberturas",
       },
       {
-        en: "Grow in key global markets",
-        es: "Crecer en mercados globales clave",
+        en: "Sector data: monthly report and annual coffee bulletin",
+        es: "Información del sector: reporte mensual y boletín anual",
       },
     ],
     journey: [
       {
-        date: { en: "Jan 2024", es: "Ene 2024" },
-        text: { en: "Initial pilots", es: "Pilotos iniciales" },
-      },
-      {
-        date: { en: "Apr 2024", es: "Abr 2024" },
-        text: { en: "Expanded to key teams", es: "Expansión a equipos clave" },
-      },
-      {
-        date: { en: "Jul 2024", es: "Jul 2024" },
+        date: { en: "1933", es: "1933" },
         text: {
-          en: "Broader rollout across business units",
-          es: "Despliegue en más unidades de negocio",
+          en: "Sociedad de Exportadores de Café is founded",
+          es: "Nace la Sociedad de Exportadores de Café",
         },
       },
       {
-        date: { en: "Oct 2024", es: "Oct 2024" },
-        text: { en: "Rapid increase in usage", es: "Rápido aumento del uso" },
+        date: { en: "2017", es: "2017" },
+        text: {
+          en: "Strategic alliance with Analdex",
+          es: "Alianza estratégica con Analdex",
+        },
       },
       {
-        date: { en: "Today", es: "Hoy" },
-        text: { en: "Evaluating next steps", es: "Evaluando próximos pasos" },
+        date: { en: "2023", es: "2023" },
+        text: {
+          en: "Study of the coffee value chain with Swisscontact",
+          es: "Caracterización de la cadena del café con Swisscontact",
+        },
+      },
+      {
+        date: { en: "2025", es: "2025" },
+        text: {
+          en: "Record year: 13.14M bags worth USD 6.48B",
+          es: "Año récord: 13,14 M de sacos por USD 6.480 M",
+        },
+      },
+      {
+        date: { en: "2026", es: "2026" },
+        text: {
+          en: "90th Coffee Summit in Cartagena",
+          es: "90 Cumbre Cafetera en Cartagena",
+        },
       },
     ],
   },
+
   /**
-   * Discover > Stakeholders. `image`: a photo from /public ("" shows an
-   * empty slot). `profile`: the text behind "View full profile"; the
-   * button shows only when it is set.
+   * Discover > Stakeholders: fictional people along the coffee chain, each
+   * with a Foundry agent named by FOUNDRY_COLOMBIA_<KEY>_AGENT_NAME (prompts
+   * in backend/agents/colombia). `image`: a photo from /public ("" shows the
+   * initials). `profile`: the text behind "View full profile".
    */
   stakeholders: [
     {
-      key: "cio",
-      image: "/dashboard/contoso-cio.png",
+      key: "farmer",
+      name: "Rosa Elvira Cuéllar",
+      initials: "RC",
+      color: GREEN,
+      image: "/colombia/stakeholder-farmer.jpg",
+      title: { en: "Coffee farmer", es: "Caficultora" },
+      region: { en: "Huila, 1.4 ha farm", es: "Huila, finca de 1,4 ha" },
+      quote: {
+        en: "I know where my coffee comes from. The problem is proving it.",
+        es: "Yo sé de dónde sale mi café. El problema es demostrarlo.",
+      },
+      priorities: [
+        {
+          en: "A fair price for her coffee",
+          es: "Un precio justo por su café",
+        },
+        {
+          en: "Simple tools that work without signal",
+          es: "Herramientas simples que funcionen sin señal",
+        },
+        {
+          en: "Not losing time during harvest",
+          es: "No perder tiempo en plena cosecha",
+        },
+      ],
+      profile: {
+        en: "She grows coffee on a hillside farm of 1.4 hectares and picks it by hand in the main harvest (September to December) and in the mitaca (March to June). She dries it in the sun and sells dry parchment coffee to the cooperative. She has a mid-range phone, uses WhatsApp, and the 2G signal comes and goes.",
+        es: "Cultiva café en una finca de ladera de 1,4 hectáreas y recoge a mano en la cosecha principal (septiembre a diciembre) y en la mitaca (marzo a junio). Seca el café al sol y vende pergamino seco a la cooperativa. Tiene un celular de gama media, usa WhatsApp y la señal 2G va y viene.",
+      },
+    },
+    {
+      key: "coop",
+      name: "Hernán Muñoz",
+      initials: "HM",
+      color: BLUE,
+      image: "/colombia/stakeholder-coop.jpg",
       title: {
-        en: "Chief Information Officer",
-        es: "Director de Tecnología (CIO)",
+        en: "Head of a cooperative collection center",
+        es: "Jefe de acopio de una cooperativa",
       },
+      region: { en: "Cauca", es: "Cauca" },
       quote: {
-        en: "We need to scale AI responsibly while maintaining control and visibility.",
-        es: "Necesitamos escalar la IA de forma responsable sin perder el control ni la visibilidad.",
+        en: "I receive coffee from hundreds of farms, and almost all of it is paid in cash.",
+        es: "Recibo café de cientos de fincas y casi todo se paga en efectivo.",
       },
       priorities: [
-        { en: "Drive business value", es: "Generar valor de negocio" },
-        { en: "Maintain oversight", es: "Mantener la supervisión" },
+        { en: "Record lots without paper", es: "Registrar lotes sin papel" },
         {
-          en: "Enable responsible adoption",
-          es: "Impulsar una adopción responsable",
+          en: "Keep working when the internet fails",
+          es: "Seguir operando cuando falla el internet",
         },
+        { en: "Protect grain quality", es: "Cuidar la calidad del grano" },
       ],
-      profile: null,
-    },
-    {
-      key: "cfo",
-      image: "/dashboard/contoso-cfo.png",
-      title: { en: "Chief Financial Officer", es: "Director Financiero (CFO)" },
-      quote: {
-        en: "I need to understand the costs and ensure we're getting a solid return on our investment.",
-        es: "Necesito entender los costos y asegurarme de que obtenemos un buen retorno de la inversión.",
+      profile: {
+        en: "He receives parchment coffee from hundreds of farms smaller than one hectare. He weighs it, takes samples, checks moisture and pays, mostly in cash. Records live on paper and in a spreadsheet. The warehouse has no humidity control, so lots can spoil while they wait.",
+        es: "Recibe café pergamino de cientos de fincas de menos de una hectárea. Pesa, toma muestras, revisa la humedad y paga, casi siempre en efectivo. Los registros están en papel y en una hoja de cálculo. La bodega no tiene control de humedad y los lotes se pueden dañar mientras esperan.",
       },
-      priorities: [
-        { en: "Control costs", es: "Controlar los costos" },
-        {
-          en: "Prove business value / ROI",
-          es: "Demostrar el valor de negocio / ROI",
-        },
-        { en: "Predictable budgeting", es: "Un presupuesto predecible" },
-      ],
-      profile: null,
     },
     {
-      key: "cso",
-      image: "/dashboard/contoso-cso.png",
+      key: "exporter",
+      name: "Laura Restrepo",
+      initials: "LR",
+      color: PURPLE,
+      image: "/colombia/stakeholder-exporter.jpg",
       title: {
-        en: "Chief Security Officer",
-        es: "Director de Seguridad (CSO)",
+        en: "Compliance manager at a coffee exporter",
+        es: "Gerente de cumplimiento de una exportadora",
+      },
+      region: {
+        en: "Bogotá, ships through Buenaventura",
+        es: "Bogotá, despacha por Buenaventura",
       },
       quote: {
-        en: "We must reduce risk and ensure our AI usage is secure, compliant, and governed.",
-        es: "Debemos reducir el riesgo y asegurar que el uso de la IA sea seguro, cumpla las normas y esté gobernado.",
+        en: "If I don't have the polygon of every farm, I can't get into Europe.",
+        es: "Si no tengo el polígono de cada finca, no entro a Europa.",
       },
       priorities: [
+        { en: "Comply with the EUDR", es: "Cumplir el EUDR" },
         {
-          en: "Data security and privacy",
-          es: "Seguridad y privacidad de datos",
+          en: "Connect farm data with DIAN and VUCE",
+          es: "Conectar los datos de finca con DIAN y VUCE",
         },
-        { en: "Governance and compliance", es: "Gobernanza y cumplimiento" },
-        { en: "Risk mitigation", es: "Mitigación de riesgos" },
+        {
+          en: "Keep the cost per lot under control",
+          es: "Controlar el costo por lote",
+        },
       ],
-      profile: null,
+      profile: {
+        en: "She is responsible for the due diligence of every lot shipped to Europe. She needs the geolocation of each farm and proof of no deforestation. She coordinates with dry mills, road transport to the port of Buenaventura, and filings with VUCE and DIAN.",
+        es: "Responde por la debida diligencia de cada lote que va a Europa. Necesita la geolocalización de cada finca y pruebas de no deforestación. Coordina con las trilladoras, el transporte por carretera hasta Buenaventura y los trámites en VUCE y DIAN.",
+      },
     },
     {
-      key: "support",
-      image: "/dashboard/contoso-vp.png",
-      title: { en: "VP, Customer Support", es: "VP de Atención al Cliente" },
+      key: "buyer",
+      name: "Anke Vogel",
+      initials: "AV",
+      color: RED,
+      image: "/colombia/stakeholder-buyer.jpg",
+      title: {
+        en: "Green coffee buyer at a European roaster",
+        es: "Compradora de café verde de una tostadora europea",
+      },
+      region: { en: "Hamburg, Germany", es: "Hamburgo, Alemania" },
       quote: {
-        en: "AI has helped us improve customer satisfaction, and we want to keep that momentum.",
-        es: "La IA nos ha ayudado a mejorar la satisfacción de los clientes y queremos mantener ese impulso.",
+        en: "I need proof of no deforestation before I sign the contract.",
+        es: "Necesito pruebas de no deforestación antes de firmar el contrato.",
       },
       priorities: [
+        { en: "Due diligence for every lot", es: "Debida diligencia por lote" },
         {
-          en: "Improve customer experience",
-          es: "Mejorar la experiencia del cliente",
+          en: "Certifications she can verify",
+          es: "Certificaciones que pueda verificar",
         },
-        {
-          en: "Maintain and scale what works",
-          es: "Mantener y escalar lo que funciona",
-        },
-        { en: "Minimize disruption", es: "Minimizar las interrupciones" },
+        { en: "On-time deliveries", es: "Entregas a tiempo" },
       ],
-      profile: null,
+      profile: {
+        en: "She buys washed Colombian arabica for blends and single-origin coffees. Under the EUDR she cannot place coffee on the European market without due diligence, and her company must also answer to the CS3D directive. Colombia competes for her contracts with Brazil and Vietnam.",
+        es: "Compra arábigo lavado colombiano para mezclas y cafés de origen. Por el EUDR no puede poner café en el mercado europeo sin debida diligencia, y su empresa también responde a la directiva CS3D. Colombia compite por sus contratos con Brasil y Vietnam.",
+      },
     },
   ],
 } as const satisfies {
@@ -287,8 +435,19 @@ export const CONTENT = {
     title: Text;
     desc: Text;
   }[];
+  challenge: {
+    presenter: { name: string; initials: string; image: string; title: Text };
+    quote: Text | null;
+    paragraphs: readonly Text[];
+    question: Text;
+    live: readonly Text[];
+    takeaways: readonly { key: string; title: Text; body: Text }[];
+    mission: Text;
+  };
   company: {
+    name: string;
     image: string;
+    badge: Text;
     about: Text;
     facts: readonly { key: string; label: Text; value: Text }[];
     mission: Text;
@@ -297,8 +456,12 @@ export const CONTENT = {
   };
   stakeholders: readonly {
     key: string;
+    name: string;
+    initials: string;
+    color: string;
     image: string;
     title: Text;
+    region: Text;
     quote: Text;
     priorities: readonly Text[];
     profile: Text | null;

@@ -13,14 +13,14 @@ STUDENT = {"user_id": "d-1", "email": "ana@school.edu", "first_name": "Ana", "la
 
 @pytest.fixture
 def colombia(supabase, monkeypatch):
-    """A signed-in Colombia student; only the CIO and CFO agents are configured."""
+    """A signed-in Colombia student; only the farmer and exporter agents are configured."""
     supabase.token_user = COLOMBIA_USER
     monkeypatch.setattr(colombia_stakeholders, "shared_admin_client", lambda: supabase)
     settings = colombia_stakeholders.settings
-    monkeypatch.setattr(settings, "foundry_colombia_cio_agent_name", "contoso-cio")
-    monkeypatch.setattr(settings, "foundry_colombia_cfo_agent_name", "contoso-cfo")
-    monkeypatch.setattr(settings, "foundry_colombia_cso_agent_name", "")
-    monkeypatch.setattr(settings, "foundry_colombia_support_agent_name", "")
+    monkeypatch.setattr(settings, "foundry_colombia_farmer_agent_name", "cafe-farmer")
+    monkeypatch.setattr(settings, "foundry_colombia_exporter_agent_name", "cafe-exporter")
+    monkeypatch.setattr(settings, "foundry_colombia_coop_agent_name", "")
+    monkeypatch.setattr(settings, "foundry_colombia_buyer_agent_name", "")
     supabase.respond("aspire_colombia_students", [STUDENT])
     return supabase
 
@@ -38,13 +38,13 @@ def agents(monkeypatch):
     return calls
 
 
-def ask(client, key="cio", **payload):
+def ask(client, key="farmer", **payload):
     body = {"question": "What worries you most?", **payload}
     return client.post(f"/api/colombia/stakeholders/{key}/chat", json=body, headers=AUTH)
 
 
 def test_lists_only_the_configured_stakeholders(client, colombia):
-    assert client.get("/api/colombia/stakeholders", headers=AUTH).json() == {"available": ["cio", "cfo"]}
+    assert client.get("/api/colombia/stakeholders", headers=AUTH).json() == {"available": ["farmer", "exporter"]}
 
 
 def test_lists_none_without_the_foundry_endpoint(client, colombia, monkeypatch):
@@ -55,30 +55,30 @@ def test_lists_none_without_the_foundry_endpoint(client, colombia, monkeypatch):
 def test_each_stakeholder_answers_with_its_own_agent(client, colombia, agents):
     colombia.respond("aspire_colombia_students", [STUDENT])
 
-    assert ask(client, "cio").json() == {"answer": "Answer from contoso-cio.", "conversation_id": "conv-1"}
-    assert ask(client, "cfo").json()["answer"] == "Answer from contoso-cfo."
-    assert agents == ["contoso-cio", "contoso-cfo"]
+    assert ask(client, "farmer").json() == {"answer": "Answer from cafe-farmer.", "conversation_id": "conv-1"}
+    assert ask(client, "exporter").json()["answer"] == "Answer from cafe-exporter."
+    assert agents == ["cafe-farmer", "cafe-exporter"]
 
 
 def test_records_the_message_with_the_stakeholders_agent(client, colombia, agents):
-    ask(client, "cfo")
+    ask(client, "exporter")
 
     [(_, _, saved)] = colombia.writes_to("aspire_coach_messages")
     assert saved["user_id"] == "d-1"
     assert saved["group_id"] is None
     assert saved["conversation_id"] == "conv-1"
-    assert saved["agent_name"] == "contoso-cfo"
+    assert saved["agent_name"] == "cafe-exporter"
 
 
 def test_an_unconfigured_stakeholder_is_unavailable(client, colombia, agents):
-    response = ask(client, "cso")
+    response = ask(client, "coop")
 
     assert response.status_code == 503
     assert agents == []
 
 
 def test_an_unknown_stakeholder_is_rejected(client, colombia, agents):
-    assert ask(client, "ceo").status_code == 422
+    assert ask(client, "cio").status_code == 422
     assert agents == []
 
 

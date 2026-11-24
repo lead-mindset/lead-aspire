@@ -26,22 +26,23 @@ const WHITEBOARD_KEY = "aspire.colombia.whiteboard";
 type DocType = "pdf" | "word";
 
 /**
- * Guides students open from a phase. Colombia's PDF copies are translated
- * locally; the SOW remains the shared DOCX until a Colombia edition exists.
+ * Guides students open from a phase. Colombia's copies (-es.pdf) are the
+ * Spanish translations of New York's guides; the SOW remains the shared DOCX
+ * until a Colombia edition exists.
  */
 const DOCS = {
-  consulting: { type: "pdf", file: "/colombia/pdfs/consulting.pdf" },
+  consulting: { type: "pdf", file: "/colombia/pdfs/consulting-es.pdf" },
   sow: { type: "word", file: "/new-york/pdfs/sow.docx" },
-  review: { type: "pdf", file: "/colombia/pdfs/mdreview.pdf" },
-  foundry: { type: "pdf", file: "/colombia/pdfs/foundry.pdf" },
-  copilot: { type: "pdf", file: "/colombia/pdfs/copilot.pdf" },
-  security: { type: "pdf", file: "/colombia/pdfs/security.pdf" },
-  buildcheck: { type: "pdf", file: "/colombia/pdfs/buildcheck.pdf" },
-  playbook: { type: "pdf", file: "/colombia/pdfs/playbook.pdf" },
+  review: { type: "pdf", file: "/colombia/pdfs/mdreview-es.pdf" },
+  foundry: { type: "pdf", file: "/colombia/pdfs/foundry-es.pdf" },
+  copilot: { type: "pdf", file: "/colombia/pdfs/copilot-es.pdf" },
+  security: { type: "pdf", file: "/colombia/pdfs/security-es.pdf" },
+  buildcheck: { type: "pdf", file: "/colombia/pdfs/buildcheck-es.pdf" },
+  playbook: { type: "pdf", file: "/colombia/pdfs/playbook-es.pdf" },
   /** Opened from the photo in Discover > Company Profile, not a phase card. */
   briefing: {
     type: "pdf",
-    file: "/colombia/pdfs/Contoso_Customer_Briefing.pdf",
+    file: "/colombia/pdfs/Asoexport_Caso_Cafe.pdf",
   },
 } satisfies Record<string, { type: DocType; file: string | null }>;
 
@@ -112,14 +113,24 @@ type ResourcesProps = {
   phase: ResourcePhase;
   /** For the submit dialog's "{team} · ..." line. */
   teamName: string;
+  /** After the team uploads its final presentation. */
+  onDeckSubmitted?: () => void;
 };
 
 /** A phase page: banner, then its guide cards. */
-export function PhaseResourcesView({ phase, teamName }: ResourcesProps) {
+export function PhaseResourcesView({
+  phase,
+  teamName,
+  onDeckSubmitted,
+}: ResourcesProps) {
   return (
     <section className={styles.section}>
       <PhaseHero phase={phase} />
-      <PhaseResources phase={phase} teamName={teamName} />
+      <PhaseResources
+        phase={phase}
+        teamName={teamName}
+        onDeckSubmitted={onDeckSubmitted}
+      />
     </section>
   );
 }
@@ -165,7 +176,11 @@ export function PhaseHero({ phase }: { phase: ResourcePhase }) {
 }
 
 /** "Guides & resources": the phase's cards, with the viewer, whiteboard and submit dialogs. */
-export function PhaseResources({ phase, teamName }: ResourcesProps) {
+export function PhaseResources({
+  phase,
+  teamName,
+  onDeckSubmitted,
+}: ResourcesProps) {
   const t = useTranslations("Colombia");
   const [openTarget, setOpenTarget] = useState<ViewerTarget | null>(null);
   const [whiteboardOpen, setWhiteboardOpen] = useState(false);
@@ -256,6 +271,7 @@ export function PhaseResources({ phase, teamName }: ResourcesProps) {
           submission={submission}
           onSaved={setSubmission}
           onClose={() => setSubmitOpen(false)}
+          onSubmitted={onDeckSubmitted}
         />
       )}
     </>

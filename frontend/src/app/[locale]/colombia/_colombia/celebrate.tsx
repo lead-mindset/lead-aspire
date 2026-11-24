@@ -1,8 +1,10 @@
 "use client";
 
-// Shown over Home once the team submits its final recommendation (Pitch &
-// Submit): the astronaut flies in, the progress ring fills to 100% and
-// confetti falls. Motion is skipped for prefers-reduced-motion.
+// The astronaut celebration. "finish": shown over Home once the team submits
+// its final recommendation (Pitch & Submit); the progress ring fills to 100%.
+// "deck": shown over Pitch & Submit right after the team uploads its final
+// presentation; the ring fills to a check mark. Confetti falls in both.
+// Motion is skipped for prefers-reduced-motion.
 
 import Image from "next/image";
 import { useEffect, useState, type CSSProperties } from "react";
@@ -28,14 +30,20 @@ const CONFETTI = Array.from({ length: 42 }, (_, i) => ({
   wide: i % 3 === 0,
 }));
 
+export type CelebrationKind = "finish" | "deck";
+
 export function Celebration({
   teamName,
+  kind = "finish",
   onClose,
 }: {
   teamName: string;
+  kind?: CelebrationKind;
   onClose: () => void;
 }) {
-  const t = useTranslations("Colombia.celebrate");
+  const t = useTranslations(
+    kind === "deck" ? "Colombia.celebrate.deck" : "Colombia.celebrate",
+  );
   // Only ever rendered after a click, so window exists.
   const [reduce] = useState(
     () => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
@@ -101,7 +109,12 @@ export function Celebration({
         />
 
         <div className={styles.celebrateRing}>
-          <svg width="150" height="150" viewBox="0 0 124 124" aria-hidden="true">
+          <svg
+            width="150"
+            height="150"
+            viewBox="0 0 124 124"
+            aria-hidden="true"
+          >
             <circle className={styles.ringTrack} cx="62" cy="62" r="54" />
             <circle
               className={styles.celebrateRingValue}
@@ -116,9 +129,15 @@ export function Celebration({
               }
             />
           </svg>
-          <span className={styles.celebrateRingLabel} aria-live="polite">
-            {pct}%
-          </span>
+          {kind === "deck" ? (
+            <span className={styles.celebrateRingLabel} aria-hidden="true">
+              ✓
+            </span>
+          ) : (
+            <span className={styles.celebrateRingLabel} aria-live="polite">
+              {pct}%
+            </span>
+          )}
         </div>
 
         <span className={styles.celebrateEyebrow}>{t("eyebrow")}</span>

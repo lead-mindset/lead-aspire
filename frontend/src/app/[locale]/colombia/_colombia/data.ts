@@ -1,7 +1,14 @@
-// Structure for the Colombia Aspire app (design: colombia-mockup-v2). Case
-// content is moving to content.ts (phases and roles are there already); the
-// rest still lives here and in messages under "Colombia" until Stages B and C.
-// The leaderboard is still mock.
+// Structure and figures for the Colombia Aspire app: the Asoexport coffee
+// case. Visible texts live in content.ts (case content) and in messages under
+// "Colombia" (labels); this file holds keys, numbers and levels.
+//
+// Sources for every figure: Asoexport, "Reporte de cifras cafeteras, octubre
+// 2026" (exports) and the document Asoexport wrote for LEAD Aspire Day
+// Microsoft (value chain, rural connectivity). Change a figure here and in
+// the matching message only together with its source.
+//
+// Option keys (CLASS_KEYS, CAUSE_KEYS, REC_KEYS) are stored in the team's
+// saved answers: renaming one orphans answers already saved under the old key.
 
 /** Team Setup comes first but is not a numbered step: Discover is Step 1. */
 export const PHASE_KEYS = [
@@ -21,142 +28,118 @@ export function stepNumber(phase: PhaseKey): number | null {
   return i > 0 ? i : null;
 }
 
-export type ValueLevel = "high" | "medium" | "low" | "unknown";
+/** A level shown as a colored pill (labels in messages under "Colombia.values"). */
+export type Level = "high" | "medium" | "low" | "verylow";
 
+/**
+ * Discover > Sector dashboard cards. Values and labels are in messages
+ * (discover.kpis.<key>) so each locale formats its own numbers.
+ * `arrow`: the direction shown before the delta, if any.
+ */
 export const KPIS = [
-  { key: "tokens", value: "27M", tone: "bad" },
-  { key: "cost", value: "$54K", tone: "bad" },
-  { key: "adoption", value: "68%", tone: "good" },
-  { key: "workloads", value: "6", tone: "neutral" },
+  { key: "exports", tone: "bad", arrow: "down" },
+  { key: "green", tone: "neutral", arrow: null },
+  { key: "families", tone: "neutral", arrow: null },
+  { key: "internet", tone: "bad", arrow: null },
 ] as const;
 
-/** Discover > AI Dashboard trend: monthly tokens, in millions (Jan-Jun 2024). */
-export const TOKEN_TREND = [9.5, 12.1, 15.4, 19.6, 22.3, 27] as const;
-export const TOKEN_TREND_MAX = 30;
+/**
+ * Discover > Sector dashboard chart: monthly coffee exports, in thousands of
+ * 60 kg bags, January to October. Asoexport, Reporte Octubre 2026, Gráfico 2.
+ * The 2026 series sums to 9,570 and the 2025 series to 10,864 (-11.9%).
+ */
+export const EXPORT_TREND = {
+  year: 2026,
+  current: [925, 847, 796, 693, 921, 1053, 995, 1049, 1172, 1119],
+  previous: [1153, 1184, 1252, 802, 912, 1085, 1174, 1167, 1078, 1057],
+} as const;
+export const EXPORT_TREND_MAX = 1400;
+export const EXPORT_TREND_TICKS = [0, 400, 800, 1200] as const;
 
-export const WORKLOAD_KEYS = [
-  "support",
-  "sales",
-  "marketing",
-  "hr",
-  "knowledge",
-  "experiments",
+/** The six links of the coffee value chain, in the order coffee moves. */
+export const CHAIN_KEYS = [
+  "supply",
+  "farm",
+  "wetmill",
+  "collection",
+  "mill",
+  "export",
 ] as const;
-export type WorkloadKey = (typeof WORKLOAD_KEYS)[number];
+export type ChainKey = (typeof CHAIN_KEYS)[number];
 
-export const WORKLOADS: Record<
-  WorkloadKey,
-  {
-    tokens: string;
-    cost: string;
-    adoption: string;
-    value: ValueLevel;
-    model: string;
-    notes: number;
-  }
-> = {
-  support: {
-    tokens: "10.2M",
-    cost: "$20K",
-    adoption: "91%",
-    value: "high",
-    model: "GPT-4o",
-    notes: 4,
-  },
-  sales: {
-    tokens: "4.1M",
-    cost: "$8K",
-    adoption: "82%",
-    value: "high",
-    model: "GPT-4o mini",
-    notes: 3,
-  },
-  marketing: {
-    tokens: "5.0M",
-    cost: "$10K",
-    adoption: "71%",
-    value: "medium",
-    model: "GPT-4o + DALL·E",
-    notes: 3,
-  },
-  hr: {
-    tokens: "2.8M",
-    cost: "$6K",
-    adoption: "23%",
-    value: "low",
-    model: "GPT-4o",
-    notes: 3,
-  },
-  knowledge: {
-    tokens: "4.5M",
-    cost: "$9K",
-    adoption: "64%",
-    value: "unknown",
-    model: "GPT-4o",
-    notes: 3,
-  },
-  experiments: {
-    tokens: "1.4M",
-    cost: "$3K",
-    adoption: "N/A",
-    value: "unknown",
-    model: "Mixed",
-    notes: 3,
-  },
+/**
+ * Per link: how much usable data exists today, and how much the link weighs
+ * on traceability (texts in messages under "Colombia.chain").
+ */
+export const CHAIN: Record<ChainKey, { data: Level; impact: Level }> = {
+  supply: { data: "low", impact: "medium" },
+  farm: { data: "verylow", impact: "high" },
+  wetmill: { data: "verylow", impact: "high" },
+  collection: { data: "low", impact: "high" },
+  mill: { data: "medium", impact: "high" },
+  export: { data: "medium", impact: "medium" },
 };
 
 // Strategize > Diagnose and Advise: practice activities for brainstorming,
 // not graded. Saved for the team under the Strategize phase (answers.ts).
 
+/** Diagnose: how a team classifies each link of the chain. */
 export const CLASS_KEYS = [
-  "protect",
-  "optimize",
+  "urgent",
+  "digitize",
   "investigate",
-  "retire",
+  "later",
 ] as const;
 export type ClassKey = (typeof CLASS_KEYS)[number];
 
 export const CLASS_COLORS: Record<ClassKey, string> = {
-  protect: "oklch(0.65 0.15 155)",
-  optimize: "var(--brand-purple)",
+  urgent: "var(--brand-red)",
+  digitize: "var(--brand-purple)",
   investigate: "oklch(0.75 0.14 70)",
-  retire: "var(--brand-red)",
+  later: "oklch(0.65 0.15 155)",
 };
 
 export const CAUSE_KEYS = [
-  "adoption",
-  "models",
-  "prompts",
-  "duplicates",
-  "governance",
-  "experiments",
-  "monitoring",
-  "training",
-  "value",
-  "capacity",
+  "fragmentation",
+  "connectivity",
+  "literacy",
+  "cash",
+  "interoperability",
+  "geolocation",
+  "postharvest",
+  "logistics",
+  "volatility",
+  "succession",
 ] as const;
 /** Diagnose: how many root causes a team can pick. */
 export const CAUSES_MAX = 3;
 
-export const REC_KEYS = ["mon", "opt", "exp", "hr", "gov", "trn"] as const;
+export const REC_KEYS = [
+  "polygons",
+  "whatsapp",
+  "lots",
+  "compliance",
+  "quality",
+  "training",
+] as const;
 export type RecKey = (typeof REC_KEYS)[number];
 
 /**
- * `weeks` sizes the implementation time; `fx` is the effect on
- * [operating cost, business value, adoption, security risk] in percent.
+ * Game values, not real data. `weeks` sizes the implementation time; `fx` is
+ * the effect in percent on [producer margin, market access, field adoption,
+ * regulatory risk]. For the risk, a positive value means it goes down.
  */
 export const RECS: Record<
   RecKey,
   { cost: string; weeks: number; fx: [number, number, number, number] }
 > = {
-  mon: { cost: "$$", weeks: 5, fx: [4, 2, 0, 5] },
-  opt: { cost: "$$", weeks: 8, fx: [9, 4, 1, 0] },
-  exp: { cost: "$$$", weeks: 10, fx: [-3, 9, 4, 0] },
-  hr: { cost: "$", weeks: 3, fx: [5, 2, 1, 3] },
-  gov: { cost: "$$", weeks: 8, fx: [1, 2, 0, 12] },
-  trn: { cost: "$$", weeks: 5, fx: [0, 3, 7, 5] },
+  polygons: { cost: "$$", weeks: 8, fx: [2, 9, 3, 10] },
+  whatsapp: { cost: "$", weeks: 5, fx: [3, 4, 9, 4] },
+  lots: { cost: "$$", weeks: 6, fx: [5, 6, 5, 6] },
+  compliance: { cost: "$$$", weeks: 10, fx: [1, 8, 2, 12] },
+  quality: { cost: "$$", weeks: 8, fx: [7, 4, 2, 1] },
+  training: { cost: "$", weeks: 6, fx: [2, 2, 8, 3] },
 };
 
 /** Advise: the most recommendations a strategy can hold. */
 export const STRATEGY_MAX = 5;
-

@@ -13,7 +13,7 @@ import { createClient } from "@/lib/supabase/client";
 import { toPatches } from "./answers";
 import { assignedRoles, phaseMinutes } from "./content";
 import { PHASE_KEYS, type PhaseKey, type Screen } from "./data";
-import { Celebration } from "./celebrate";
+import { Celebration, type CelebrationKind } from "./celebrate";
 import { CoachWidget } from "./CoachWidget";
 import { HomeView } from "./home";
 import { blockReason, nextScreen, type ColombiaState } from "./logic";
@@ -26,7 +26,8 @@ import styles from "./colombia.module.css";
 
 export type Update = (
   patch:
-    Partial<ColombiaState> | ((s: ColombiaState) => Partial<ColombiaState> | null),
+    | Partial<ColombiaState>
+    | ((s: ColombiaState) => Partial<ColombiaState> | null),
 ) => void;
 
 const SCREENS: readonly Screen[] = ["home", ...PHASE_KEYS];
@@ -70,7 +71,8 @@ export function ColombiaApp({
   const sync = useTeamSync(initialState);
   const [coachOpen, setCoachOpen] = useState(false);
   // Set when the team submits its final recommendation; shown over Home.
-  const [celebrating, setCelebrating] = useState(false);
+  // The astronaut: after the final recommendation, or after the deck upload.
+  const [celebrating, setCelebrating] = useState<CelebrationKind | null>(null);
   const [, setTick] = useState(0);
 
   const raw = useSearchParams().get("phase");
@@ -252,9 +254,10 @@ export function ColombiaApp({
             secondsLeft={secondsLeft}
             go={go}
             onFinish={() => {
-              setCelebrating(true);
+              setCelebrating("finish");
               go("home");
             }}
+            onDeckSubmitted={() => setCelebrating("deck")}
           />
         ) : (
           <HomeView
@@ -274,7 +277,8 @@ export function ColombiaApp({
       {celebrating && (
         <Celebration
           teamName={teamName}
-          onClose={() => setCelebrating(false)}
+          kind={celebrating}
+          onClose={() => setCelebrating(null)}
         />
       )}
       {COLOMBIA_COACH_ENABLED && (
@@ -294,6 +298,8 @@ type PhaseScreenProps = {
   go: (screen: Screen) => void;
   /** After Pitch & Submit is completed: Home with the celebration. */
   onFinish: () => void;
+  /** After the team uploads its final presentation: the celebration, on Pitch & Submit. */
+  onDeckSubmitted: () => void;
 };
 
 function PhaseScreen({
@@ -305,6 +311,7 @@ function PhaseScreen({
   secondsLeft,
   go,
   onFinish,
+  onDeckSubmitted,
 }: PhaseScreenProps) {
   const t = useTranslations("Colombia");
   const [submitting, setSubmitting] = useState(false);
@@ -411,7 +418,11 @@ function PhaseScreen({
         <StrategizeView state={state} update={update} teamName={teamName} />
       )}
       {(phase === "design" || phase === "pitch") && (
-        <PhaseResourcesView phase={phase} teamName={teamName} />
+        <PhaseResourcesView
+          phase={phase}
+          teamName={teamName}
+          onDeckSubmitted={onDeckSubmitted}
+        />
       )}
 
       <div className={styles.stepNav}>

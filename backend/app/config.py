@@ -21,11 +21,13 @@ class Settings(BaseSettings):
     foundry_dallas_cso_agent_name: str = ""
     foundry_dallas_support_agent_name: str = ""
     # Colombia coach and stakeholder chats use their own agents in the same project.
+    # The stakeholders are the coffee chain characters (Asoexport case); their
+    # prompts are in backend/agents/colombia.
     foundry_colombia_agent_name: str = ""
-    foundry_colombia_cio_agent_name: str = ""
-    foundry_colombia_cfo_agent_name: str = ""
-    foundry_colombia_cso_agent_name: str = ""
-    foundry_colombia_support_agent_name: str = ""
+    foundry_colombia_farmer_agent_name: str = ""
+    foundry_colombia_coop_agent_name: str = ""
+    foundry_colombia_exporter_agent_name: str = ""
+    foundry_colombia_buyer_agent_name: str = ""
     # Optional service principal for Foundry. Read here (not only from os.environ)
     # so a local .env works too; see app/azure_auth.py.
     azure_tenant_id: str = ""

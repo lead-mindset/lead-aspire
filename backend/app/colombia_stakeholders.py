@@ -1,6 +1,7 @@
 """Colombia stakeholder chats: /api/colombia/stakeholders.
 
-In Discover > Stakeholders, students can question each Contoso stakeholder.
+In Discover > Stakeholders, students can question each person of the coffee
+chain (Asoexport case: a farmer, a cooperative, an exporter and a buyer).
 Each one is its own Foundry agent in the coach's project, named by
 FOUNDRY_COLOMBIA_<KEY>_AGENT_NAME (app/config.py); the keys match the
 stakeholders in the frontend's content.ts. Same token check, error handling
@@ -20,7 +21,7 @@ from .supabase import shared_admin_client
 
 stakeholders_router = APIRouter(prefix="/stakeholders")
 
-StakeholderKey = Literal["cio", "cfo", "cso", "support"]
+StakeholderKey = Literal["farmer", "coop", "exporter", "buyer"]
 STAKEHOLDERS: tuple[str, ...] = get_args(StakeholderKey)
 
 

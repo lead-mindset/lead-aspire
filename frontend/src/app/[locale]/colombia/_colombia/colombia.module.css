@@ -3505,3 +3505,242 @@
     bottom: 104px;
   }
 }
+
+/* ---------- Discover > The challenge (Asoexport case) ---------- */
+
+/* Round photo or initials; --avatar sets the color behind the initials. */
+.avatar {
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  overflow: hidden;
+  color: #fff;
+  font: 800 20px/1 var(--font-display);
+  background: linear-gradient(
+    135deg,
+    var(--avatar, var(--brand-red)),
+    var(--brand-purple)
+  );
+  border-radius: 50%;
+}
+
+.avatar img {
+  object-fit: cover;
+}
+
+.presenter {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.presenterAvatar {
+  width: 84px;
+  height: 84px;
+  font-size: 28px;
+}
+
+.presenterText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.liveBadge {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 6px;
+  padding: 3px 10px;
+  color: var(--brand-red-light);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: color-mix(in oklch, var(--brand-red) 14%, var(--card));
+  border-radius: 999px;
+}
+
+.liveDot {
+  width: 7px;
+  height: 7px;
+  background: var(--brand-red);
+  border-radius: 50%;
+}
+
+.presenterName {
+  margin: 0;
+  font: 700 22px/1.2 var(--font-display);
+}
+
+.presenterTitle {
+  color: var(--muted-foreground);
+  font-size: 15px;
+}
+
+.presenterQuote {
+  margin: 0;
+  padding: 4px 0 4px 16px;
+  font-size: 17px;
+  font-style: italic;
+  line-height: 1.5;
+  border-left: 4px solid var(--brand-red);
+}
+
+.challengeQuestion {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px;
+  background: color-mix(in oklch, var(--brand-purple) 10%, var(--card));
+  border-left: 4px solid var(--brand-purple);
+  border-radius: 10px;
+}
+
+.challengeQuestion small {
+  color: var(--muted-foreground);
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.challengeQuestion b {
+  font: 700 18px/1.35 var(--font-display);
+}
+
+.liveList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.liveList li {
+  position: relative;
+  padding-left: 22px;
+  line-height: 1.5;
+}
+
+.liveList li::before {
+  position: absolute;
+  left: 0;
+  color: var(--brand-red);
+  font-weight: 700;
+  content: "→";
+}
+
+/* Discover > Profile: shown in place of a photo until Asoexport sends one. */
+.brandCard {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px 24px 80px;
+  color: #fff;
+  background:
+    radial-gradient(
+      circle at 30% 20%,
+      color-mix(in oklch, var(--brand-red) 45%, transparent),
+      transparent 60%
+    ),
+    linear-gradient(135deg, var(--brand-navy-700), var(--brand-navy));
+  border-radius: 14px;
+}
+
+.brandCardName {
+  font: 900 34px/1 var(--font-display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.brandCardBadge {
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid rgb(255 255 255 / 40%);
+  border-radius: 999px;
+}
+
+/* Discover > Stakeholders: initials until there is a photo. */
+.stakeholderInitials {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font: 800 34px/1 var(--font-display);
+  background: linear-gradient(
+    135deg,
+    var(--avatar, var(--brand-red)),
+    var(--brand-navy-700)
+  );
+}
+
+.stakeholderRole {
+  color: var(--muted-foreground);
+  font-size: 13.5px;
+  line-height: 1.4;
+}
+
+/* Discover > Sector dashboard. */
+.chainTable {
+  min-width: 860px;
+}
+
+.chainTable td:nth-child(2),
+.chainTable td:nth-child(3) {
+  white-space: normal;
+}
+
+.value-verylow {
+  color: var(--brand-red-light);
+  background: oklch(0.56 0.21 20 / 26%);
+}
+
+.trendCaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.trendLegend {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.trendKeyCurrent,
+.trendKeyPrevious {
+  width: 18px;
+  height: 0;
+  margin-left: 6px;
+  border-top: 2px solid var(--brand-purple);
+}
+
+.trendKeyPrevious {
+  border-top: 2px dashed var(--muted-foreground);
+}
+
+.trendLinePrevious {
+  fill: none;
+  stroke: var(--muted-foreground);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+  stroke-linejoin: round;
+}
+
+.source {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 12.5px;
+}

@@ -16,7 +16,7 @@ import {
   REC_KEYS,
   RECS,
   STRATEGY_MAX,
-  WORKLOAD_KEYS,
+  CHAIN_KEYS,
   type ClassKey,
 } from "./data";
 import { projectImpact, toggleLimited, type ColombiaState } from "./logic";
@@ -147,13 +147,13 @@ function Diagnose({ state, update }: TabProps) {
             <span>{t("diagnose.workload")}</span>
             <span>{t("diagnose.classification")}</span>
           </div>
-          {WORKLOAD_KEYS.map((key) => {
+          {CHAIN_KEYS.map((key) => {
             const value = (state.diag[key] ?? "") as ClassKey | "";
             return (
               <div key={key} className={styles.diagRow}>
-                <b className="font-semibold">{t(`workloads.${key}.name`)}</b>
+                <b className="font-semibold">{t(`chain.${key}.name`)}</b>
                 <select
-                  aria-label={t(`workloads.${key}.name`)}
+                  aria-label={t(`chain.${key}.name`)}
                   className={cx(
                     styles.select,
                     styles.classSelect,
@@ -230,8 +230,8 @@ function Diagnose({ state, update }: TabProps) {
 // ---------- Advise ----------
 
 const EFFECTS = [
-  { key: "cost", lowerIsBetter: true, color: "var(--success)" },
-  { key: "value", lowerIsBetter: false, color: "var(--brand-purple-light)" },
+  { key: "margin", lowerIsBetter: false, color: "var(--success)" },
+  { key: "markets", lowerIsBetter: false, color: "var(--brand-purple-light)" },
   { key: "adoption", lowerIsBetter: false, color: "var(--warn)" },
   { key: "risk", lowerIsBetter: true, color: "oklch(0.65 0.15 155)" },
 ] as const;
@@ -319,7 +319,7 @@ function Advise({ state, update }: TabProps) {
           </b>
           {EFFECTS.map((effect, i) => {
             const v = fx[i];
-            // fx holds savings for cost and risk (positive = goes down) and gains for the rest.
+            // fx holds the cut in risk (positive = goes down) and gains for the rest.
             const down = effect.lowerIsBetter ? v > 0 : v < 0;
             return (
               <div
