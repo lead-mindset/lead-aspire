@@ -467,6 +467,8 @@ function CompanyProfile() {
   const t = useTranslations("Colombia.discover.profile");
   const text = useText();
   const company = CONTENT.company;
+  // Typed as string so the branded card stays valid once a photo is set.
+  const photo: string = company.image;
   const [briefingOpen, setBriefingOpen] = useState(false);
 
   return (
@@ -491,9 +493,9 @@ function CompanyProfile() {
         </article>
 
         <div className={styles.profilePhoto}>
-          {company.image ? (
+          {photo ? (
             <Image
-              src={withBasePath(company.image)}
+              src={withBasePath(photo)}
               alt={t("imageAlt")}
               fill
               sizes="(max-width: 1100px) 100vw, 30vw"
@@ -615,65 +617,73 @@ function Stakeholders() {
         <p className={styles.profileText}>{t("subtitle")}</p>
       </div>
       <div className={styles.stakeholders}>
-        {CONTENT.stakeholders.map((person) => (
-          <article key={person.key} className={styles.stakeholder}>
-            <div
-              className={styles.stakeholderPhoto}
-              style={{ "--avatar": person.color } as CSSProperties}
-            >
-              {person.image ? (
-                <Image
-                  src={withBasePath(person.image)}
-                  alt=""
-                  fill
-                  sizes="(max-width: 760px) 100vw, 25vw"
-                />
-              ) : (
-                <span className={styles.stakeholderInitials} aria-hidden="true">
-                  {person.initials}
-                </span>
+        {CONTENT.stakeholders.map((person) => {
+          // Typed as string: with every photo set, `as const` would narrow
+          // the "no photo" branch to never.
+          const photo: string = person.image;
+          return (
+            <article key={person.key} className={styles.stakeholder}>
+              <div
+                className={styles.stakeholderPhoto}
+                style={{ "--avatar": person.color } as CSSProperties}
+              >
+                {photo ? (
+                  <Image
+                    src={withBasePath(photo)}
+                    alt=""
+                    fill
+                    sizes="(max-width: 760px) 100vw, 25vw"
+                  />
+                ) : (
+                  <span
+                    className={styles.stakeholderInitials}
+                    aria-hidden="true"
+                  >
+                    {person.initials}
+                  </span>
+                )}
+              </div>
+              <h3 className={styles.stakeholderTitle}>{person.name}</h3>
+              <span className={styles.stakeholderRole}>
+                {text(person.title)} · {text(person.region)}
+              </span>
+              <p className={styles.stakeholderQuote}>“{text(person.quote)}”</p>
+              <b className={styles.stakeholderLabel}>{t("priorities")}</b>
+              <ul className={styles.priorities}>
+                {person.priorities.map((priority) => (
+                  <li key={priority.en}>{text(priority)}</li>
+                ))}
+              </ul>
+              {person.profile && (
+                <>
+                  <button
+                    type="button"
+                    className={styles.profileLink}
+                    aria-expanded={open === person.key}
+                    onClick={() =>
+                      setOpen(open === person.key ? null : person.key)
+                    }
+                  >
+                    {open === person.key ? t("hideProfile") : t("viewProfile")}
+                  </button>
+                  {open === person.key && (
+                    <p className={styles.profileText}>{text(person.profile)}</p>
+                  )}
+                </>
               )}
-            </div>
-            <h3 className={styles.stakeholderTitle}>{person.name}</h3>
-            <span className={styles.stakeholderRole}>
-              {text(person.title)} · {text(person.region)}
-            </span>
-            <p className={styles.stakeholderQuote}>“{text(person.quote)}”</p>
-            <b className={styles.stakeholderLabel}>{t("priorities")}</b>
-            <ul className={styles.priorities}>
-              {person.priorities.map((priority) => (
-                <li key={priority.en}>{text(priority)}</li>
-              ))}
-            </ul>
-            {person.profile && (
-              <>
+              {chats.includes(person.key) && (
                 <button
                   type="button"
-                  className={styles.profileLink}
-                  aria-expanded={open === person.key}
-                  onClick={() =>
-                    setOpen(open === person.key ? null : person.key)
-                  }
+                  className={`${styles.pillButton} ${styles.pillButtonCta} ${styles.stakeholderAsk}`}
+                  aria-expanded={chatting === person.key}
+                  onClick={() => openChat(person.key)}
                 >
-                  {open === person.key ? t("hideProfile") : t("viewProfile")}
+                  {t("chat.ask")}
                 </button>
-                {open === person.key && (
-                  <p className={styles.profileText}>{text(person.profile)}</p>
-                )}
-              </>
-            )}
-            {chats.includes(person.key) && (
-              <button
-                type="button"
-                className={`${styles.pillButton} ${styles.pillButtonCta} ${styles.stakeholderAsk}`}
-                aria-expanded={chatting === person.key}
-                onClick={() => openChat(person.key)}
-              >
-                {t("chat.ask")}
-              </button>
-            )}
-          </article>
-        ))}
+              )}
+            </article>
+          );
+        })}
       </div>
 
       {opened.length > 0 && (
