@@ -24,13 +24,11 @@ import type { Update } from "./ColombiaApp";
 import { PhaseHero, PhaseResources } from "./resources";
 import styles from "./colombia.module.css";
 
-const TABS = ["guides", "diagnose", "advise"] as const;
+const TABS = ["guides"] as const;
 type Tab = (typeof TABS)[number];
 
 const TAB_ICONS: Record<Tab, string> = {
   guides: "M5 4h10l4 4v12H5zM14 4v5h5M8 13h8M8 17h5",
-  diagnose: "M10.5 17a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13ZM15.5 15.5 20 20",
-  advise: "M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9V16h7v-2.1A6 6 0 0 0 12 3Z",
 };
 
 const cx = (...names: (string | false | undefined)[]) =>
@@ -91,8 +89,6 @@ export function StrategizeView({ state, update, teamName }: Props) {
         {tab === "guides" && (
           <PhaseResources phase="strategize" teamName={teamName} />
         )}
-        {tab === "diagnose" && <Diagnose state={state} update={update} />}
-        {tab === "advise" && <Advise state={state} update={update} />}
       </div>
 
       {next && (
