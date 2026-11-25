@@ -38,11 +38,8 @@ Las fases van en este orden. Cada una, excepto la primera, tiene un reloj. El re
    - Empuja a los equipos a entrevistar a los cuatro personajes, a tomar notas de citas y datos concretos, y a separar señales de conclusiones.
 
 2. Define la estrategia (35 minutos)
-   - Pestañas: Guías y recursos, Diagnostica y Asesora.
+   - Pestaña: Guías y recursos.
    - Recursos: Guía de resolución de problemas (consulting.pdf), Sesión de pizarra (mapear el problema y descargarlo como imagen), Statement of Work (plantilla Word que completan) y Checklist de revisión de la estrategia (mdreview.pdf).
-   - Diagnostica: clasifican cada eslabón de la cadena (Atacar ya, Digitalizar, Investigar más, Después) y eligen las 3 causas raíz principales.
-   - Asesora: arman una estrategia de hasta 5 recomendaciones y ven un impacto estimado en margen del productor, acceso a mercados, adopción en campo y riesgo regulatorio.
-   - Diagnostica y Asesora son espacios de práctica. No se califican. Sirven para la lluvia de ideas. Los valores de impacto son del juego, no datos reales.
    - Antes de pasar a diseñar, la estrategia debe estar lista para la revisión con el Director (ver la checklist).
 
 3. Diseña tu solución (65 minutos)

@@ -27,12 +27,11 @@ type DocType = "pdf" | "word";
 
 /**
  * Guides students open from a phase. Colombia's copies (-es.pdf) are the
- * Spanish translations of New York's guides; the SOW remains the shared DOCX
- * until a Colombia edition exists.
+ * Spanish translations of New York's guides, alongside Colombia's SOW.
  */
 const DOCS = {
   consulting: { type: "pdf", file: "/colombia/pdfs/consulting-es.pdf" },
-  sow: { type: "word", file: "/new-york/pdfs/sow.docx" },
+  sow: { type: "word", file: "/colombia/pdfs/sow-es.docx" },
   review: { type: "pdf", file: "/colombia/pdfs/mdreview-es.pdf" },
   foundry: { type: "pdf", file: "/colombia/pdfs/foundry-es.pdf" },
   copilot: { type: "pdf", file: "/colombia/pdfs/copilot-es.pdf" },
